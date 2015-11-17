@@ -1,0 +1,13 @@
+<view>
+<name>MESOSMETRICS</name>
+<label>MasterResource</label>
+<version>0.1.0</version>
+    <resource>
+        <name>mesos</name>
+        <service-class>org.apache.ambari.view.metrics.MesosService</service-class>
+    </resource>
+    <instance>
+        <name>mesos</name>
+        <description>mesos</description>
+    </instance>
+</view>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MesosMetricsApp">
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <!-- Angular Aria, Animate & Marterial-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <link rel="stylesheet"
+          href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
+
+    <!--<script type="text/javascript" src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
+    <script type="text/javascript" src="js/angular-nvd3.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"/>
+    <link rel="stylesheet" src="css/custom.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="container" ng-controller="MetricsController" ng-init="getMesosMetrics()">
+
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Mesos masters</div>
+            <div class="panel-body">
+
+                <table valign="top">
+                    <tr>
+                        <td width="550px;">
+                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                                <span><label class="label label-primary">CPU</label><nvd3 options="optionsMaster" data="masterDataCpu" class="with-3d-shadow with-transitions" config="d3Config"></nvd3></span>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td width="600px">
+                            <div style="float: right; width: 450px; position: absolute; top:57px;">
+
+                                <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px;">
+                                    <label class="label label-default">Master hosts:</label><br>
+
+                                    <div>
+                                        <div style="text-align: center">
+                                            <div ng-repeat="master in masterList">
+                                                <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">{{master}}</span>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div><span style="color: #337ab7; background: #337ab7; display: inline-block;width:10px; height: 10px;"></span> - standby master</div>
+                                        <div><span style="color: #5cb85c; background: #5cb85c; display: inline-block;width:10px; height: 10px;"></span><span> - leading master</span></div>
+                                    </div>
+                                </div>
+
+                                <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-top: 10px;">
+                                    <label class="label label-default">Summary:</label><br>
+
+                                    <div>
+                                        <div style="text-align: center">
+                                            <div>
+                                                <label class="label label-default">CPUs:</label><br>
+                                                <span ng-repeat="cpu in masterDataCpuAbsolute"><b>{{cpu.name}}:</b>{{cpu.size}}&nbsp;</span>
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <label class="label label-default">Memory(Gb):</label><br>
+                                                <span ng-repeat="mem in masterDataMemAbsolute"><b>{{mem.name}}:</b>{{mem.size}}&nbsp;</span>
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <label class="label label-default">Disk(Gb):</label><br>
+                                                <span ng-repeat="disk in masterDataDiskAbsolute"><b>{{disk.name}}:</b>{{disk.size}}&nbsp;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="550px;">
+                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                                <span><label class="label label-primary">Disk</label><nvd3 options="optionsMaster" data="masterDataDisk" class="with-3d-shadow with-transitions" config="d3Config"></nvd3></span>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td width="600px">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="550px;">
+                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                                <span><label class="label label-primary">Memory</label><nvd3 options="optionsMaster" data="masterDataMem" class="with-3d-shadow with-transitions" config="d3Config"></nvd3></span>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td width="600px"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Mesos slaves</div>
+            <div class="panel-body">
+                <div class="container" ng-repeat="slave in slaveData | orderBy: 'id' " style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin: 10px; width: 900px;">
+                    <div class="row">
+                        <h4><span class="label label-success" style="margin-left: 30px;">{{slave.id}}</span></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 text-center"><h5><span class="label label-primary label-load">CPU: {{slave.metrics['slave/cpus_used']}}/{{slave.metrics['slave/cpus_total']}} </span>
+                        </h5></div>
+                        <div class="col-md-2 text-center"><h5><span class="label label-primary label-load">Memory: {{slave.metrics['slave/mem_used'] | toGb}}/{{slave.metrics['slave/mem_total'] | toGb}} Gb</span>
+                        </h5></div>
+                        <div class="col-md-2 text-center"><h5><span class="label label-primary label-load">Disk: {{slave.metrics['slave/disk_used'] | toGb}}/{{slave.metrics['slave/disk_total'] | toGb}} Gb</span>
+                        </h5></div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        <div ng-repeat="cpu in slaveDataCpu | orderBy: 'id' ">
+                            <div class="col-md-2" ng-if="cpu.id == slave.id">
+                                <span>
+                                    <nvd3 options="optionsSlave" data="cpu.metrics"></nvd3>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="mem in slaveDataMem | orderBy: 'id' ">
+                            <div class="col-md-2" ng-if="mem.id == slave.id">
+                                <span>
+                                    <nvd3 options="optionsSlave" data="mem.metrics"></nvd3>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div ng-repeat="disk in slaveDataDisk | orderBy: 'id' ">
+                            <div class="col-md-2" ng-if="disk.id == slave.id">
+                                <span>
+                                    <nvd3 options="optionsSlave" data="disk.metrics"></nvd3>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li>Executors registering: {{ slave.metrics['slave/executors_registering']}}</li>
+                                <li>Executors running: {{ slave.metrics['slave/executors_running']}}</li>
+                                <li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>
+                                <li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>
+                                <li>Frameworks active: {{ slave.metrics['slave/frameworks_active']}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
