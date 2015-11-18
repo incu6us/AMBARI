@@ -1,4 +1,4 @@
-package org.apache.ambari.view.metrics;
+package org.apache.ambari.view.configurator;
 
 import java.util.Map;
 

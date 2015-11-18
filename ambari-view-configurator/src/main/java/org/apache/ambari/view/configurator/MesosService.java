@@ -1,12 +1,10 @@
-package org.apache.ambari.view.metrics;
+package org.apache.ambari.view.configurator;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.ambari.view.ViewContext;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.utils.URIBuilder;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
