@@ -1,43 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MesosConfiguratorApp">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"
-            charset="utf-8"></script>
-    <!-- Angular Aria, Animate & Marterial-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- Angular Material CSS now available via Google CDN; version 0.11.2 used here -->
     <link rel="stylesheet"
           href="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.css">
+
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+    <!-- Angular Material Javascript now available via Google CDN; version 0.11.2 used here -->
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
 
-    <!--<script type="text/javascript" src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
-    <script type="text/javascript" src="js/angular-nvd3.js"></script>
     <script type="text/javascript" src="app.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css"/>
     <link rel="stylesheet" src="css/custom.css">
-    <title>Title</title>
 </head>
-<body>
-    <div class="container" ng-controller="ConfiguratorController">
+<body ng-app="configuratorApp" md-theme="green">
+<div class="container" ng-controller="ConfiguratorController">
 
-        <div>
-            <div class="panel panel-default">
-                <div class="panel-heading">Mesos masters</div>
-                <div class="panel-body">
+    <div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Blueprint configurator</div>
+            <div class="panel-body">
 
-                    <h1>TEST</h1>
+                <h2>Cluster list:</h2>
+                <hr>
+                <div ng-if="clustersInfo.length > 0"
+                     style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                    <div style="cursor: pointer;" ng-repeat="cluster in clustersInfo"
+                         ng-click="showPropertiesConfig(cluster.Clusters.cluster_name)">
+                        {{cluster.Clusters.cluster_name}}
+                    </div>
+                </div>
+                <br>
+
+                <form class="form-inline">
+                    <div class="form-group">
+                        <button class="btn btn-default" ng-click="getClusters()"><i
+                                class="glyphicon glyphicon-refresh"></i>
+                            <md-tooltip>Refresh list</md-tooltip>
+                        </button>
+                        <select class="form-control" ng-model="clusterDataType">
+                            <option selected="selected" value="param">Parameters</option>
+                            <option value="json">Plain JSON</option>
+                        </select>
+                    </div>
+                </form>
+                <br>
+
+                <hr>
+
+                <!-- Show if clusterDataType == 'json' -->
+                <div ng-if="serviceConfig.items[0].cluster_name.length > 0 && clusterDataType == 'json'">
+                    <textarea rows="120" cols="140" disabled="disabled">
+                        {{serviceConfigJson}}
+                    </textarea>
+                </div>
+
+
+                <!-- Show if clusterDataType == 'param' -->
+                <div ng-if="serviceConfig.items[0].cluster_name.length > 0 && clusterDataType == 'param'"
+                     ng-repeat="item in serviceConfig.items">
+                    <label class="label label-success">Service name: {{item.href | serviceName}} (ver.: {{item.href |
+                        serviceVersion}})</label>
+                    <table class="table table-bordered">
+                        <th>type</th>
+                        <th>tag</th>
+                        <th>ver.</th>
+                        <th>properties</th>
+                        <tr ng-repeat="conf in item.configurations">
+                            <td>{{conf.type}}</td>
+                            <td>{{conf.tag}}</td>
+                            <td width="20">{{conf.version}}</td>
+                            <td width="220">
+                                <table class="table table-striped">
+                                    <tr ng-repeat="(key, val) in conf.properties | orderBy:'key':false">
+                                        <td align="right">
+                                            <label class="label label-default">{{key}}</label>
+                                        </td>
+                                        <td align="left">
+                                            <textarea rows="10" cols="60" ng-if="key == 'content'">{{val}}</textarea>
+                                            <input style="width:200px;" type="text" ng-if="key != 'content'"
+                                                   value="{{val}}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="center" width="20"><i style="cursor:pointer;"
+                                                              class="glyphicon glyphicon-floppy-save">
+                                <md-tooltip>Save (doesn't work yet)</md-tooltip>
+                            </i></td>
+                        </tr>
+                    </table>
+                    <br>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
