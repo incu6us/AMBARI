@@ -1,0 +1,1 @@
+http://localhost:8080/json-proxy/?user=admin&pass=admin&url=http://128.107.34.126:8080/api/v1/clusters/

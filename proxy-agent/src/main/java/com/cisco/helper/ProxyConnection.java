@@ -67,7 +67,7 @@ public class ProxyConnection {
 //        WebResource webResource = client.resource(server).path(path);
         WebResource webResource = client.resource(url);
 
-        ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "jersey-client").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
+        ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
 
         return response.getEntity(new GenericType<String>() {
         });

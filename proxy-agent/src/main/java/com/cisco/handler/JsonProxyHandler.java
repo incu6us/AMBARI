@@ -16,8 +16,6 @@ import java.io.IOException;
 
 /**
  * Created by vpryimak on 20.11.2015.
- *
- *
  */
 public class JsonProxyHandler extends AbstractHandler {
 
@@ -25,21 +23,28 @@ public class JsonProxyHandler extends AbstractHandler {
 
     @Override
     public void handle(String s, Request request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
-        ProxyConnection proxy = new ProxyConnection();
-        proxy.connectWithoutBasicAuth();
-//        proxy.connectWithBasicAuth("admin", "admin");
+        ProxyConnection proxy = new ProxyConnection(true);
 
-        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_TYPE+";charset=utf-8");
+        // Check authentification
+        if (request.getParameter("user") != null && request.getParameter("pass") != null) {
+            proxy.connectWithBasicAuth("admin", "admin");
+        } else {
+            proxy.connectWithoutBasicAuth();
+        }
+        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_TYPE + ";charset=utf-8");
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
         request.setHandled(true);
+
+        String apiResponse = proxy.getApiResponse(request.getParameter("url"));
+        LOG.debug("API Response: " + apiResponse);
         try {
-            JSONObject json = (JSONObject)new JSONParser().parse(proxy.getApiResponse(request.getParameter("url")));
+            JSONObject json = (JSONObject) new JSONParser().parse(apiResponse);
             LOG.debug(json);
             json.writeJSONString(httpServletResponse.getWriter());
-        }catch (NullPointerException e){
-            LOG.error(e);
+        } catch (NullPointerException e) {
+            LOG.error("NullPointerException -> " + e);
         } catch (ParseException e) {
-            LOG.error(e);
+            LOG.error("ParseException -> " + e);
         }
     }
 }
