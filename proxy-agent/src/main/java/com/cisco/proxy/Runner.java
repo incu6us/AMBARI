@@ -14,7 +14,7 @@ import java.util.Properties;
 public class Runner {
 
     private static final Logger LOG = Logger.getLogger(Runner.class);
-    private static int port = 8083;
+    private static int port = 8080;
 
     public static void main(String... args) {
 
