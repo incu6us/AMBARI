@@ -25,7 +25,7 @@ public class Runner {
                 port = Integer.parseInt(properties.getProperty("port"));
             }
         } catch (NumberFormatException e) {
-            LOG.info("Port was not set. Used default port 8080");
+            LOG.info("Port was not set. Used default port \""+port+"\".");
         }
 
         // Handler for multiple web apps
