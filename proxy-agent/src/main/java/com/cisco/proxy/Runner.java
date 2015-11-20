@@ -41,11 +41,11 @@ public class Runner {
         handlers.addHandler(proxy);
         server.setHandler(handlers);
 
-        LOG.debug("Starting HTTP Server...");
+        LOG.info("Starting HTTP Server using port: "+port+" ...");
         try {
             server.start();
             server.join();
-            LOG.debug("HTTP Server started!");
+            LOG.info("HTTP Server started!");
         } catch (Exception e) {
             LOG.error("Start HTTP server error: " + e);
         }
