@@ -4,6 +4,19 @@ version '0.1.0'
 apply plugin: 'java'
 
 sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'MesosMetrics with dependencies',
+                'Implementation-Version': version
+//                'Main-Class': 'com.cisco.Runner'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
 
 repositories {
     mavenCentral()
