@@ -1,10 +1,14 @@
 <view>
 <name>MESOSMETRICS</name>
-<label>MasterResource</label>
+<label>Metrics</label>
 <version>0.1.0</version>
     <resource>
         <name>mesos</name>
         <service-class>org.apache.ambari.view.metrics.MesosService</service-class>
+    </resource>
+    <resource>
+        <name>proxy</name>
+        <service-class>org.apache.ambari.view.proxy.JsonProxyService</service-class>
     </resource>
     <instance>
         <name>mesos</name>
