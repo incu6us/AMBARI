@@ -9,6 +9,7 @@ app.filter('toGb', function () {
 });
 
 app.controller('MetricsController', function ($scope, $http, $interval, $q) {
+    $scope.dataSelector = 'metrics';
     $scope.errors = null;
     $scope.masterList = [];
     $scope.slaveList = [];
@@ -78,7 +79,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     };
 
     $scope.callAtInterval = function () {
-        $scope.getMesosMetrics();
+        if ($scope.dataSelector == 'metrics') {
+            $scope.getMesosMetrics();
+        } else if ($scope.dataSelector == 'executors') {
+            $scope.getExecutorMetrics();
+        }
     };
 
     // Get metrics for elected master host
@@ -239,6 +244,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             })
     }
 
+
+    /*
+     * GET METRICS
+     */
     $scope.getMesosMetrics = function () {
 
         /*
@@ -291,6 +300,21 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
                 console.log("slaveList: " + $scope.slaveList);
             })
+        })
+    }
+
+    /*
+     * GET EXECUTORS
+     */
+    $scope.getExecutorMetrics = function(){
+        $q.all({
+            executorsInfo: $http.get("http://"+$scope.activeMaster+":5050/master/state.json")
+        }).then(function(values){
+          for(var executorsInt = 0; executorsInt < values.executorsInfo.data.frameworks.length; executorsInt++){
+            for(var tasksInt = 0; tasksInt < values.executorsInfo.data.frameworks[executorsInt].length; tasksInt++) {
+                console.log(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt].name)
+            }
+          }
         })
     }
 

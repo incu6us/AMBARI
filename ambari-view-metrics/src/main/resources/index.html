@@ -28,7 +28,19 @@
 <body>
 <div class="container" ng-controller="MetricsController" ng-init="getMesosMetrics()">
 
-    <div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label class="label label-default">Select model:</label>
+            <select class="form-control" ng-model="dataSelector">
+                <option value="metrics">Metrics</option>
+                <option value="executors">Executors</option>
+            </select>
+        </div>
+    </form>
+
+    <br>
+
+    <div ng-if="dataSelector == 'metrics'">
         <div class="panel panel-default">
             <div class="panel-heading">Mesos masters</div>
             <div class="panel-body">
@@ -42,7 +54,7 @@
                         </td>
                         <td></td>
                         <td width="600px">
-                            <div style="float: right; width: 450px; position: absolute; top:57px;">
+                            <div style="float: right; width: 450px; position: absolute; top:110px;">
 
                                 <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px;">
                                     <label class="label label-default">Master hosts:</label><br>
