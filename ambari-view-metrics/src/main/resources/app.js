@@ -34,6 +34,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.frameworkTasks = [];
     $scope.frameworkTasksSlaves = undefined;
 
+    $scope.detailsForTask = false;
+    $scope.tasks = [];
+
     $scope.d3Config = {
         extended: true,
         autorefresh: true,
@@ -85,10 +88,15 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         if ($scope.dataSelector == 'metrics') {
             $scope.getMesosMetrics();
         }
+        console.log("detailsForTask: "+$scope.detailsForTask)
         //else if ($scope.dataSelector == 'executors') {
         // $scope.getExecutors();
         //}
     };
+
+    $scope.setDetailsForTask = function(val){
+        $scope.detailsForTask = val;
+    }
 
     // Get metrics for elected master host
     $scope.getMetricsForMaster = function (clusterName, masterHost) {
@@ -351,7 +359,37 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
 
     $scope.getExecutor = function (slave_id, framework_id, executor_id) {
-        console.log($scope.frameworkTasksSlaves);
+        $scope.tasks = [];
+
+        angular.forEach($scope.frameworkTasksSlaves.slaves, function(value, key) {
+            if(value.id == slave_id){
+                //slave(1)@10.0.5.202:5051
+                var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+                var stateUrl = "http://"+host+"/"+prefix+"/state.json";
+
+                $scope.detailsForTask = true;
+
+                $q.all({
+                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url="+stateUrl)
+                }).then(function(values){
+                    angular.forEach(values.frameworks.data.frameworks, function (v, k) {
+                        if(v.id == framework_id){
+                            console.log("executors: "+ JSON.stringify(v.executors));
+                            angular.forEach(v.executors, function(v1, k2) {
+                                angular.forEach(v1.tasks, function (v2, k2) {
+                                    if(v2.executor_id == executor_id){
+                                        console.log("v2: " + v2);
+                                        $scope.tasks.push(v2);
+                                    }
+                                })
+                            })
+                        }
+                    })
+                });
+            }
+        });
+        console.log("$scope.tasks: "+$scope.tasks);
     }
 
 
