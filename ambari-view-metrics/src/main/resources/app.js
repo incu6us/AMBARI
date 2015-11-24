@@ -31,6 +31,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.activeMaster = null;
     $scope.clusterName = null;
 
+    $scope.frameworkTasks = [];
+    $scope.frameworkTasksSlaves = undefined;
+
     $scope.d3Config = {
         extended: true,
         autorefresh: true,
@@ -81,9 +84,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.callAtInterval = function () {
         if ($scope.dataSelector == 'metrics') {
             $scope.getMesosMetrics();
-        } else if ($scope.dataSelector == 'executors') {
-            $scope.getExecutorMetrics();
         }
+        //else if ($scope.dataSelector == 'executors') {
+        // $scope.getExecutors();
+        //}
     };
 
     // Get metrics for elected master host
@@ -308,20 +312,48 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     /*
      * GET EXECUTORS
      */
-    $scope.getExecutorMetrics = function () {
+
+    function getSlaves() {
+        if ($scope.frameworkTasksSlaves == undefined) {
+            $q.all({
+                slaveData: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/slaves", {cache: true})
+            }).then(function (vals) {
+                $scope.frameworkTasksSlaves = vals.slaveData.data;
+            })
+        }
+    }
+
+    $scope.getExecutors = function () {
         if ($scope.activeMaster != null) {
+
+            $scope.frameworkTasksSlaves = undefined;
+            getSlaves();
+
             $q.all({
                 ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
                 executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
             }).then(function (values) {
+                console.log("executorsInfoJson -> " + JSON.stringify(values.executorsInfo.data));
+                console.log("executorsInfoFrameworksLength -> " + values.executorsInfo.data.frameworks.length);
+
+                $scope.frameworkTasks = [];
+
                 for (var executorsInt = 0; executorsInt < values.executorsInfo.data.frameworks.length; executorsInt++) {
-                    for (var tasksInt = 0; tasksInt < values.executorsInfo.data.frameworks[executorsInt].length; tasksInt++) {
-                        console.log(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt].name)
+                    for (var tasksInt = 0; tasksInt < values.executorsInfo.data.frameworks[executorsInt].tasks.length; tasksInt++) {
+                        $scope.frameworkTasks.push(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt]);
+                        //console.log("executorsInfoTasks -> " + values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt]);
                     }
                 }
             })
         }
+
     }
+
+
+    $scope.getExecutor = function (slave_id, framework_id, executor_id) {
+        console.log($scope.frameworkTasksSlaves);
+    }
+
 
     $interval(function () {
         $scope.callAtInterval();
