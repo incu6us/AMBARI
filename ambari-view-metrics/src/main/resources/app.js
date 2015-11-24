@@ -23,9 +23,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.masterDataMemAbsolute = [];
     $scope.masterDataDiskAbsolute = [];
 
-    $scope.slaveDataCpu = {};
-    $scope.slaveDataMem = {};
-    $scope.slaveDataDisk = {};
+    $scope.slaveDataCpu = [];
+    $scope.slaveDataMem = [];
+    $scope.slaveDataDisk = [];
     $scope.slaveData = [];
 
     $scope.activeMaster = null;
@@ -88,14 +88,16 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
     // Get metrics for elected master host
     $scope.getMetricsForMaster = function (clusterName, masterHost) {
-        // /api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/mesos/metrics/mesos-master-01/5050
-        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/mesos/metrics/' + masterHost + '/5050', {cache: true})
+        // http://128.107.34.126:8080/api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/metrics/snapshot
+        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
             .success(function (data) {
-                items = JSON.parse(data);
-                console.log("masterMetrics -> " + data)
-                if (items.metrics["master/elected"] == 1.0) {
-                    $scope.activeMaster = items.id
-                    var usedCpu = (items.metrics["master/cpus_percent"] * 100).toFixed(1);
+                //items = JSON.parse(data);
+                items = data;
+                console.log("masterMetrics -> " + JSON.stringify(data));
+
+                if (items["master/elected"] == 1.0) {
+                    $scope.activeMaster = masterHost;
+                    var usedCpu = (items["master/cpus_percent"] * 100).toFixed(1);
                     var freeCpu = 100 - usedCpu;
                     //var usedCpu = 100-20
                     //var freeCpu = 100 - 80;
@@ -113,18 +115,18 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.masterDataCpuAbsolute = [
                         {
                             name: "Total",
-                            size: items.metrics["master/cpus_total"]
+                            size: items["master/cpus_total"]
                         },
                         {
                             name: "Used",
-                            size: items.metrics["master/cpus_used"]
+                            size: items["master/cpus_used"]
                         },
                         {
                             name: "Free",
-                            size: items.metrics["master/cpus_total"] - items.metrics["master/cpus_used"]
+                            size: items["master/cpus_total"] - items["master/cpus_used"]
                         }
                     ]
-                    var usedMem = (items.metrics["master/mem_percent"] * 100).toFixed(1);
+                    var usedMem = (items["master/mem_percent"] * 100).toFixed(1);
                     var freeMem = 100 - usedMem;
                     //var usedMem = 40;
                     //var freeMem = 60;
@@ -141,18 +143,18 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.masterDataMemAbsolute = [
                         {
                             name: "Total",
-                            size: (items.metrics["master/mem_total"] / 1024).toFixed(2)
+                            size: (items["master/mem_total"] / 1024).toFixed(2)
                         },
                         {
                             name: "Used",
-                            size: (items.metrics["master/mem_used"] / 1024).toFixed(2)
+                            size: (items["master/mem_used"] / 1024).toFixed(2)
                         },
                         {
                             name: "Free",
-                            size: ((items.metrics["master/mem_total"] - items.metrics["master/mem_used"]) / 1024).toFixed(2)
+                            size: ((items["master/mem_total"] - items["master/mem_used"]) / 1024).toFixed(2)
                         }
                     ];
-                    var usedDisk = (items.metrics["master/disk_percent"] * 100).toFixed(1);
+                    var usedDisk = (items["master/disk_percent"] * 100).toFixed(1);
                     var freeDisk = 100 - usedDisk;
                     //var usedDisk = 15;
                     //var freeDisk = 85;
@@ -169,15 +171,15 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.masterDataDiskAbsolute = [
                         {
                             name: "Total",
-                            size: (items.metrics["master/disk_total"] / 1024).toFixed(2)
+                            size: (items["master/disk_total"] / 1024).toFixed(2)
                         },
                         {
                             name: "Used",
-                            size: (items.metrics["master/disk_used"] / 1024).toFixed(2)
+                            size: (items["master/disk_used"] / 1024).toFixed(2)
                         },
                         {
                             name: "Free",
-                            size: ((items.metrics["master/disk_total"] - items.metrics["master/disk_used"]) / 1024).toFixed(2)
+                            size: ((items["master/disk_total"] - items["master/disk_used"]) / 1024).toFixed(2)
                         }
                     ];
                 }
@@ -189,22 +191,22 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
     // Get metrics for slave host
     $scope.getMetricsForSlave = function (slaveHost) {
-        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/mesos/metrics/' + slaveHost + '/5051', {cache: true})
+        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + slaveHost + ':5051/metrics/snapshot', {cache: true})
             .success(function (data) {
-                items = JSON.parse(data);
+                items = data;
 
-                $scope.slaveData.push(items);
+                $scope.slaveData.push({id: slaveHost, metrics: items});
 
                 $scope.slaveDataCpu.push({
                     id: slaveHost,
                     "metrics": [
                         {
                             name: "Used",
-                            size: items.metrics["slave/cpus_used"]
+                            size: items["slave/cpus_used"]
                         },
                         {
                             name: "Free",
-                            size: items.metrics["slave/cpus_total"] - items.metrics["slave/cpus_used"]
+                            size: items["slave/cpus_total"] - items["slave/cpus_used"]
                         }
                     ]
                 });
@@ -214,11 +216,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     "metrics": [
                         {
                             name: "Used",
-                            size: (items.metrics["slave/mem_used"] / 1024).toFixed(2)
+                            size: (items["slave/mem_used"] / 1024).toFixed(2)
                         },
                         {
                             name: "Free",
-                            size: ((items.metrics["slave/mem_total"] - items.metrics["slave/mem_used"]) / 1024).toFixed(2)
+                            size: ((items["slave/mem_total"] - items["slave/mem_used"]) / 1024).toFixed(2)
                         }
                     ]
                 });
@@ -228,11 +230,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     "metrics": [
                         {
                             name: "Used",
-                            size: (items.metrics["slave/disk_used"] / 1024).toFixed(2)
+                            size: (items["slave/disk_used"] / 1024).toFixed(2)
                         },
                         {
                             name: "Free",
-                            size: ((items.metrics["slave/disk_total"] - items.metrics["slave/disk_used"]) / 1024).toFixed(2)
+                            size: ((items["slave/disk_total"] - items["slave/disk_used"]) / 1024).toFixed(2)
                         }
                     ]
                 });
@@ -306,16 +308,19 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     /*
      * GET EXECUTORS
      */
-    $scope.getExecutorMetrics = function(){
-        $q.all({
-            executorsInfo: $http.get("http://"+$scope.activeMaster+":5050/master/state.json")
-        }).then(function(values){
-          for(var executorsInt = 0; executorsInt < values.executorsInfo.data.frameworks.length; executorsInt++){
-            for(var tasksInt = 0; tasksInt < values.executorsInfo.data.frameworks[executorsInt].length; tasksInt++) {
-                console.log(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt].name)
-            }
-          }
-        })
+    $scope.getExecutorMetrics = function () {
+        if ($scope.activeMaster != null) {
+            $q.all({
+                ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
+                executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+            }).then(function (values) {
+                for (var executorsInt = 0; executorsInt < values.executorsInfo.data.frameworks.length; executorsInt++) {
+                    for (var tasksInt = 0; tasksInt < values.executorsInfo.data.frameworks[executorsInt].length; tasksInt++) {
+                        console.log(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt].name)
+                    }
+                }
+            })
+        }
     }
 
     $interval(function () {

@@ -20,7 +20,7 @@ public class JsonProxyService {
     @Path("/json")
     @Produces("application/json")
     public JSONObject getJson(@QueryParam("url") String url) {
-        ProxyConnection proxy = new ProxyConnection(true);
+        ProxyConnection proxy = new ProxyConnection(false);
 
         proxy.connectWithoutBasicAuth();
         String apiResponse = proxy.getApiResponse(url);
