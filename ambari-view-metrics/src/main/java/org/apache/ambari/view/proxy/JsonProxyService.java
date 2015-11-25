@@ -1,6 +1,7 @@
 package org.apache.ambari.view.proxy;
 
 import org.apache.ambari.view.proxy.helper.ProxyConnection;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -25,9 +26,15 @@ public class JsonProxyService {
         proxy.connectWithoutBasicAuth();
         String apiResponse = proxy.getApiResponse(url);
 
-        JSONObject json = null;
+        JSONObject json = new JSONObject();
         try {
             json = (JSONObject) new JSONParser().parse(apiResponse);
+        } catch (ClassCastException e) {
+            try {
+                json.put("array", new JSONParser().parse(apiResponse));
+            } catch (ParseException e1) {
+                LOG.error("JsonArray Parse Error -> " + e1);
+            }
         } catch (NullPointerException e) {
             LOG.error("NullPointerException -> " + e);
         } catch (ParseException e) {

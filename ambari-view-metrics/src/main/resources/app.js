@@ -1,6 +1,33 @@
 var VERSION = "0.1.0"
 
-var app = angular.module('MesosMetricsApp', ['nvd3']);
+
+var spinOpts = {
+    lines: 11, // The number of lines to draw
+    length: 5, // The length of each line
+    width: 6, // The line thickness
+    radius: 11, // The radius of the inner circle
+    corners: 0.4, // Corner roundness (0..1)
+    rotate: 0, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    color: 'black', // #rgb or #rrggbb or array of colors
+    speed: 1, // Rounds per second
+    trail: 10, // Afterglow percentage
+    shadow: false, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+};
+
+var app = angular.module('MesosMetricsApp', ['nvd3', 'ngMaterial', 'angularSpinner']).config(function ($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('green');
+    //.accentPalette('green');
+    //.dark();
+});
+
+app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+    usSpinnerConfigProvider.setDefaults(spinOpts);
+}]);
 
 app.filter('toGb', function () {
     return function (input) {
@@ -35,7 +62,15 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.frameworkTasksSlaves = undefined;
 
     $scope.detailsForTask = false;
+    $scope.detailsForSandbox = false;
+
     $scope.tasks = [];
+    $scope.executors = [];
+    $scope.directories = [];
+
+    $scope.executorUrl = null;
+    $scope.executorDir = null;
+    $scope.executorLastDir = null;
 
     $scope.d3Config = {
         extended: true,
@@ -88,14 +123,18 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         if ($scope.dataSelector == 'metrics') {
             $scope.getMesosMetrics();
         }
-        console.log("detailsForTask: "+$scope.detailsForTask)
+        console.log("detailsForTask: " + $scope.detailsForTask)
         //else if ($scope.dataSelector == 'executors') {
         // $scope.getExecutors();
         //}
     };
 
-    $scope.setDetailsForTask = function(val){
+    $scope.setDetailsForTask = function (val) {
         $scope.detailsForTask = val;
+    }
+
+    $scope.setDetailsForSandbox = function (val) {
+        $scope.detailsForSandbox = val;
     }
 
     // Get metrics for elected master host
@@ -336,7 +375,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
             $scope.frameworkTasksSlaves = undefined;
             getSlaves();
-
+            $scope.loading = true;
             $q.all({
                 ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
                 executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
@@ -352,6 +391,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                         //console.log("executorsInfoTasks -> " + values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt]);
                     }
                 }
+                $scope.loading = false;
             })
         }
 
@@ -361,40 +401,124 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.getExecutor = function (slave_id, framework_id, executor_id) {
         $scope.tasks = [];
 
-        angular.forEach($scope.frameworkTasksSlaves.slaves, function(value, key) {
-            if(value.id == slave_id){
+        angular.forEach($scope.frameworkTasksSlaves.slaves, function (value, key) {
+            if (value.id == slave_id) {
                 //slave(1)@10.0.5.202:5051
                 var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
                 var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
-                var stateUrl = "http://"+host+"/"+prefix+"/state.json";
+                var stateUrl = "http://" + host + "/" + prefix + "/state.json";
 
                 $scope.detailsForTask = true;
-
+                $scope.taskLoading = true;
                 $q.all({
-                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url="+stateUrl)
-                }).then(function(values){
+                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                }).then(function (values) {
                     angular.forEach(values.frameworks.data.frameworks, function (v, k) {
-                        if(v.id == framework_id){
-                            console.log("executors: "+ JSON.stringify(v.executors));
-                            angular.forEach(v.executors, function(v1, k2) {
+                        if (v.id == framework_id) {
+                            console.log("executors: " + JSON.stringify(v.executors));
+                            angular.forEach(v.executors, function (v1, k2) {
                                 angular.forEach(v1.tasks, function (v2, k2) {
-                                    if(v2.executor_id == executor_id){
-                                        console.log("v2: " + v2);
+                                    if (v2.executor_id == executor_id) {
+                                        console.log("v2: " + JSON.stringify(v2));
                                         $scope.tasks.push(v2);
                                     }
                                 })
                             })
                         }
                     })
+                    $scope.taskLoading = false;
                 });
             }
         });
-        console.log("$scope.tasks: "+$scope.tasks);
+        console.log("$scope.tasks: " + $scope.tasks);
     }
 
+
+    $scope.getSandbox = function (slave_id, framework_id, executor_id) {
+        $scope.directories = [];
+
+        angular.forEach($scope.frameworkTasksSlaves.slaves, function (value, key) {
+            if (value.id == slave_id) {
+                //slave(1)@10.0.5.202:5051
+                var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                //var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+
+
+                var port = '5051';
+                if (value.hostname.indexOf("master") > -1) {
+                    port = '5050';
+                }
+                var stateUrl = "http://" + value.hostname + ":" + port + "/" + prefix + "/state.json";
+
+                //$scope.detailsForTask = true;
+                $scope.loading = true;
+                $q.all({
+                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                }).then(function (values) {
+                    angular.forEach(values.frameworks.data.frameworks, function (v, k) {
+                        if (v.id == framework_id) {
+                            console.log("executors: " + JSON.stringify(v.executors));
+                            angular.forEach(v.executors, function (v1, k2) {
+                                console.log("executor_id: " + executor_id + " - " + v1.id)
+                                if (v1.id == executor_id) {
+                                    var port = '5051';
+                                    if (v.hostname.indexOf("master") > -1) {
+                                        port = '5050';
+                                    }
+                                    console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
+                                    $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
+                                    $scope.executorDir = v1.directory;
+                                    $scope.executorLastDir = $scope.executorDir;
+                                    $q.all({
+                                        dirs: $http.get($scope.executorUrl + $scope.executorDir)
+                                    }).then(function (val) {
+                                        console.log("val.dirs.data.array -> " + JSON.stringify(val.dirs.data.array));
+                                        if (val.dirs.data.array != undefined) {
+                                            $scope.directories = val.dirs.data.array;
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    })
+                    $scope.loading = false;
+                    $scope.detailsForSandbox = true;
+                });
+            }
+        });
+    }
+
+    $scope.getSandboxByPath = function (path) {
+        if (path == '../') {
+            $scope.executorLastDir = $scope.executorLastDir.replace(new RegExp("(.*)/(.*)"), "$1");
+        } else {
+            $scope.executorLastDir = path;
+        }
+
+        $q.all({
+            datas: $http.get($scope.executorUrl + $scope.executorLastDir)
+        }).then(function (val) {
+                $scope.directories = val.datas.data.array;
+                if ($scope.executorDir != $scope.executorLastDir) {
+                    $scope.directories.unshift({
+                        "mode": "",
+                        "path": "../",
+                        "uid": "",
+                        "gid": "",
+                        "size": "",
+                        "nlink": "",
+                        "mtime": ""
+                    });
+                }
+                console.log("$scope.directories -> " + JSON.stringify($scope.directories));
+            }
+        )
+
+    }
 
     $interval(function () {
         $scope.callAtInterval();
     }, 10000);
 
-});
+})
+;
