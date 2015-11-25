@@ -2,6 +2,7 @@ package com.cisco.handler;
 
 import com.cisco.helper.ProxyConnection;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -27,7 +28,7 @@ public class JsonProxyHandler extends AbstractHandler {
 
         // Check authentification
         if (request.getParameter("user") != null && request.getParameter("pass") != null) {
-            proxy.connectWithBasicAuth("admin", "admin");
+            proxy.connectWithBasicAuth(request.getParameter("user"), request.getParameter("pass"));
         } else {
             proxy.connectWithoutBasicAuth();
         }
@@ -37,14 +38,27 @@ public class JsonProxyHandler extends AbstractHandler {
 
         String apiResponse = proxy.getApiResponse(request.getParameter("url"));
         LOG.debug("API Response: " + apiResponse);
+
+        JSONObject json = new JSONObject();
         try {
-            JSONObject json = (JSONObject) new JSONParser().parse(apiResponse);
+            json = (JSONObject) new JSONParser().parse(apiResponse);
             LOG.debug(json);
-            json.writeJSONString(httpServletResponse.getWriter());
+        }
+        catch (ClassCastException e) {
+
+            try {
+                json.put("array", new JSONParser().parse(apiResponse));
+            } catch (ParseException e1) {
+                LOG.error(e1);
+            }
+            LOG.debug(json);
+
         } catch (NullPointerException e) {
             LOG.error("NullPointerException -> " + e);
         } catch (ParseException e) {
             LOG.error("ParseException -> " + e);
         }
+
+        json.writeJSONString(httpServletResponse.getWriter());
     }
 }
