@@ -45,32 +45,6 @@ app.filter('toHPath', function () {
     }
 });
 
-app.filter('pathSort', function () {
-    return function (item) {
-        var filtered = [];
-        angular.forEach(items, function (item) {
-            filtered.push(item);
-        });
-        filtered.sort(function (a, b) {
-            return (a - b);
-        });
-
-        if ($scope.executorDir != $scope.executorLastDir) {
-            return filtered.unshift({
-                "mode": "parent",
-                "path": "../",
-                "uid": "",
-                "gid": "",
-                "size": "",
-                "nlink": "",
-                "mtime": ""
-            });
-        } else {
-            return filtered;
-        }
-    }
-})
-
 app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
