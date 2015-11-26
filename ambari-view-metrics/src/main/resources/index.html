@@ -347,7 +347,7 @@
                             <td>{{dir.uid}}</td>
                             <td>{{dir.gid}}</td>
                             <td>{{dir.size}}</td>
-                            <td>{{dir.mtime+'000' | date:'medium'}}</td>
+                            <td><span ng-if="dir.path != '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
                             <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open"><md-tooltip>Directory</md-tooltip></i>
                                 <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file"><md-tooltip>File</md-tooltip></i>
                                 <a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</a></td>

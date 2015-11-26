@@ -53,8 +53,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46153846">
-              <caret line="344" column="88" selection-start-line="344" selection-start-column="88" selection-end-line="344" selection-end-column="88" />
+            <state vertical-scroll-proportion="0.6172161">
+              <caret line="349" column="60" selection-start-line="349" selection-start-column="60" selection-end-line="349" selection-end-column="60" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1231,7 +1231,7 @@
       <workItem from="1447838070396" duration="4664000" />
       <workItem from="1448282783967" duration="7919000" />
       <workItem from="1448293768185" duration="12787000" />
-      <workItem from="1448360100270" duration="69066000" />
+      <workItem from="1448360100270" duration="69261000" />
     </task>
     <task id="LOCAL-00001" summary="debug for executor metrics added">
       <created>1448289689155</created>
@@ -1317,11 +1317,17 @@
       <option name="project" value="LOCAL" />
       <updated>1448551926525</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="date format for sandbox fixed">
+      <created>1448553181841</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1448553181841</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114988000" />
+    <option name="totallyTimeSpent" value="115183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1384,7 +1390,8 @@
     <MESSAGE value="view issues fixed" />
     <MESSAGE value="Date field added to Sandbox view" />
     <MESSAGE value="*" />
-    <option name="LAST_COMMIT_MESSAGE" value="*" />
+    <MESSAGE value="date format for sandbox fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="date format for sandbox fixed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1896,8 +1903,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46153846">
-          <caret line="344" column="88" selection-start-line="344" selection-start-column="88" selection-end-line="344" selection-end-column="88" />
+        <state vertical-scroll-proportion="0.6172161">
+          <caret line="349" column="60" selection-start-line="349" selection-start-column="60" selection-end-line="349" selection-end-column="60" />
           <folding>
             <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
