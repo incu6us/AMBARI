@@ -252,7 +252,7 @@
             <div ng-if="frameworkTasks.length != 0 && detailsForTask">
                 <md-button class="btn btn-default glyphicon glyphicon-hand-left"
                            ng-click="setDetailsForTask(false); setDetailsForSandbox(false)">
-                    <md-tooltip>Go back</md-tooltip>
+                    <md-tooltip>Go to Executors</md-tooltip>
                 </md-button>
                 <p>
                     <span ng-if="taskLoading" us-spinner="{color: 'black'}"></span>
@@ -321,7 +321,7 @@
                         <!--</div>-->
                     <!--</div>-->
                 <!--</div>-->
-            <!--</div>-->
+            </div>
 
             <!-- Sandbox -->
             <div ng-if="frameworkTasks.length != 0 && detailsForSandbox">
@@ -341,12 +341,15 @@
                         <th>GID</th>
                         <th>Size</th>
                         <th></th>
-                        <tr  ng-repeat="dir in directories">
+                        <tr  ng-repeat="dir in directories | orderBy: ['-mode','path']">
+                        <!--<tr  ng-repeat="dir in directories | pathSort: '-mode'">-->
                             <td>{{dir.mode}}</td>
                             <td>{{dir.uid}}</td>
                             <td>{{dir.gid}}</td>
                             <td>{{dir.size}}</td>
-                            <td><a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path}}</a></td>
+                            <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open"></i>
+                                <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file"></i>
+                                <a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</a></td>
                         </tr>
                     </table>
                     <div class="container" ng-if="directories.length == 0">
@@ -354,6 +357,7 @@
                             <div class="col-xs-4">No files</div>
                         </div>
                     </div>
+                    <span ng-if="loading" us-spinner></span>
                 </div>
             </div>
         </div>

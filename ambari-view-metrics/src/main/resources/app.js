@@ -35,6 +35,41 @@ app.filter('toGb', function () {
     }
 });
 
+app.filter('toHPath', function () {
+    return function (input) {
+        if (input == '..') {
+            return input;
+        }
+        return input.replace(new RegExp("(.*)/(.*)"), "$2");
+    }
+});
+
+app.filter('pathSort', function () {
+    return function (item) {
+        var filtered = [];
+        angular.forEach(items, function (item) {
+            filtered.push(item);
+        });
+        filtered.sort(function (a, b) {
+            return (a - b);
+        });
+
+        if ($scope.executorDir != $scope.executorLastDir) {
+            return filtered.unshift({
+                "mode": "parent",
+                "path": "../",
+                "uid": "",
+                "gid": "",
+                "size": "",
+                "nlink": "",
+                "mtime": ""
+            });
+        } else {
+            return filtered;
+        }
+    }
+})
+
 app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
@@ -452,73 +487,94 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
                 //$scope.detailsForTask = true;
                 $scope.loading = true;
-                $q.all({
-                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
-                }).then(function (values) {
-                    angular.forEach(values.frameworks.data.frameworks, function (v, k) {
-                        if (v.id == framework_id) {
-                            console.log("executors: " + JSON.stringify(v.executors));
-                            angular.forEach(v.executors, function (v1, k2) {
-                                console.log("executor_id: " + executor_id + " - " + v1.id)
-                                if (v1.id == executor_id) {
-                                    var port = '5051';
-                                    if (v.hostname.indexOf("master") > -1) {
-                                        port = '5050';
-                                    }
-                                    console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
-                                    $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
-                                    $scope.executorDir = v1.directory;
-                                    $scope.executorLastDir = $scope.executorDir;
-                                    $q.all({
-                                        dirs: $http.get($scope.executorUrl + $scope.executorDir)
-                                    }).then(function (val) {
-                                        console.log("val.dirs.data.array -> " + JSON.stringify(val.dirs.data.array));
-                                        if (val.dirs.data.array != undefined) {
-                                            $scope.directories = val.dirs.data.array;
+
+                try {
+                    $q.all({
+                        frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                    }).then(function (values) {
+                        angular.forEach(values.frameworks.data.frameworks, function (v, k) {
+                            if (v.id == framework_id) {
+                                console.log("executors: " + JSON.stringify(v.executors));
+                                angular.forEach(v.executors, function (v1, k2) {
+                                    console.log("executor_id: " + executor_id + " - " + v1.id)
+                                    if (v1.id == executor_id) {
+                                        var port = '5051';
+                                        if (v.hostname.indexOf("master") > -1) {
+                                            port = '5050';
                                         }
-                                    })
-                                }
-                            })
-                        }
-                    })
+                                        console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
+                                        $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
+                                        $scope.executorDir = v1.directory;
+                                        $scope.executorLastDir = $scope.executorDir;
+                                        try {
+                                            $q.all({
+                                                dirs: $http.get($scope.executorUrl + $scope.executorDir)
+                                            }).then(function (val) {
+                                                console.log("val.dirs.data.array -> " + JSON.stringify(val.dirs.data.array));
+                                                if (val.dirs.data.array != undefined) {
+                                                    $scope.directories = val.dirs.data.array;
+                                                }
+                                                $scope.loading = false;
+                                                $scope.detailsForSandbox = true;
+                                            })
+                                        } catch (err) {
+                                            $scope.loading = false;
+                                            $scope.detailsForSandbox = true;
+                                            alert(err);
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    });
+                } catch (err) {
                     $scope.loading = false;
                     $scope.detailsForSandbox = true;
-                });
+                    alert(err);
+                }
             }
         });
     }
 
     $scope.getSandboxByPath = function (filemode, path) {
-        if (path == '../') {
+        $scope.loading = true;
+        if (path == '..') {
             $scope.executorLastDir = $scope.executorLastDir.replace(new RegExp("(.*)/(.*)"), "$1");
         } else {
-            $scope.executorLastDir = path;
+            if (filemode == 'd')
+                $scope.executorLastDir = path;
         }
 
         // if FILEMODE == '-' (is a file) then download it
         if (filemode == '-') {
             window.open($scope.executorUrl.replace(new RegExp("proxy/json"), "proxy/object").replace(new RegExp("browse.json"), "download.json") + path, '_blank', '');
+            $scope.loading = false;
         }
         // Got ot the directory
         else {
-            $q.all({
-                datas: $http.get($scope.executorUrl + $scope.executorLastDir)
-            }).then(function (val) {
-                    $scope.directories = val.datas.data.array;
-                    if ($scope.executorDir != $scope.executorLastDir) {
-                        $scope.directories.unshift({
-                            "mode": "",
-                            "path": "../",
-                            "uid": "",
-                            "gid": "",
-                            "size": "",
-                            "nlink": "",
-                            "mtime": ""
-                        });
+            try {
+                $q.all({
+                    datas: $http.get($scope.executorUrl + $scope.executorLastDir)
+                }).then(function (val) {
+                        $scope.directories = val.datas.data.array;
+                        if ($scope.executorDir != $scope.executorLastDir) {
+                            $scope.directories.unshift({
+                                "mode": "parent",
+                                "path": "..",
+                                "uid": "",
+                                "gid": "",
+                                "size": "",
+                                "nlink": "",
+                                "mtime": ""
+                            });
+                        }
+                        $scope.loading = false;
+                        console.log("$scope.directories -> " + JSON.stringify($scope.directories));
                     }
-                    console.log("$scope.directories -> " + JSON.stringify($scope.directories));
-                }
-            )
+                )
+            } catch (err) {
+                $scope.loading = false;
+            }
         }
     }
 
