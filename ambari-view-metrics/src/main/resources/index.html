@@ -340,6 +340,7 @@
                         <th>UID</th>
                         <th>GID</th>
                         <th>Size</th>
+                        <th>Date</th>
                         <th></th>
                         <tr  ng-repeat="dir in directories | orderBy: ['-mode','path']">
                         <!--<tr  ng-repeat="dir in directories | pathSort: '-mode'">-->
@@ -347,6 +348,7 @@
                             <td>{{dir.uid}}</td>
                             <td>{{dir.gid}}</td>
                             <td>{{dir.size}}</td>
+                            <td>{{dir.mtime | date:'medium'}}</td>
                             <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open"><md-tooltip>Directory</md-tooltip></i>
                                 <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file"><md-tooltip>File</md-tooltip></i>
                                 <a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</a></td>
