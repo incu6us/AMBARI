@@ -1,4 +1,5 @@
-var VERSION = "0.1.0"
+var VERSION = "0.1.0";
+var DEBUG = false;
 
 
 var spinOpts = {
@@ -158,7 +159,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         if ($scope.dataSelector == 'metrics') {
             $scope.getMesosMetrics();
         }
-        console.log("detailsForTask: " + $scope.detailsForTask)
+
+        if (DEBUG) {
+            console.log("detailsForTask: " + $scope.detailsForTask);
+        }
         //else if ($scope.dataSelector == 'executors') {
         // $scope.getExecutors();
         //}
@@ -179,7 +183,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             .success(function (data) {
                 //items = JSON.parse(data);
                 items = data;
-                console.log("masterMetrics -> " + JSON.stringify(data));
+
+                if (DEBUG) {
+                    console.log("masterMetrics -> " + JSON.stringify(data));
+                }
 
                 if (items["master/elected"] == 1.0) {
                     $scope.activeMaster = masterHost;
@@ -324,8 +331,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                         }
                     ]
                 });
-                console.log("$scope.slaveData -> " + JSON.stringify($scope.slaveData));
-                console.log("$scope.slaveDataCpu -> " + JSON.stringify($scope.slaveDataCpu));
+
+                if (DEBUG) {
+                    console.log("$scope.slaveData -> " + JSON.stringify($scope.slaveData));
+                    console.log("$scope.slaveDataCpu -> " + JSON.stringify($scope.slaveDataCpu));
+                }
             })
             .error(function (data) {
                 console.log('Error: ' + JSON.stringify(data));
@@ -353,7 +363,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 mesosMaster: $http.get('/api/v1/clusters/' + $scope.clusterName + '/services/MESOS/components/MESOS_MASTER')
             }).then(function (mesosMasterData) {
 
-                console.log("mesosMasterData -> " + JSON.stringify(mesosMasterData))
+                if (DEBUG) {
+                    console.log("mesosMasterData -> " + JSON.stringify(mesosMasterData))
+                }
 
                 var masterItems = mesosMasterData.mesosMaster.data.host_components;
                 $scope.masterList = [];
@@ -364,8 +376,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.getMetricsForMaster($scope.clusterName, masterItems[i].HostRoles.host_name)
                 }
 
-                console.log("masterList -> " + $scope.masterList);
-            })
+                if (DEBUG) {
+                    console.log("masterList -> " + $scope.masterList);
+                }
+            });
 
             /*
              * Get mesos slave hosts
@@ -386,9 +400,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
                 }
 
-                console.log("slaveList: " + $scope.slaveList);
-            })
-        })
+                if (DEBUG) {
+                    console.log("slaveList: " + $scope.slaveList);
+                }
+            });
+        });
     }
 
     /*
@@ -405,6 +421,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         }
     }
 
+    // Draw Executors
     $scope.getExecutors = function () {
         if ($scope.activeMaster != null) {
 
@@ -415,8 +432,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
                 executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
             }).then(function (values) {
-                console.log("executorsInfoJson -> " + JSON.stringify(values.executorsInfo.data));
-                console.log("executorsInfoFrameworksLength -> " + values.executorsInfo.data.frameworks.length);
+
+                if (DEBUG) {
+                    console.log("executorsInfoJson -> " + JSON.stringify(values.executorsInfo.data));
+                    console.log("executorsInfoFrameworksLength -> " + values.executorsInfo.data.frameworks.length);
+                }
 
                 $scope.frameworkTasks = [];
 
@@ -432,7 +452,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
     }
 
-
+    // Draw Executor info (tasks)
     $scope.getExecutor = function (slave_id, framework_id, executor_id) {
         $scope.tasks = [];
 
@@ -450,11 +470,19 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 }).then(function (values) {
                     angular.forEach(values.frameworks.data.frameworks, function (v, k) {
                         if (v.id == framework_id) {
-                            console.log("executors: " + JSON.stringify(v.executors));
+
+                            if (DEBUG) {
+                                console.log("executors: " + JSON.stringify(v.executors));
+                            }
+
                             angular.forEach(v.executors, function (v1, k2) {
                                 angular.forEach(v1.tasks, function (v2, k2) {
                                     if (v2.executor_id == executor_id) {
-                                        console.log("v2: " + JSON.stringify(v2));
+
+                                        if (DEBUG) {
+                                            console.log("v2: " + JSON.stringify(v2));
+                                        }
+
                                         $scope.tasks.push(v2);
                                     }
                                 })
@@ -465,10 +493,13 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 });
             }
         });
-        console.log("$scope.tasks: " + $scope.tasks);
+
+        if (DEBUG) {
+            console.log("$scope.tasks: " + $scope.tasks);
+        }
     }
 
-
+    // Go to the Sandbox
     $scope.getSandbox = function (slave_id, framework_id, executor_id) {
         $scope.directories = [];
 
@@ -494,15 +525,27 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     }).then(function (values) {
                         angular.forEach(values.frameworks.data.frameworks, function (v, k) {
                             if (v.id == framework_id) {
-                                console.log("executors: " + JSON.stringify(v.executors));
+
+                                if (DEBUG) {
+                                    console.log("executors: " + JSON.stringify(v.executors));
+                                }
+
                                 angular.forEach(v.executors, function (v1, k2) {
-                                    console.log("executor_id: " + executor_id + " - " + v1.id)
+
+                                    if (DEBUG) {
+                                        console.log("executor_id: " + executor_id + " - " + v1.id)
+                                    }
+
                                     if (v1.id == executor_id) {
                                         var port = '5051';
                                         if (v.hostname.indexOf("master") > -1) {
                                             port = '5050';
                                         }
-                                        console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
+
+                                        if (DEBUG) {
+                                            console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
+                                        }
+
                                         $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
                                         $scope.executorUrlForDownloadFile = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + value.hostname + ":" + port + "/files/download.json?path=";
                                         $scope.executorDir = v1.directory;
@@ -511,7 +554,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                                             $q.all({
                                                 dirs: $http.get($scope.executorUrl + $scope.executorDir)
                                             }).then(function (val) {
-                                                console.log("val.dirs.data.array -> " + JSON.stringify(val.dirs.data.array));
+
+                                                if (DEBUG) {
+                                                    console.log("val.dirs.data.array -> " + JSON.stringify(val.dirs.data.array));
+                                                }
+
                                                 if (val.dirs.data.array != undefined) {
                                                     $scope.directories = val.dirs.data.array;
                                                 }
@@ -537,6 +584,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         });
     }
 
+    // Called by clicking on path in Sandbox
     $scope.getSandboxByPath = function (filemode, path) {
         $scope.loading = true;
         if (path == '..') {
@@ -551,7 +599,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             $scope.loading = false;
             window.open($scope.executorUrlForDownloadFile + path, '_blank', '');
         }
-        // Got ot the directory
+        // Go ot the directory
         else {
             try {
                 $q.all({
@@ -570,7 +618,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                             });
                         }
                         $scope.loading = false;
-                        console.log("$scope.directories -> " + JSON.stringify($scope.directories));
+
+                        if (DEBUG) {
+                            console.log("$scope.directories -> " + JSON.stringify($scope.directories));
+                        }
                     }
                 )
             } catch (err) {
@@ -584,5 +635,4 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         $scope.callAtInterval();
     }, 10000);
 
-})
-;
+});
