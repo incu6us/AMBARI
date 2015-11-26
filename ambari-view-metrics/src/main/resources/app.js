@@ -488,33 +488,40 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         });
     }
 
-    $scope.getSandboxByPath = function (path) {
+    $scope.getSandboxByPath = function (filemode, path) {
         if (path == '../') {
             $scope.executorLastDir = $scope.executorLastDir.replace(new RegExp("(.*)/(.*)"), "$1");
         } else {
             $scope.executorLastDir = path;
         }
 
-        $q.all({
-            datas: $http.get($scope.executorUrl + $scope.executorLastDir)
-        }).then(function (val) {
-                $scope.directories = val.datas.data.array;
-                if ($scope.executorDir != $scope.executorLastDir) {
-                    $scope.directories.unshift({
-                        "mode": "",
-                        "path": "../",
-                        "uid": "",
-                        "gid": "",
-                        "size": "",
-                        "nlink": "",
-                        "mtime": ""
-                    });
+        // if FILEMODE == '-' (is a file) then download it
+        if (filemode == '-') {
+            window.open($scope.executorUrl.replace(new RegExp("proxy/json"), "proxy/object").replace(new RegExp("browse.json"), "download.json") + path, '_blank', '');
+        }
+        // Got ot the directory
+        else {
+            $q.all({
+                datas: $http.get($scope.executorUrl + $scope.executorLastDir)
+            }).then(function (val) {
+                    $scope.directories = val.datas.data.array;
+                    if ($scope.executorDir != $scope.executorLastDir) {
+                        $scope.directories.unshift({
+                            "mode": "",
+                            "path": "../",
+                            "uid": "",
+                            "gid": "",
+                            "size": "",
+                            "nlink": "",
+                            "mtime": ""
+                        });
+                    }
+                    console.log("$scope.directories -> " + JSON.stringify($scope.directories));
                 }
-                console.log("$scope.directories -> " + JSON.stringify($scope.directories));
-            }
-        )
-
+            )
+        }
     }
+
 
     $interval(function () {
         $scope.callAtInterval();
