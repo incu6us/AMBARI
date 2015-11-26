@@ -240,7 +240,7 @@
                                 <md-button class="md-raised"
                                            ng-click="getSandbox(task.slave_id, task.framework_id, task.executor_id)">
                                     Sandbox
-                                    <md-tooltip>Go to Sandbox</md-tooltip>
+                                    <md-tooltip>To Executors</md-tooltip>
                                 </md-button>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
             <div ng-if="frameworkTasks.length != 0 && detailsForTask">
                 <md-button class="btn btn-default glyphicon glyphicon-hand-left"
                            ng-click="setDetailsForTask(false); setDetailsForSandbox(false)">
-                    <md-tooltip>Go to Executors</md-tooltip>
+                    <md-tooltip>To Executors</md-tooltip>
                 </md-button>
                 <p>
                     <span ng-if="taskLoading" us-spinner="{color: 'black'}"></span>
@@ -327,7 +327,7 @@
             <div ng-if="frameworkTasks.length != 0 && detailsForSandbox">
                 <md-button class="btn btn-default glyphicon glyphicon-hand-left"
                            ng-click="setDetailsForTask(false); setDetailsForSandbox(false)">
-                    <md-tooltip>Go back</md-tooltip>
+                    <md-tooltip>To Executors</md-tooltip>
                 </md-button>
                 <p>
                 </p>
