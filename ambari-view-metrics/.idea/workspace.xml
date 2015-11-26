@@ -4,7 +4,6 @@
     <list default="true" id="1ecfc970-c1ec-4011-aabf-12fde192c729" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-configurator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ambari-view-configurator/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/org/apache/ambari/view/proxy/JsonProxyService.java" afterPath="$PROJECT_DIR$/src/main/java/org/apache/ambari/view/proxy/JsonProxyService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/app.js" afterPath="$PROJECT_DIR$/src/main/resources/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/index.html" afterPath="$PROJECT_DIR$/src/main/resources/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../proxy-agent/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../proxy-agent/.idea/workspace.xml" />
@@ -55,8 +54,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.781818">
-              <caret line="359" column="40" selection-start-line="359" selection-start-column="40" selection-end-line="359" selection-end-column="40" />
+            <state vertical-scroll-proportion="-3.8363636">
+              <caret line="349" column="123" selection-start-line="349" selection-start-column="123" selection-end-line="349" selection-end-column="123" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -81,8 +80,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.71823204">
-              <caret line="549" column="54" selection-start-line="549" selection-start-column="54" selection-end-line="549" selection-end-column="54" />
+            <state vertical-scroll-proportion="0.6151013">
+              <caret line="550" column="35" selection-start-line="550" selection-start-column="35" selection-end-line="550" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -1223,7 +1222,7 @@
       <workItem from="1447838070396" duration="4664000" />
       <workItem from="1448282783967" duration="7919000" />
       <workItem from="1448293768185" duration="12787000" />
-      <workItem from="1448360100270" duration="62255000" />
+      <workItem from="1448360100270" duration="64539000" />
     </task>
     <task id="LOCAL-00001" summary="debug for executor metrics added">
       <created>1448289689155</created>
@@ -1273,11 +1272,17 @@
       <option name="project" value="LOCAL" />
       <updated>1448533434046</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="small fixes&#10;">
+      <created>1448542959089</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1448542959089</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108177000" />
+    <option name="totallyTimeSpent" value="110461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1336,7 +1341,8 @@
     <MESSAGE value="*" />
     <MESSAGE value="files search finished" />
     <MESSAGE value="executors details finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="executors details finished" />
+    <MESSAGE value="small fixes&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="small fixes&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1840,8 +1846,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.781818">
-          <caret line="359" column="40" selection-start-line="359" selection-start-column="40" selection-end-line="359" selection-end-column="40" />
+        <state vertical-scroll-proportion="-3.8363636">
+          <caret line="349" column="123" selection-start-line="349" selection-start-column="123" selection-end-line="349" selection-end-column="123" />
           <folding>
             <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#td#2;n#tr#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1864,8 +1870,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71823204">
-          <caret line="549" column="54" selection-start-line="549" selection-start-column="54" selection-end-line="549" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.6151013">
+          <caret line="550" column="35" selection-start-line="550" selection-start-column="35" selection-end-line="550" selection-end-column="35" />
           <folding />
         </state>
       </provider>

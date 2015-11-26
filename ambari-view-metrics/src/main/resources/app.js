@@ -504,6 +504,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                                         }
                                         console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
                                         $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
+                                        $scope.executorUrlForDownloadFile = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + value.hostname + ":" + port + "/files/download.json?path=";
                                         $scope.executorDir = v1.directory;
                                         $scope.executorLastDir = $scope.executorDir;
                                         try {
@@ -547,8 +548,8 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
         // if FILEMODE == '-' (is a file) then download it
         if (filemode == '-') {
-            window.open($scope.executorUrl.replace(new RegExp("proxy/json"), "proxy/object").replace(new RegExp("browse.json"), "download.json") + path, '_blank', '');
             $scope.loading = false;
+            window.open($scope.executorUrlForDownloadFile + path, '_blank', '');
         }
         // Got ot the directory
         else {
