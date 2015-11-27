@@ -68,6 +68,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.activeMaster = null;
     $scope.clusterName = null;
 
+    $scope.frameworks = [];
+    $scope.completedFrameworks = [];
+
     $scope.frameworkTasks = [];
     $scope.frameworkTasksSlaves = undefined;
 
@@ -385,6 +388,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
      * GET EXECUTORS
      */
 
+    // Get details from master about slaves
     function getSlaves() {
         if ($scope.frameworkTasksSlaves == undefined) {
             $q.all({
@@ -423,7 +427,6 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 $scope.loading = false;
             })
         }
-
     }
 
     // Draw Executor info (tasks)
@@ -604,6 +607,36 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
         }
     }
 
+
+    /*
+     * Frameworks draw
+     */
+    $scope.getFrameworks = function () {
+        if ($scope.activeMaster != null) {
+
+            getSlaves();
+            $scope.loading = true;
+
+            $q.all({
+                frameworksData: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+            }).then(function (values) {
+
+                if (DEBUG) {
+                    console.log("frameworksDataJson -> " + JSON.stringify(values.frameworksData.data));
+                    console.log("frameworksLength -> " + values.frameworksData.data.frameworks.length);
+                }
+
+                for (var frameworksInt = 0; frameworksInt < values.frameworksData.data.frameworks.length; frameworksInt++) {
+                    $scope.frameworks = values.frameworksData.data.frameworks;
+                    $scope.completedFrameworks = values.frameworksData.data.completed_frameworks;
+                }
+
+                console.log("$scope.frameworks -> " + JSON.stringify($scope.frameworks));
+
+                $scope.loading = false;
+            })
+        }
+    }
 
     $interval(function () {
         $scope.callAtInterval();

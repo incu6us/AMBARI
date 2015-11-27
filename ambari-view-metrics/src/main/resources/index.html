@@ -43,6 +43,7 @@
             <select name="mode" class="form-control" ng-model="dataSelector">
                 <option value="metrics">Metrics</option>
                 <option value="executors">Executors</option>
+                <option value="frameworks">Frameworks</option>
             </select>
         </div>
     </form>
@@ -227,6 +228,12 @@
 
                 <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
                     <div class="container">
+                        <div class="row">
+                            <div class="col-xs-4"><b>Id</b></div>
+                            <div class="col-xs-2"><b>Name</b></div>
+                            <div class="col-xs-2"><b>State</b></div>
+                            <div class="col-xs-2"><b>Sandbox</b></div>
+                        </div>
                         <div class="row" ng-repeat="task in frameworkTasks">
                             <!--http://128.107.32.157:5050/#/slaves/20151120-161109-3338993674-5050-1785-S11/frameworks/20151120-161109-3338993674-5050-1785-0000/executors/cassandra.cassandra-mesos.node.3.executor-->
                             <div class="col-xs-4"><a href="#"
@@ -262,18 +269,18 @@
                 <!-- queued tasks-->
                 <!--<md-toolbar class="md-toolbar-tools">Queued tasks</md-toolbar>-->
                 <!--<div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">-->
-                    <!--<div class="container">-->
-                        <!--<div class="row">-->
-                            <!--<div class="col-xs-4">{{task.name}}</div>-->
-                            <!--<div class="col-xs-4">{{task.state}}</div>-->
-                        <!--</div>-->
-                        <!--<div class="row" ng-if="tasks.length == 0 && !taskLoading">-->
-                            <!--<div class="col-xs-6">No tasks found</div>-->
-                        <!--</div>-->
-                        <!--<div class="row" ng-if="tasks.length == 0 && taskLoading">-->
-                            <!--<div class="col-xs-6">Loading data...</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div class="container">-->
+                <!--<div class="row">-->
+                <!--<div class="col-xs-4">{{task.name}}</div>-->
+                <!--<div class="col-xs-4">{{task.state}}</div>-->
+                <!--</div>-->
+                <!--<div class="row" ng-if="tasks.length == 0 && !taskLoading">-->
+                <!--<div class="col-xs-6">No tasks found</div>-->
+                <!--</div>-->
+                <!--<div class="row" ng-if="tasks.length == 0 && taskLoading">-->
+                <!--<div class="col-xs-6">Loading data...</div>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
                 <!--<br>-->
 
@@ -308,18 +315,18 @@
                 <!-- completed tasks-->
                 <!--<md-toolbar class="md-toolbar-tools">Completed tasks</md-toolbar>-->
                 <!--<div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">-->
-                    <!--<div class="container">-->
-                        <!--<div class="row">-->
-                            <!--<div class="col-xs-4">{{task.name}}</div>-->
-                            <!--<div class="col-xs-4">{{task.state}}</div>-->
-                        <!--</div>-->
-                        <!--<div class="row" ng-if="tasks.length == 0 && !taskLoading">-->
-                            <!--<div class="col-xs-6">No tasks found</div>-->
-                        <!--</div>-->
-                        <!--<div class="row" ng-if="tasks.length == 0 && taskLoading">-->
-                            <!--<div class="col-xs-6">Loading data...</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                <!--<div class="container">-->
+                <!--<div class="row">-->
+                <!--<div class="col-xs-4">{{task.name}}</div>-->
+                <!--<div class="col-xs-4">{{task.state}}</div>-->
+                <!--</div>-->
+                <!--<div class="row" ng-if="tasks.length == 0 && !taskLoading">-->
+                <!--<div class="col-xs-6">No tasks found</div>-->
+                <!--</div>-->
+                <!--<div class="row" ng-if="tasks.length == 0 && taskLoading">-->
+                <!--<div class="col-xs-6">Loading data...</div>-->
+                <!--</div>-->
+                <!--</div>-->
                 <!--</div>-->
             </div>
 
@@ -342,23 +349,98 @@
                         <th>Size</th>
                         <th>Date</th>
                         <th></th>
-                        <tr  ng-repeat="dir in directories | orderBy: ['-mode','path']">
+                        <tr ng-repeat="dir in directories | orderBy: ['-mode','path']">
                             <td>{{dir.mode}}</td>
                             <td>{{dir.uid}}</td>
                             <td>{{dir.gid}}</td>
                             <td>{{dir.size}}</td>
                             <td><span ng-if="dir.path != '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
-                            <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open"><md-tooltip>Directory</md-tooltip></i>
-                                <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file"><md-tooltip>File</md-tooltip></i>
-                                <a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</a></td>
+                            <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open">
+                                <md-tooltip>Directory</md-tooltip>
+                            </i>
+                                <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file">
+                                    <md-tooltip>File</md-tooltip>
+                                </i>
+                                <a href="#" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</a>
+                            </td>
                         </tr>
                     </table>
                     <div class="container" ng-if="directories.length == 0">
-                        <div class="row" >
+                        <div class="row">
                             <div class="col-xs-4">No files</div>
                         </div>
                     </div>
                     <span ng-if="loading" us-spinner></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="dataSelector == 'frameworks'">
+        <div ng-if="activeMaster == null">
+            <h3><span us-spinner></span><b>Waiting for detect leading master...</b></h3>
+        </div>
+
+        <div ng-if="activeMaster != null" data-ng-init="getFrameworks()">
+
+            <!-- Draw task list -->
+            <!--<div class="panel-body" ng-if="frameworkTasks.length != 0 && !detailsForTask">-->
+            <!--<md-toolbar ng-if="frameworkTasks.length != 0 && !detailsForTask && !detailsForSandbox">-->
+
+            <!-- Active Frameworks -->
+            <md-toolbar>
+                <h2 class="md-toolbar-tools">
+                    <span flex>Frameworks</span>
+                </h2>
+            </md-toolbar>
+
+            <!--<div ng-if="frameworkTasks.length != 0 && !detailsForTask && !detailsForSandbox">-->
+            <div style="border: solid 1px #ccc;">
+                <md-button class="btn btn-default glyphicon glyphicon-refresh"
+                           ng-click="getFrameworks()">
+                    <md-tooltip>Refresh data</md-tooltip>
+                </md-button>
+                <span ng-if="loading" us-spinner></span>
+
+                <p></p>
+                <br>
+
+                <h3 style="margin-left: 20px;">Active Frameworks</h3>
+
+                <div style="border-top: solid 1px #ccc; border-bottom: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-4"><b>Name</b></div>
+                            <div class="col-xs-4"><b>Hostname</b></div>
+                        </div>
+                        <div class="row" ng-repeat="framework in frameworks">
+                            <div class="col-xs-4">{{framework.name}}</div>
+                            <div class="col-xs-4">{{framework.hostname}}</div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <p></p>
+                <br>
+
+                <!-- Completed Frameworks -->
+                <!--<div ng-if="frameworkTasks.length != 0 && !detailsForTask && !detailsForSandbox">-->
+                <div>
+                    <h3 style="margin-left: 20px;">Completed Frameworks</h3>
+
+                    <div style="border-top: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-4"><b>Name</b></div>
+                                <div class="col-xs-4"><b>Hostname</b></div>
+                            </div>
+                            <div class="row" ng-repeat="framework in completedFrameworks">
+                                <div class="col-xs-4">{{framework.name}}</div>
+                                <div class="col-xs-4">{{framework.hostname}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
