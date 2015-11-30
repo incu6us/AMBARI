@@ -18,16 +18,21 @@ import java.net.URLConnection;
 /**
  * Created by vpryimak on 23.11.2015.
  */
-public class JsonProxyService {
+public class ProxyService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JsonProxyService.class);
-    private ProxyConnection proxy = new ProxyConnection(false);
+    private static final Logger LOG = LoggerFactory.getLogger(ProxyService.class);
 
+    /**
+     * Method for proxying json objects
+     * @param url
+     * @return
+     */
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getJson(@QueryParam("url") String url) {
 
+        ProxyConnection proxy = new ProxyConnection(false);
         proxy.connectWithoutBasicAuth();
         String apiResponse = proxy.getApiResponse(url);
 
@@ -49,12 +54,18 @@ public class JsonProxyService {
         return json;
     }
 
+    /**
+     * Method for proxying some content (files)
+     * @param url
+     * @return
+     * @throws IOException
+     */
     @GET
     @Path("/object")
     public Response getObject(@QueryParam("url") String url) throws IOException {
 
-        URL url1 = new URL(url);
-        URLConnection connection = url1.openConnection();
+        URL urlEndpoint = new URL(url);
+        URLConnection connection = urlEndpoint.openConnection();
         InputStream is = connection.getInputStream();
 
         String filename = url.replaceAll("(.*)/(.*)", "$2");
