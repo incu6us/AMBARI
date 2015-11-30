@@ -45,6 +45,22 @@ app.filter('toHPath', function () {
     }
 });
 
+app.filter('truncateMesosID', function() {
+    return function(id) {
+        if (id) {
+            var truncatedIdParts = id.split('-');
+
+            if (truncatedIdParts.length > 3) {
+                return '...' + truncatedIdParts.splice(3, 3).join('-');
+            } else {
+                return id;
+            }
+        } else {
+            return '';
+        }
+    };
+});
+
 app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
@@ -636,6 +652,22 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                 $scope.loading = false;
             })
         }
+    }
+
+    $scope.getFrameworkTasks = function(frameworkId){
+        //$scope.frameworkTasks.push(values.executorsInfo.data.frameworks[executorsInt].tasks[tasksInt]);
+        $q.all({
+            ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
+            executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+        }).then(function (values) {
+
+        });
+
+        angular.forEach($scope.frameworks, function (val, key) {
+            if($scope.frameworks.id == frameworkId){
+                console.log(JSON.stringify())
+            }
+        });
     }
 
     $interval(function () {

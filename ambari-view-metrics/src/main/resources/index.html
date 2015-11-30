@@ -408,16 +408,24 @@
                 <h3 style="margin-left: 20px;">Active Frameworks</h3>
 
                 <div style="border-top: solid 1px #ccc; border-bottom: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-4"><b>Name</b></div>
-                            <div class="col-xs-4"><b>Hostname</b></div>
-                        </div>
-                        <div class="row" ng-repeat="framework in frameworks">
-                            <div class="col-xs-4">{{framework.name}}</div>
-                            <div class="col-xs-4">{{framework.hostname}}</div>
-                        </div>
-                    </div>
+                    <table class="table table-striped">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Hostname</th>
+                        <th>User</th>
+                        <th>Active Tasks</th>
+                        <th>CPUs</th>
+                        <th>Memory</th>
+                        <tr ng-repeat="framework in frameworks">
+                            <td><a href="#" ng-click="getFrameworkTasks(framework.id)">{{(framework.id | truncateMesosID) || framework.name}}</a></td>
+                            <td>{{framework.name}}</td>
+                            <td>{{framework.hostname}}</td>
+                            <td>{{framework.user}}</td>
+                            <td>{{framework.tasks.length}}</td>
+                            <td>{{framework.resources.cpus | number}}</td>
+                            <td>{{framework.resources.mem | toGb}} Gb</td>
+                        </tr>
+                    </table>
                 </div>
 
 
