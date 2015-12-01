@@ -152,6 +152,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Mesos slaves</div>
             <div class="panel-body">
+                auto-update: <span style="color: green;" ng-show="updatedMesosSlave">{{updatedMesosSlave}}</span> <span style="color: red;" ng-show="!updatedMesosSlave">{{updatedMesosSlave}}</span>
                 <div class="container" ng-repeat="slave in slaveData | orderBy: 'id' "
                      style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin: 10px; width: 900px;">
                     <div class="row">
@@ -194,10 +195,11 @@
                         <div class="col-md-6">
                             <ul class="list-unstyled">
                                 <li>Executors registering: {{ slave.metrics['slave/executors_registering']}}</li>
-                                <li>Executors running: {{ slave.metrics['slave/executors_running']}}</li>
+                                <li>Executors running: <a href="#" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>
+                                <li id="agentExecutors-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
                                 <li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>
                                 <li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>
-                                <li>Frameworks active: {{ slave.metrics['slave/frameworks_active']}}</li>
+                                <li>Frameworks active: <a href="#">{{ slave.metrics['slave/frameworks_active']}}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -254,7 +256,7 @@
                             <td>{{framework.hostname}}</td>
                             <td>{{framework.user}}</td>
                             <td>{{framework.tasks.length}}</td>
-                            <td>{{framework.resources.cpus | number}}</td>
+                            <td>{{framework.resources.cpus | toFixed}}</td>
                             <td>{{framework.resources.mem | toGb}} Gb</td>
                         </tr>
                     </table>
@@ -362,7 +364,7 @@
                         <tr ng-repeat="task in tasks" ng-if="tasks.length != 0 && !taskLoading">
                             <td>{{task.name}}</td>
                             <td>{{task.state}}</td>
-                            <td>{{task.resources.cpus}}</td>
+                            <td>{{task.resources.cpus | toFixed}}</td>
                             <td>{{task.resources.disk | toGb}} Gb</td>
                             <td>{{task.resources.mem | toGb}} Gb</td>
                         </tr>

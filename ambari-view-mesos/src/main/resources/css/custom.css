@@ -6,3 +6,8 @@
     background-color:#B3E5FC;
     color:#fff;
 }
+
+md-toast {
+    margin-left: auto;
+    margin-right: auto;
+}

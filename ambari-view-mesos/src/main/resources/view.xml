@@ -1,6 +1,6 @@
 <view>
-<name>MESOSMETRICS</name>
-<label>Metrics</label>
+<name>MESOS</name>
+<label>Mesos</label>
 <version>0.1.0</version>
     <resource>
         <name>proxy</name>

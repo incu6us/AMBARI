@@ -1,5 +1,5 @@
 var VERSION = "0.1.0";
-var DEBUG = true;
+var DEBUG = false;
 
 
 var spinOpts = {
@@ -61,7 +61,13 @@ app.filter('truncateMesosID', function () {
     };
 });
 
-app.controller('MetricsController', function ($scope, $http, $interval, $q) {
+app.filter('toFixed', function () {
+    return function (input) {
+        return input.toFixed(2);
+    }
+});
+
+app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdToast) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
     $scope.masterList = [];
@@ -83,6 +89,8 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
     $scope.activeMaster = null;
     $scope.clusterName = null;
+
+    $scope.updatedMesosSlave = true;
 
     $scope.frameworks = [];
     $scope.completedFrameworks = [];
@@ -172,6 +180,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
 
     $scope.setDetailsForSandbox = function (val) {
         $scope.detailsForSandbox = val;
+    }
+
+    $scope.setUpdatedMesosSlave = function (val) {
+        $scope.updatedMesosSlave = val;
     }
 
     // Get metrics for elected master host
@@ -340,6 +352,49 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             })
     }
 
+    // showMetricExecutorsRunning - get info about executors
+    $scope.showMetricExecutorsRunning = function (hostname) {
+
+        if ($scope.activeMaster != null) {
+
+            $scope.setUpdatedMesosSlave(false);
+
+            $q.all({
+                state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+            }).then(function (values) {
+                var allData = values.state.data;
+                var executors = '';
+                angular.forEach(allData.slaves, function (val, key) {
+                    if (val.hostname == hostname) {
+                        console.log("hostname")
+                        angular.forEach(allData.frameworks, function (frmwrks, keyFrmwrks) {
+                            angular.forEach(frmwrks.executors, function (exec, keyExec) {
+                                if (val.id == exec.slave_id) {
+                                    console.log("frameworks");
+                                    //alert(JSON.stringify(exec));
+                                    executors = executors + "Name: " + exec.name + "<br>" +
+                                        "CPU: " + exec.resources.cpus.toFixed(2) + "<br>" +
+                                        "Mem: " + exec.resources.mem / 1024 + "<br>" +
+                                        "DISK: " + exec.resources.disk / 1024 + "<br><br>";
+                                }
+                            })
+                        });
+                    }
+                });
+                //alert(executors);
+                document.getElementById('agentExecutors-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + executors + '</div>';
+                //$mdToast.show({
+                //    controller: 'MetricsController',
+                //    templateUrl: 'toast-template.html',
+                //    //parent : $document[0].querySelector('#toastBounds'),
+                //    hideDelay: 6000
+                //    //position: 'right'
+                //});
+            });
+        } else {
+            alert("Please wait for leading master...");
+        }
+    }
 
     /*
      * GET METRICS
@@ -382,26 +437,28 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             /*
              * Get mesos slave hosts
              */
-            $q.all({
-                mesosSlave: $http.get('/api/v1/clusters/' + $scope.clusterName + '/services/MESOS/components/MESOS_SLAVE')
-            }).then(function (mesosSlaveData) {
+            if($scope.updatedMesosSlave) {
+                $q.all({
+                    mesosSlave: $http.get('/api/v1/clusters/' + $scope.clusterName + '/services/MESOS/components/MESOS_SLAVE')
+                }).then(function (mesosSlaveData) {
 
-                var slaveItems = mesosSlaveData.mesosSlave.data.host_components;
-                $scope.slaveList = [];
-                $scope.slaveData = [];
-                $scope.slaveDataCpu = [];
-                $scope.slaveDataMem = [];
-                $scope.slaveDataDisk = [];
-                for (var i = 0; i < slaveItems.length; i++) {
-                    $scope.slaveList.push(slaveItems[i].HostRoles.host_name);
-                    // Call draw function for slaves
-                    $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
-                }
+                    var slaveItems = mesosSlaveData.mesosSlave.data.host_components;
+                    $scope.slaveList = [];
+                    $scope.slaveData = [];
+                    $scope.slaveDataCpu = [];
+                    $scope.slaveDataMem = [];
+                    $scope.slaveDataDisk = [];
+                    for (var i = 0; i < slaveItems.length; i++) {
+                        $scope.slaveList.push(slaveItems[i].HostRoles.host_name);
+                        // Call draw function for slaves
+                        $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+                    }
 
-                if (DEBUG) {
-                    console.log("slaveList: " + $scope.slaveList);
-                }
-            });
+                    if (DEBUG) {
+                        console.log("slaveList: " + $scope.slaveList);
+                    }
+                });
+            }
         });
     }
 
@@ -684,3 +741,13 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
     }, 10000);
 
 });
+
+app.run(['$http', '$templateCache', function ($http, $templateCache) {
+    $templateCache.put('toast-template.html',
+        "<md-toast>\n" +
+        "<span flex>Custom toast!</span>\n" +
+        "<md-button ng-click=\"closeToast()\">\n" +
+        "Close\n" +
+        "</md-button>\n" +
+        "</md-toast>")
+}]);
