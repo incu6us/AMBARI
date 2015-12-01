@@ -654,7 +654,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
                     $scope.completedFrameworks = values.frameworksData.data.completed_frameworks;
                 }
 
-                console.log("$scope.frameworks -> " + JSON.stringify($scope.frameworks));
+                if (DEBUG) {
+                    console.log("$scope.frameworks -> " + JSON.stringify($scope.frameworks));
+                }
 
                 $scope.loading = false;
             })
@@ -670,12 +672,9 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q) {
             if (val.id == frameworkId) {
                 //console.log(JSON.stringify(val))
                 angular.forEach(val.tasks, function (valTasks, keyTasks) {
-                    //slave_id, framework_id, executor_id
-                   console.log("tasks - > "+valTasks.slave_id+" "+valTasks.framework_id+" "+valTasks.executor_id+" "+valTasks.name)
                     $scope.executorsInFrameworks.push(valTasks);
                 })
             }
-            console.log("$scope.tasksInFrameworks -> " + $scope.tasksInFrameworks)
         });
 
     }
