@@ -184,17 +184,17 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
     }
 
     $scope.setUpdatedMesosSlave = function (val) {
-        console.log("setUpdatedMesosSlave -> "+val)
-        if(val == true){
-            var frameworks =  document.querySelectorAll('li[id^="agentFrameworks-"] > div');
-            var executors =  document.querySelectorAll('li[id^="agentExecutors-"] > div');
+        console.log("setUpdatedMesosSlave -> " + val)
+        if (val == true) {
+            var frameworks = document.querySelectorAll('li[id^="agentFrameworks-"] > div');
+            var executors = document.querySelectorAll('li[id^="agentExecutors-"] > div');
 
-            Array.prototype.forEach.call( frameworks, function( node ) {
-                node.parentNode.removeChild( node );
+            Array.prototype.forEach.call(frameworks, function (node) {
+                node.parentNode.removeChild(node);
             });
 
-            Array.prototype.forEach.call( executors, function( node ) {
-                node.parentNode.removeChild( node );
+            Array.prototype.forEach.call(executors, function (node) {
+                node.parentNode.removeChild(node);
             });
 
         }
@@ -384,7 +384,6 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     var allData = values.state.data;
                     angular.forEach(allData.slaves, function (value, key) {
                         if (value.hostname == hostname) {
-                            $scope.loading = true;
                             //slave(1)@10.0.5.202:5051
                             var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
                             var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
@@ -410,7 +409,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     });
                     $scope.loading = false;
                 });
-            }catch (err){
+            } catch (err) {
                 $scope.loading = false;
             }
         } else {
@@ -435,7 +434,6 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     var allData = values.state.data;
                     angular.forEach(allData.slaves, function (value, key) {
                         if (value.hostname == hostname) {
-                            $scope.loading = true;
                             //slave(1)@10.0.5.202:5051
                             var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
                             var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
@@ -456,7 +454,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     });
                     $scope.loading = false;
                 });
-            }catch (err){
+            } catch (err) {
                 $scope.loading = false;
             }
         } else {
