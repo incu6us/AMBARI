@@ -184,6 +184,20 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
     }
 
     $scope.setUpdatedMesosSlave = function (val) {
+        console.log("setUpdatedMesosSlave -> "+val)
+        if(val == true){
+            var frameworks =  document.querySelectorAll('li[id^="agentFrameworks-"] > div');
+            var executors =  document.querySelectorAll('li[id^="agentExecutors-"] > div');
+
+            Array.prototype.forEach.call( frameworks, function( node ) {
+                node.parentNode.removeChild( node );
+            });
+
+            Array.prototype.forEach.call( executors, function( node ) {
+                node.parentNode.removeChild( node );
+            });
+
+        }
         $scope.updatedMesosSlave = val;
     }
 
@@ -360,38 +374,45 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
         if ($scope.activeMaster != null) {
 
+            $scope.loading = true;
             $scope.setUpdatedMesosSlave(false);
 
-            $q.all({
-                state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
-            }).then(function (values) {
-                var allData = values.state.data;
-                angular.forEach(allData.slaves, function (value, key) {
-                    if (value.hostname == hostname) {
-                        //slave(1)@10.0.5.202:5051
-                        var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
-                        var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
-                        var stateUrl = "http://" + host + "/" + prefix + "/state.json";
-                        console.log("stateUrl -> " + stateUrl)
-                        //$scope.detailsForTask = true;
-                        //$scope.taskLoading = true;
-                        $q.all({
-                            frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
-                        }).then(function (frameworkValues) {
-                            angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
-                                angular.forEach(framework.executors, function (executor, keyExecutor) {
-                                    executors = executors + "Name: " + executor.name + "<br>" +
-                                        "CPU: " + executor.resources.cpus.toFixed(2) + "<br>" +
-                                        "Mem: " + (executor.resources.mem / 1024).toFixed(2) + "<br>" +
-                                        "DISK: " + (executor.resources.disk / 1024).toFixed(2) + "<br><br>";
-                                });
-                            })
-                            document.getElementById('agentExecutors-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + executors + '</div>';
-                        });
+            try {
+                $q.all({
+                    state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                }).then(function (values) {
+                    var allData = values.state.data;
+                    angular.forEach(allData.slaves, function (value, key) {
+                        if (value.hostname == hostname) {
+                            $scope.loading = true;
+                            //slave(1)@10.0.5.202:5051
+                            var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                            var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+                            var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+                            console.log("stateUrl -> " + stateUrl)
+                            //$scope.detailsForTask = true;
+                            //$scope.taskLoading = true;
+                            $q.all({
+                                frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                            }).then(function (frameworkValues) {
+                                angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
+                                    angular.forEach(framework.executors, function (executor, keyExecutor) {
+                                        executors = executors + "Name: " + executor.name + "<br>" +
+                                            "CPU: " + executor.resources.cpus.toFixed(2) + "<br>" +
+                                            "Mem: " + (executor.resources.mem / 1024).toFixed(2) + "<br>" +
+                                            "DISK: " + (executor.resources.disk / 1024).toFixed(2) + "<br><br>";
+                                    });
+                                })
+                                document.getElementById('agentExecutors-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + executors + '</div>';
+                            });
 
-                    }
+                        }
+                    });
+                    $scope.loading = false;
                 });
-            });
+            }catch (err){
+                $scope.loading = false;
+            }
         } else {
             alert("Please wait for leading master...");
         }
@@ -399,43 +420,45 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
     // get info about frameworks
     $scope.showMetricFrameworksRunning = function (hostname) {
+
         var frameworks = '';
 
         if ($scope.activeMaster != null) {
 
-            $scope.setUpdatedMesosSlave(false);
+            try {
+                $scope.loading = true;
+                $scope.setUpdatedMesosSlave(false);
 
-            $q.all({
-                state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
-            }).then(function (values) {
-                var allData = values.state.data;
-                angular.forEach(allData.slaves, function (value, key) {
-                    if (value.hostname == hostname) {
-                        //slave(1)@10.0.5.202:5051
-                        var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
-                        var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
-                        var stateUrl = "http://" + host + "/" + prefix + "/state.json";
-                        console.log("stateUrl -> " + stateUrl)
-                        //$scope.detailsForTask = true;
-                        //$scope.taskLoading = true;
-                        $q.all({
-                            frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
-                        }).then(function (frameworkValues) {
-                            angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
-                                frameworks = frameworks + "Name: "+framework.name+"<br>";
-                                //angular.forEach(framework.executors, function (executor, keyExecutor) {
-                                //    executors = executors + "Name: " + executor.name + "<br>" +
-                                //        "CPU: " + executor.resources.cpus.toFixed(2) + "<br>" +
-                                //        "Mem: " + (executor.resources.mem / 1024).toFixed(2) + "<br>" +
-                                //        "DISK: " + (executor.resources.disk / 1024).toFixed(2) + "<br><br>";
-                                //});
-                            })
-                            document.getElementById('agentFrameworks-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + frameworks + '</div>';
-                        });
+                $q.all({
+                    state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                }).then(function (values) {
+                    var allData = values.state.data;
+                    angular.forEach(allData.slaves, function (value, key) {
+                        if (value.hostname == hostname) {
+                            $scope.loading = true;
+                            //slave(1)@10.0.5.202:5051
+                            var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                            var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+                            var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+                            console.log("stateUrl -> " + stateUrl)
+                            //$scope.detailsForTask = true;
+                            //$scope.taskLoading = true;
+                            $q.all({
+                                frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                            }).then(function (frameworkValues) {
+                                angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
+                                    frameworks = frameworks + "Name: " + framework.name + "<br>";
+                                })
+                                document.getElementById('agentFrameworks-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + frameworks + '</div>';
+                            });
 
-                    }
+                        }
+                    });
+                    $scope.loading = false;
                 });
-            });
+            }catch (err){
+                $scope.loading = false;
+            }
         } else {
             alert("Please wait for leading master...");
         }
