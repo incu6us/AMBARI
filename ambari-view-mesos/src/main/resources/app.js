@@ -19,7 +19,7 @@ var spinOpts = {
     zIndex: 2e9, // The z-index (defaults to 2000000000)
 };
 
-var app = angular.module('MesosMetricsApp', ['nvd3', 'ngMaterial', 'angularSpinner']).config(function ($mdThemingProvider) {
+var app = angular.module('MesosMetricsApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('green');
     //.accentPalette('green');
@@ -67,7 +67,7 @@ app.filter('toFixed', function () {
     }
 });
 
-app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdToast) {
+app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdDialog, $uibModal) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
     $scope.masterList = [];
@@ -91,6 +91,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdT
     $scope.clusterName = null;
 
     $scope.updatedMesosSlave = true;
+    $scope.executorsStat = [];
 
     $scope.frameworks = [];
     $scope.completedFrameworks = [];
@@ -352,8 +353,10 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdT
             })
     }
 
+
     // showMetricExecutorsRunning - get info about executors
     $scope.showMetricExecutorsRunning = function (hostname) {
+        var executors = '';
 
         if ($scope.activeMaster != null) {
 
@@ -363,33 +366,75 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdT
                 state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
             }).then(function (values) {
                 var allData = values.state.data;
-                var executors = '';
-                angular.forEach(allData.slaves, function (val, key) {
-                    if (val.hostname == hostname) {
-                        console.log("hostname")
-                        angular.forEach(allData.frameworks, function (frmwrks, keyFrmwrks) {
-                            angular.forEach(frmwrks.executors, function (exec, keyExec) {
-                                if (val.id == exec.slave_id) {
-                                    console.log("frameworks");
-                                    //alert(JSON.stringify(exec));
-                                    executors = executors + "Name: " + exec.name + "<br>" +
-                                        "CPU: " + exec.resources.cpus.toFixed(2) + "<br>" +
-                                        "Mem: " + exec.resources.mem / 1024 + "<br>" +
-                                        "DISK: " + exec.resources.disk / 1024 + "<br><br>";
-                                }
+                angular.forEach(allData.slaves, function (value, key) {
+                    if (value.hostname == hostname) {
+                        //slave(1)@10.0.5.202:5051
+                        var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                        var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+                        var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+                        console.log("stateUrl -> " + stateUrl)
+                        //$scope.detailsForTask = true;
+                        //$scope.taskLoading = true;
+                        $q.all({
+                            frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                        }).then(function (frameworkValues) {
+                            angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
+                                angular.forEach(framework.executors, function (executor, keyExecutor) {
+                                    executors = executors + "Name: " + executor.name + "<br>" +
+                                        "CPU: " + executor.resources.cpus.toFixed(2) + "<br>" +
+                                        "Mem: " + (executor.resources.mem / 1024).toFixed(2) + "<br>" +
+                                        "DISK: " + (executor.resources.disk / 1024).toFixed(2) + "<br><br>";
+                                });
                             })
+                            document.getElementById('agentExecutors-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + executors + '</div>';
                         });
+
                     }
                 });
-                //alert(executors);
-                document.getElementById('agentExecutors-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + executors + '</div>';
-                //$mdToast.show({
-                //    controller: 'MetricsController',
-                //    templateUrl: 'toast-template.html',
-                //    //parent : $document[0].querySelector('#toastBounds'),
-                //    hideDelay: 6000
-                //    //position: 'right'
-                //});
+            });
+        } else {
+            alert("Please wait for leading master...");
+        }
+    }
+
+    // get info about frameworks
+    $scope.showMetricFrameworksRunning = function (hostname) {
+        var frameworks = '';
+
+        if ($scope.activeMaster != null) {
+
+            $scope.setUpdatedMesosSlave(false);
+
+            $q.all({
+                state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+            }).then(function (values) {
+                var allData = values.state.data;
+                angular.forEach(allData.slaves, function (value, key) {
+                    if (value.hostname == hostname) {
+                        //slave(1)@10.0.5.202:5051
+                        var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
+                        var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
+                        var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+                        console.log("stateUrl -> " + stateUrl)
+                        //$scope.detailsForTask = true;
+                        //$scope.taskLoading = true;
+                        $q.all({
+                            frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                        }).then(function (frameworkValues) {
+                            angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
+                                frameworks = frameworks + "Name: "+framework.name+"<br>";
+                                //angular.forEach(framework.executors, function (executor, keyExecutor) {
+                                //    executors = executors + "Name: " + executor.name + "<br>" +
+                                //        "CPU: " + executor.resources.cpus.toFixed(2) + "<br>" +
+                                //        "Mem: " + (executor.resources.mem / 1024).toFixed(2) + "<br>" +
+                                //        "DISK: " + (executor.resources.disk / 1024).toFixed(2) + "<br><br>";
+                                //});
+                            })
+                            document.getElementById('agentFrameworks-' + hostname).innerHTML = '<div style="border: solid 1px #ccc; margin: 10px; padding: 10px;"><div style="text-align: right;"><i style="cursor: pointer;" class="glyphicon glyphicon-eye-close"></i></div>' + frameworks + '</div>';
+                        });
+
+                    }
+                });
             });
         } else {
             alert("Please wait for leading master...");
@@ -437,7 +482,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdT
             /*
              * Get mesos slave hosts
              */
-            if($scope.updatedMesosSlave) {
+            if ($scope.updatedMesosSlave) {
                 $q.all({
                     mesosSlave: $http.get('/api/v1/clusters/' + $scope.clusterName + '/services/MESOS/components/MESOS_SLAVE')
                 }).then(function (mesosSlaveData) {
@@ -742,12 +787,25 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdT
 
 });
 
+// $scope.executorsStat.push({name: exec.name, cpu: exec.resources.cpus.toFixed(2), mem: (exec.resources.mem / 1024), disk: (exec.resources.disk / 1024)})
 app.run(['$http', '$templateCache', function ($http, $templateCache) {
-    $templateCache.put('toast-template.html',
-        "<md-toast>\n" +
-        "<span flex>Custom toast!</span>\n" +
-        "<md-button ng-click=\"closeToast()\">\n" +
-        "Close\n" +
-        "</md-button>\n" +
-        "</md-toast>")
+    $templateCache.put('executors-template.html',
+        "<md-dialog ng-controller=\"MetricsController\" aria-label=\"Details\">\n" +
+        "<md-dialog-content>\n" +
+        "<center><md-toolbar><h3>Executors</h3></md-toolbar></center>\n" +
+        "<br>\n" +
+        "<div class=\"container\">\n" +
+        "<div ng-repeat=\"stat in executorsStat\">\n" +
+        "<label>Name:</label>{{stat.name}}\n" +
+        "<label>CPUs:</label>{{stat.cpu}}\n" +
+        "<label>Memory:</label>{{stat.mem}}\n" +
+        "<label>Disk</label>{{stat.disk}}\n" +
+        "<hr>\n" +
+        "</div>\n" +
+        "</div>\n" +
+        "<div class=\"md-actions\" layout=\"row\">\n" +
+        "<md-button class=\"md-primary\" ng-click=\"cancel()\"> Close </md-button>\n" +
+        "</div>\n" +
+        "</md-dialog-content>\n" +
+        "</md-dialog>\n");
 }]);

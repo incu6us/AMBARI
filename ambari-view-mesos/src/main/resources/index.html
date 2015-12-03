@@ -25,6 +25,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-spinner/0.8.0/angular-spinner.js"></script>
 
+    <script src="js/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="js/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
     <script type="text/javascript" src="app.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -195,11 +198,12 @@
                         <div class="col-md-6">
                             <ul class="list-unstyled">
                                 <li>Executors registering: {{ slave.metrics['slave/executors_registering']}}</li>
-                                <li>Executors running: <a href="#" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>
+                                <li>Executors running: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="auto-update disable until executors details shown" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>
                                 <li id="agentExecutors-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
                                 <li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>
                                 <li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>
-                                <li>Frameworks active: <a href="#">{{ slave.metrics['slave/frameworks_active']}}</a></li>
+                                <li>Frameworks active: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="auto-update disable until executors details shown" ng-click="showMetricFrameworksRunning(slave.id)">{{ slave.metrics['slave/frameworks_active']}}</a></li>
+                                <li id="agentFrameworks-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
                             </ul>
                         </div>
                     </div>
