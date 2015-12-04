@@ -203,8 +203,8 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
     // Get metrics for elected master host
     $scope.getMetricsForMaster = function (clusterName, masterHost) {
-        // http://128.107.34.126:8080/api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/metrics/snapshot
-        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
+        // http://128.107.34.126:8080/api/v1/views/MESOS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/metrics/snapshot
+        $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
             .success(function (data) {
                 //items = JSON.parse(data);
                 items = data;
@@ -309,7 +309,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
     // Get metrics for slave host
     $scope.getMetricsForSlave = function (slaveHost) {
-        $http.get('/api/v1/views/MESOSMETRICS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + slaveHost + ':5051/metrics/snapshot', {cache: true})
+        $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + slaveHost + ':5051/metrics/snapshot', {cache: true})
             .success(function (data) {
                 items = data;
 
@@ -379,7 +379,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
             try {
                 $q.all({
-                    state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                    state: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
                 }).then(function (values) {
                     var allData = values.state.data;
                     angular.forEach(allData.slaves, function (value, key) {
@@ -392,7 +392,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                             //$scope.detailsForTask = true;
                             //$scope.taskLoading = true;
                             $q.all({
-                                frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                                frameworks: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
                             }).then(function (frameworkValues) {
                                 angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
                                     angular.forEach(framework.executors, function (executor, keyExecutor) {
@@ -429,7 +429,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                 $scope.setUpdatedMesosSlave(false);
 
                 $q.all({
-                    state: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                    state: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
                 }).then(function (values) {
                     var allData = values.state.data;
                     angular.forEach(allData.slaves, function (value, key) {
@@ -442,7 +442,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                             //$scope.detailsForTask = true;
                             //$scope.taskLoading = true;
                             $q.all({
-                                frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                                frameworks: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
                             }).then(function (frameworkValues) {
                                 angular.forEach(frameworkValues.frameworks.data.frameworks, function (framework, keyFrameworks) {
                                     frameworks = frameworks + "Name: " + framework.name + "<br>";
@@ -536,7 +536,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
     function getSlaves() {
         if ($scope.frameworkTasksSlaves == undefined) {
             $q.all({
-                slaveData: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/slaves", {cache: true})
+                slaveData: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/slaves", {cache: true})
             }).then(function (vals) {
                 $scope.frameworkTasksSlaves = vals.slaveData.data;
             })
@@ -551,8 +551,8 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
             getSlaves();
             $scope.loading = true;
             $q.all({
-                ///api/v1/views/MESOSMETRICS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
-                executorsInfo: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                ///api/v1/views/MESOS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://ambari-master-01.cisco.com:5050/master/state.json
+                executorsInfo: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
             }).then(function (values) {
 
                 if (DEBUG) {
@@ -587,7 +587,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                 $scope.detailsForTask = true;
                 $scope.taskLoading = true;
                 $q.all({
-                    frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                    frameworks: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
                 }).then(function (values) {
                     angular.forEach(values.frameworks.data.frameworks, function (v, k) {
                         if (v.id == framework_id) {
@@ -642,7 +642,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
 
                 try {
                     $q.all({
-                        frameworks: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
+                        frameworks: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=" + stateUrl)
                     }).then(function (values) {
                         angular.forEach(values.frameworks.data.frameworks, function (v, k) {
                             if (v.id == framework_id) {
@@ -664,11 +664,11 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                                         //}
 
                                         if (DEBUG) {
-                                            console.log("Dir url -> /api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
+                                            console.log("Dir url -> /api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=" + v1.directory)
                                         }
 
-                                        $scope.executorUrl = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
-                                        $scope.executorUrlForDownloadFile = "/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + value.hostname + ":" + port + "/files/download.json?path=";
+                                        $scope.executorUrl = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + value.hostname + ":" + port + "/files/browse.json?path=";
+                                        $scope.executorUrlForDownloadFile = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + value.hostname + ":" + port + "/files/download.json?path=";
                                         $scope.executorDir = v1.directory;
                                         $scope.executorLastDir = $scope.executorDir;
                                         try {
@@ -764,7 +764,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
             getSlaves();
 
             $q.all({
-                frameworksData: $http.get("/api/v1/views/MESOSMETRICS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
+                frameworksData: $http.get("/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + $scope.activeMaster + ":5050/master/state.json")
             }).then(function (values) {
 
                 if (DEBUG) {
