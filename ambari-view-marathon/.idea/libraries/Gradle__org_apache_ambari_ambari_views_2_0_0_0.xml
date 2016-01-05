@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.apache.ambari:ambari-views:2.0.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ambari/ambari-views/2.0.0.0/b69d550fe6936910ab4ee5d15a73ec8e68df16d8/ambari-views-2.0.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.apache.ambari/ambari-views/2.0.0.0/4a67102702ff271b4dcf212dffcdad954f07ec25/ambari-views-2.0.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
