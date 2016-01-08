@@ -1,4 +1,4 @@
-var VERSION = "0.1.0";
+var VERSION = '0.1.0';
 var DEBUG = false;
 
 
@@ -19,25 +19,22 @@ var spinOpts = {
     zIndex: 2e9, // The z-index (defaults to 2000000000)
 };
 
-var app = angular.module('MarathonApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
-    $mdThemingProvider.theme('default')
-        .primaryPalette('green');
-    //.accentPalette('green');
-    //.dark();
-});
+var app = angular.module('MarathonApp', ['ngMaterial', 'ngResource']);
 
-app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
-    usSpinnerConfigProvider.setDefaults(spinOpts);
-}]);
+app.config(function($mdThemingProvider) {
+$mdThemingProvider.theme('default')
+    .primaryPalette('green')
+    .accentPalette('light-green');
+  });
 
-app.filter('toGb', function () {
-    return function (input) {
-        return (input / 1024).toFixed(2);
-    }
-});
+// var app = angular.module('MarathonApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
+//     $mdThemingProvider.theme('default')
+//         .primaryPalette('green');
+//     //.accentPalette('green');
+//     //.dark();
+// });
 
-app.controller('MarathonController', function ($scope, $http, $interval, $q, $mdDialog, $uibModal) {
-      
 
-});
-
+// app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
+//     usSpinnerConfigProvider.setDefaults(spinOpts);
+// }]);
