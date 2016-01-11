@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MarathonApp">
+
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Title</title>
+    <link rel="stylesheet" href="app.css">
+
+</head>
+
+<body>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span><a href="#">Marathon view for Ambari</a></span>
+          <!-- fill up the space between left and right area -->
+          <span flex></span>
+          <md-button class="md-primary md-hue-2 md-raised" href="#">
+            Apps
+          </md-button>
+          <md-button class="md-primary md-hue-2 md-raised" href="#">
+            Deployments
+          </md-button>      
+        </div>
+    </md-toolbar>
+
+    <md-content layout-padding>
+        <div class="container">
+            <div ng-controller="getHostNameController">
+                <p>Host name is:</p>
+                {{hostName}}
+            </div> 
+
+            <app-table></app-table>
+<!--     
+    <div class="container" ng-controller="MarathonController">
+
+    </div>
+-->
+        </div>
+    </md-content>
+
+    <script type="text/javascript" src="js/vendor.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>

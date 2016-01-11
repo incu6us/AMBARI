@@ -21,11 +21,17 @@ var spinOpts = {
 
 var app = angular.module('MarathonApp', ['ngMaterial', 'ngResource']);
 
-app.config(function($mdThemingProvider) {
-$mdThemingProvider.theme('default')
-    .primaryPalette('green')
-    .accentPalette('light-green');
-  });
+app.config(['$mdThemingProvider', function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+        .primaryPalette('blue', {
+            'hue-2': '700'
+        })
+        .accentPalette('light-blue')
+        .warnPalette('red')
+        .backgroundPalette('blue', {
+            'default': '50'
+        });
+}]);
 
 // var app = angular.module('MarathonApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
 //     $mdThemingProvider.theme('default')
