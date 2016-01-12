@@ -1,11 +1,22 @@
 (function () {
 	'use strict';
 
-  	app.factory('getDataForAppsTableFactory', ['$resource', function($resource) {
-        return function (hostName) {
-        	return $resource('http://128.107.17.60:8080/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps');
-        };
-    }]);
-}());
+  	angular
+  		.module('MarathonApp')
+  		.factory('getDataForAppsTableFactory', getDataForAppsTableFactory);
 
-// http://nikke1.github.io/dataFull.json
+      getDataForAppsTableFactory.$inject = ['$http'];
+
+      function getDataForAppsTableFactory ($http) {
+          return function (hostName) {
+            return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps')    
+        		    .then(function successCallback(response) {
+                        return response.data;
+                    }, function errorCallbacj(err) {
+                        console.log(err);
+                        return err;
+                    });
+	        };
+   		};
+   		
+}());

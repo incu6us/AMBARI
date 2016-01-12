@@ -1,17 +1,19 @@
 <md-content>
-  <div class="data-table">
+  <div class="data-table" ng-controller="AppsTableCtrl as appsTable">
     <!-- TABLE -->
       <table>
         <tr>
           <th> ID </th>
-          <th> Memory(Mb) </th>
+          <th> Memory (MB) </th>
           <th> CPUs </th>
+          <th> Tasks / Instances </th>
           <th> Disk </th>
         </tr>
-        <tr ng-repeat="data in dataTable.apps"> 
+        <tr ng-repeat="data in appsTable.dataTable.apps"> 
           <td class="border-left"> {{data.id}} </td>
           <td> {{data.mem}} </td>
           <td> {{data.cpus}} </td>
+          <td> {{data.tasksRunning}} / {{data.instances}} </td>
           <td class="border-right"> {{data.disk}} </td>
         </tr>
       </table>
