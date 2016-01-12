@@ -3,20 +3,21 @@
 
     angular
     	.module('MarathonApp')
-    	.controller('appsTableController', ['$scope', '$timeout', '$q', 'getDataForAppsTableFactory', 'getHostNameFactory', function ($scope, $timeout, $q, getDataForAppsTableFactory, getHostNameFactory) {
+    	.controller('appsTableController', ['$timeout', '$q', 'getDataForAppsTableFactory', 'getHostNameFactory', function ($timeout, $q, getDataForAppsTableFactory, getHostNameFactory) {
+	        var vm = this;
 	        
-	        $scope.hostName = '';
-	        $scope.dataTable = [];
+	        vm.hostName = '';
+	        vm.dataTable = [];
 
-	        function tick() {
-	            $q.all([ getDataForAppsTableFactory($scope.hostName) ]).then(function(values){
-	                $scope.dataTable = values[0];
+	        var tick = function () {
+	            $q.all([ getDataForAppsTableFactory(vm.hostName) ]).then(function(values){
+	                vm.dataTable = values[0];
 	                $timeout(tick, 10*1000);
 	            });
 	        }
 
 	        $q.all([ getHostNameFactory ]).then(function(values){
-		        $scope.hostName = values[0];
+		        vm.hostName = values[0];
 		        tick();
 		    });
 

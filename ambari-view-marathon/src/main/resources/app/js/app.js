@@ -23,7 +23,7 @@
     };
 
     angular
-        .module('MarathonApp', ['ngMaterial', 'ngResource'])
+        .module('MarathonApp', ['ngMaterial'])
         .config(['$mdThemingProvider', function($mdThemingProvider) {
             
             $mdThemingProvider.theme('default')

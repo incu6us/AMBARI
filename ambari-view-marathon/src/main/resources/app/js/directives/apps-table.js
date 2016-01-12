@@ -6,8 +6,7 @@
 		.directive('appTable', function () {
 			return {
 				restrict: 'E',
-				templateUrl: 'partials/apps-table.tpl.html',
-				controller: 'appsTableController'
+				templateUrl: 'partials/apps-table.tpl.html'
 			};
 		});
 		
