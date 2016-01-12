@@ -19,7 +19,7 @@ var spinOpts = {
     zIndex: 2e9, // The z-index (defaults to 2000000000)
 };
 
-var app = angular.module('MesosMetricsApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
+var app = angular.module('MesosMetricsApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap', 'ngVis']).config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('green');
     //.accentPalette('green');
@@ -67,7 +67,7 @@ app.filter('toFixed', function () {
     }
 });
 
-app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdDialog, $uibModal) {
+app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdDialog, $uibModal, $VisDataSet) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
     $scope.masterList = [];
@@ -365,6 +365,8 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
             .error(function (data) {
                 console.log('Error: ' + JSON.stringify(data));
             })
+
+
     }
 
 
@@ -514,11 +516,41 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     $scope.slaveDataCpu = [];
                     $scope.slaveDataMem = [];
                     $scope.slaveDataDisk = [];
+
+                    // Network map drawing
+                    $scope.nodes = new $VisDataSet.DataSet();
+                    $scope.edges = new vis.DataSet();
+                    $scope.network_data = {
+                        nodes: $scope.nodes,
+                        edges: $scope.edges
+                    };
+                    $scope.network_options = {
+                        hierarchicalLayout: {
+                            direction: "UD"
+                        }
+
+                    };
+
+                    var nodesId = 1;
+                    // Adding master to nodes map
+                    $scope.nodes.add([
+                        {id: nodesId, label: $scope.activeMaster},
+                    ]);
+
                     for (var i = 0; i < slaveItems.length; i++) {
                         $scope.slaveList.push(slaveItems[i].HostRoles.host_name);
                         // Call draw function for slaves
                         $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+
+                        $scope.nodes.add([
+                            {id: ++nodesId, label: slaveItems[i].HostRoles.host_name}
+                        ]);
                     }
+
+                    $scope.edges.add([
+                        {id: 1, from: 1, to: 2},
+                        {id: 2, from: 3, to: 2}
+                    ]);
 
                     if (DEBUG) {
                         console.log("slaveList: " + $scope.slaveList);
