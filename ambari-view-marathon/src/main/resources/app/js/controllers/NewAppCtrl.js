@@ -3,11 +3,11 @@
 
   angular
   	.module('MarathonApp')
-  	.controller('newAppController', newAppController);
+  	.controller('NewAppCtrl', NewAppCtrl);
 
-  	newAppController.$inject = [$scope, $mdDialog, $mdMedia, ctrlButtonsController];
+  	NewAppCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia', 'ControlButtonsCtrl'];
 
-  	function newAppController ($scope, $mdDialog, $mdMedia, ctrlButtonsController) {
+  	function NewAppCtrl ($scope, $mdDialog, $mdMedia, ControlButtonsCtrl) {
 	    $scope.status = '  ';
 	    $scope.cancel = function() {
 	        $mdDialog.cancel();

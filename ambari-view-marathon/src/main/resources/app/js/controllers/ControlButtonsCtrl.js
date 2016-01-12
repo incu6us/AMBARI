@@ -1,11 +1,11 @@
 (function () {
 	angular
 		.module('MarathonApp')
-		.controller('ctrlButtonsController', ctrlButtonsController);
+		.controller('ControlButtonsCtrl', ControlButtonsCtrl);
 
-		ctrlButtonsController.$inject = ['$scope', '$mdDialog', '$mdMedia'];
+		ControlButtonsCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia'];
 
-		function ctrlButtonsController ($scope, $mdDialog, $mdMedia) {
+		function ControlButtonsCtrl ($scope, $mdDialog, $mdMedia) {
 		    $scope.status = '  ';
 
 		    $scope.newAppModal = function(ev) {
