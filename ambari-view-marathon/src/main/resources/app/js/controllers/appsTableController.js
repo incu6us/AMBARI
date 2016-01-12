@@ -3,7 +3,11 @@
 
     angular
     	.module('MarathonApp')
-    	.controller('appsTableController', ['$timeout', '$q', 'getDataForAppsTableFactory', 'getHostNameFactory', function ($timeout, $q, getDataForAppsTableFactory, getHostNameFactory) {
+    	.controller('appsTableController', appsTableController); 
+	        
+    	appsTableController.$inject = ['$timeout', '$q', 'getDataForAppsTableFactory', 'getHostNameFactory']
+	    
+    	function appsTableController ($timeout, $q, getDataForAppsTableFactory, getHostNameFactory) {
 	        var vm = this;
 	        
 	        vm.hostName = '';
@@ -21,5 +25,5 @@
 		        tick();
 		    });
 
-    	}]);
+    	};
 }());

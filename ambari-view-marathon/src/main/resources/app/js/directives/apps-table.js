@@ -3,11 +3,13 @@
 
 	angular
 		.module('MarathonApp')
-		.directive('appTable', function () {
+		.directive('appTable', appTable);
+
+		function appTable() {
 			return {
 				restrict: 'E',
 				templateUrl: 'partials/apps-table.tpl.html'
 			};
-		});
+		};
 		
 }());

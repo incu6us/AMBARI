@@ -3,7 +3,11 @@
 
     angular
         .module('MarathonApp')
-        .factory('getHostNameFactory', ['$http', function ($http) {
+        .factory('getHostNameFactory', getHostNameFactory);
+
+        getHostNameFactory.$inject = ['$http'];
+
+        function getHostNameFactory ($http) {
             return $http.get('/api/v1/clusters')
                 .then(function successCallback(response) {
                     var clusterName = response.data.items[0].Clusters.cluster_name;
@@ -21,6 +25,6 @@
                     console.log(err);
                     return err;
                 }); 
-        }]);
+        };
 
 }());
