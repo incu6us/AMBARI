@@ -9,7 +9,8 @@
 	        $scope.dataTable = [];
 
 	        function tick() {
-	            $scope.dataTable = getDataForAppsTableFactory($scope.hostName).get(function(){
+	            $q.all([ getDataForAppsTableFactory($scope.hostName) ]).then(function(values){
+	                $scope.dataTable = values[0];
 	                $timeout(tick, 10*1000);
 	            });
 	        }
