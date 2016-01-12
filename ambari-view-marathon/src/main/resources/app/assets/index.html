@@ -13,31 +13,34 @@
     <md-toolbar>
         <div class="md-toolbar-tools">
           <span><a href="#">Marathon view for Ambari</a></span>
-          <!-- fill up the space between left and right area -->
-          <span flex></span>
+          
+
           <md-button class="md-primary md-hue-2 md-raised" href="#">
             Apps
           </md-button>
+
           <md-button class="md-primary md-hue-2 md-raised" href="#">
             Deployments
-          </md-button>      
+          </md-button>
+
+          <!-- fill up the space between left and right area -->
+          <span flex></span>
+          <md-button class="md-primary md-hue-2 md-raised" href="#">
+            + New App
+          </md-button>   
+
         </div>
     </md-toolbar>
 
     <md-content layout-padding>
-        <div class="container">
-            <div ng-controller="getHostNameController">
-                <p>Host name is:</p>
-                {{hostName}}
-            </div> 
-
-            <app-table></app-table>
+      <div class="container">
+        <app-table></app-table>
 <!--     
     <div class="container" ng-controller="MarathonController">
 
     </div>
 -->
-        </div>
+      </div>
     </md-content>
 
     <script type="text/javascript" src="js/vendor.js"></script>
