@@ -21,6 +21,69 @@
 	        alert('go johnny go');
 	        $mdDialog.cancel();
 	    };
+	    vm.portMappings = [
+            {
+                "Selection": "",
+                "Text": ""
+                }
+            ];
+
+        vm.addPortMappings = function() {
+            var itemToClone = { "Selection": "", "Text": "" };
+            vm.portMappings.push(itemToClone);
+        }
+
+        vm.removePortMappings = function(itemIndex) {
+            vm.portMappings.splice(itemIndex, 1);
+        }
+
+        vm.dockerParameters = [
+                    {
+                        "Selection": "",
+                        "Text": ""
+                        }
+                    ];
+
+        vm.addDockerParameter = function() {
+                var itemToClone = { "Selection": "", "Text": "" };
+                vm.dockerParameters.push(itemToClone);
+        }
+
+        vm.removeDockerParameter = function(itemIndex) {
+                    vm.dockerParameters.splice(itemIndex, 1);
+                }
 	};
+
+	vm.dockerVolumes = [
+                        {
+                            "Selection": "",
+                            "Text": ""
+                            }
+                        ];
+
+    vm.addDockerVolume = function() {
+        var itemToClone = { "Selection": "", "Text": "" };
+        vm.dockerVolumes.push(itemToClone);
+    }
+
+    vm.removeDockerVolume = function(itemIndex) {
+        vm.dockerVolumes.splice(itemIndex, 1);
+    }
+
+    vm.newappEnv = [
+                                        {
+                                            "Selection": "",
+                                            "Text": ""
+                                            }
+                                        ];
+
+        vm.addNewAppEnv = function() {
+            var itemToClone = { "Selection": "", "Text": "" };
+            vm.newappEnv.push(itemToClone);
+        }
+
+        vm.removeNewAppEnv = function(itemIndex) {
+            vm.newappEnv.splice(itemIndex, 1);
+        }
 
 }());
