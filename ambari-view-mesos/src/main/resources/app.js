@@ -67,7 +67,7 @@ app.filter('toFixed', function () {
     }
 });
 
-app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdDialog, $uibModal, $VisDataSet) {
+app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdDialog', '$uibModal', 'VisDataSet', function ($scope, $http, $interval, $q, $mdDialog, $uibModal, VisDataSet) {
     $scope.dataSelector = 'metrics';
     $scope.errors = null;
     $scope.masterList = [];
@@ -111,6 +111,24 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
     $scope.executorDir = null;
     $scope.executorLastDir = null;
 
+    // Network Map variables
+    $scope.nodes;
+    $scope.edges;
+    $scope.network_data;
+    $scope.events = {};
+
+    $scope.events.click = function (data) {
+        console.log.apply(console, arguments);
+        alert(JSON.stringify(data))
+    };
+
+    $scope.options = {
+        autoResize: true,
+        height: '800',
+        width: '100%'
+    };
+
+    //
     $scope.d3Config = {
         extended: true,
         autorefresh: true,
@@ -200,7 +218,6 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
         }
         $scope.updatedMesosSlave = val;
     }
-
 
     // Get metrics for elected master host
     $scope.getMetricsForMaster = function (clusterName, masterHost) {
@@ -519,39 +536,64 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
                     $scope.slaveDataDisk = [];
 
                     // Network map drawing
-                    $scope.nodes = new $VisDataSet.DataSet();
-                    $scope.edges = new vis.DataSet();
-                    $scope.network_data = {
-                        nodes: $scope.nodes,
-                        edges: $scope.edges
-                    };
-                    $scope.network_options = {
-                        hierarchicalLayout: {
-                            direction: "UD"
-                        }
+                    var tmpNodeArr = [];
+                    var tmpEdgeArr = [];
 
-                    };
+                    var nodesIdCounter = 1;
 
-                    var nodesId = 1;
-                    // Adding master to nodes map
-                    $scope.nodes.add([
-                        {id: nodesId, label: $scope.activeMaster},
-                    ]);
+                    var notUsedMasterHosts;
 
+                    edgeIdCounter = 1;
                     for (var i = 0; i < slaveItems.length; i++) {
                         $scope.slaveList.push(slaveItems[i].HostRoles.host_name);
                         // Call draw function for slaves
                         $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
 
-                        $scope.nodes.add([
-                            {id: ++nodesId, label: slaveItems[i].HostRoles.host_name}
-                        ]);
+                        // draw map canvas with relations for hosts
+                        if($scope.activeMaster != null || $scope.activeMaster != undefined) {
+                            if (slaveItems[i].HostRoles.host_name == $scope.activeMaster) {
+                                tmpNodeArr.push(
+                                        {id: 1, label: $scope.activeMaster, "size":6, "color":"#93D276", "shape":"circle"}
+                                    );
+                            } else if (slaveItems[i].HostRoles.host_name != $scope.activeMaster && slaveItems[i].HostRoles.host_name.indexOf("master") > -1) {
+                                tmpNodeArr.push(
+                                    {
+                                        id: ++nodesIdCounter,
+                                        label: slaveItems[i].HostRoles.host_name,
+                                        "size": 7,
+                                        "color": "#cccccc",
+                                        "shape": "circle"
+                                    }
+                                );
+                                notUsedMasterHosts = nodesIdCounter
+                            } else {
+                                tmpNodeArr.push(
+                                    {
+                                        id: ++nodesIdCounter,
+                                        label: slaveItems[i].HostRoles.host_name,
+                                        "size": 5,
+                                        "color": "#b3b3ff",
+                                        "shape": "square"
+                                    }
+                                );
+                            }
+                        }
+                        if(notUsedMasterHosts != nodesIdCounter){
+                            tmpEdgeArr.push(
+                                {id: edgeIdCounter++, from: 1, to: nodesIdCounter}
+                            );
+                        }
                     }
 
-                    $scope.edges.add([
-                        {id: 1, from: 1, to: 2},
-                        {id: 2, from: 3, to: 2}
-                    ]);
+                    if($scope.nodes == undefined || $scope.edges == undefined || $scope.nodes.length != tmpNodeArr.length || $scope.edges.length != tmpEdgeArr.length){
+                        $scope.nodes = tmpNodeArr;
+                        $scope.edges = tmpEdgeArr;
+
+                        $scope.network_data = {
+                            nodes: $scope.nodes,
+                            edges: $scope.edges
+                        };
+                    }
 
                     if (DEBUG) {
                         console.log("slaveList: " + $scope.slaveList);
@@ -839,7 +881,7 @@ app.controller('MetricsController', function ($scope, $http, $interval, $q, $mdD
         $scope.callAtInterval();
     }, 10000);
 
-});
+}]);
 
 // $scope.executorsStat.push({name: exec.name, cpu: exec.resources.cpus.toFixed(2), mem: (exec.resources.mem / 1024), disk: (exec.resources.disk / 1024)})
 app.run(['$http', '$templateCache', function ($http, $templateCache) {
