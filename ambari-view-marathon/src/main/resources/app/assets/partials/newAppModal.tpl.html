@@ -1,4 +1,4 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="New Application" ng-controller="NewAppCtrl as newapp">
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -9,38 +9,198 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <md-dialog-content style="max-width:800px;max-height:810px;width: 650px;">
             <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="one">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Application Info</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                <md-tab label="Application Info">
+                    <md-content class="md-padding" layout-padding>
+                        <div>
+                            <div layout-gt-xs="row">
+                                <md-input-container md-no-float class="md-block" style="width:100%">
+                                    <label>ID</label>
+                                    <input>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-xs="row">
+                                <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
+                                    <label>CPUs</label>
+                                    <input>
+                                </md-input-container>
+                                <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
+                                    <label>Memory (MB)</label>
+                                    <input>
+                                </md-input-container>
+                                <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
+                                    <label>Disk Space (MB)</label>
+                                    <input>
+                                </md-input-container>
+                                <md-input-container md-no-float class="md-block" style="width:25%;padding-right: 15px;margin-top: 0;">
+                                    <label>Instances</label>
+                                    <input>
+                                </md-input-container>
+                            </div>
+                            <div layout-gt-xs="row">
+                                <md-input-container flex-gt-sm class="md-block" style="width:100%;margin-top: 0;">
+                                    <label>Command</label>
+                                    <textarea columns="1" rows="2"></textarea>
+                                    <div class="hint" style="color: #8e929b;font-size: 14px;">May be left blank if a container image is supplied</div>
+                                </md-input-container>
+                            </div>
+                        </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="two">
+                <md-tab label="Docker settings">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Docker settings</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
-                        <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <div layout-gt-sm="row">
+                            <md-input-container flex-gt-sm class="md-block" style="width:48%;padding-right: 15px">
+                                <label>Image</label>
+                                <input>
+                            </md-input-container>
+                            <md-input-container flex-gt-sm class="md-block" style="width:48%;padding-right: 15px">
+                                <label>Network</label>
+                                <md-select ng-model="docker_network">
+                                    <md-option ng-repeat="network in docker_networks" ng-value="network" value="{{network.netid}}">
+                                        {{network.value}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-sm="row">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Privileges</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="100">
+                                        <md-checkbox>
+                                            <code>Extend runtime privileges to this container</code>
+                                        </md-checkbox>
+                                        <div class="hint" style="color: #8e929b;font-size: 14px;">Select to give this container access to all devices on the host</div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div layout-gt-sm="row" style="margin-top: 15px;">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Port Mappings</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Container Port</label>
+                                            <input type="number" step="1" min="0" max="65535">
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Host Port</label>
+                                            <input type="number" step="1" min="0" max="65535">
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="5">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Service Port</label>
+                                            <input type="number" step="1" min="0" max="65535">
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="5">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Protocol</label>
+                                            <md-select ng-model="docker_network_protocol">
+                                                <md-option ng-repeat="protocol in docker_protocols" ng-value="protocol" value="{{protocol.netid}}">
+                                                    {{protocol.value}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
+                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div layout-gt-sm="row" style="margin-top: 15px;">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Parameters</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="15">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Key</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div style="margin-top: 30px;margin-left: 5px;margin-right: 5px;">:</div>
+                                    <div flex-xs flex="15">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Value</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
+                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div layout-gt-sm="row" style="margin-top: 15px;">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Volumes</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Container Path</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Host Path</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="5">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Mode</label>
+                                            <md-select ng-model="docker_volume_mode">
+                                                <md-option ng-repeat="mode in docker_volume_modes" ng-value="mode" value="{{mode.netid}}">
+                                                    {{mode.value}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
+                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </md-content>
                 </md-tab>
-                <md-tab label="three">
+                <md-tab label="Environment">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Environment</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <p>TEST</p>
                     </md-content>
                 </md-tab>
-                <md-tab label="four">
+                <md-tab label="Optional">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Environment</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-                    </md-content>
-                </md-tab>
-                <md-tab label="five">
-                    <md-content class="md-padding">
-                        <h1 class="md-display-2">Environment</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <p>TEST</p>
                     </md-content>
                 </md-tab>
             </md-tabs>

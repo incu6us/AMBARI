@@ -11,7 +11,7 @@
 
 <body>
     <md-toolbar>
-        <div class="md-toolbar-tools" ng-controller="ControlButtonsCtrl">
+        <div class="md-toolbar-tools" ng-controller="ControlButtonsCtrl as ctrlbtns">
           <span><a href="#">Marathon view for Ambari</a></span>
 
           <md-button class="md-primary md-hue-2 md-raised" href="#">
@@ -24,7 +24,7 @@
 
           <!-- fill up the space between left and right area -->
           <span flex></span>
-          <md-button class="md-primary md-hue-2 md-raised" href="#" ng-click="newAppModal($event)">
+          <md-button class="md-primary md-hue-2 md-raised" ng-click="newAppModal($event)">
             + New App
           </md-button>   
 

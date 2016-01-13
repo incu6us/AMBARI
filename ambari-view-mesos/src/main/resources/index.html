@@ -28,6 +28,10 @@
     <script src="js/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="js/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
+    <link rel="stylesheet" href="js/vis/dist/vis.css">
+    <script src="js/vis/dist/vis.js"></script>
+    <script src="js/angular-visjs/angular-vis.js"></script>
+
     <script type="text/javascript" src="app.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -149,6 +153,16 @@
                         <td width="600px"></td>
                     </tr>
                 </table>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Network map</div>
+            <div class="panel-body">
+
+                <vis-network ng-model="network_data" options="network_options" on-select="onNodeSelect" id="previewNetwork">
+                </vis-network>
+
             </div>
         </div>
 
