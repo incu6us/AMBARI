@@ -13,17 +13,19 @@
 	        vm.hostName = '';
 	        vm.appsList = [];
 
-			HostNameFactory.get()
-				.then( function(response) {
-			        vm.hostName = response.data.host_components[0].HostRoles.host_name;
-			        tick();
-			    });
+	        HostNameFactory.get()
+        		.then( function(response) {
+        			vm.hostName = response;
+        			getAppsList();
+        		});
+	        
+	        ///////////////////
 
-	        var tick = function () {
+	        function getAppsList () {
 	            DataForAppsTableFactory.get(vm.hostName)
 	            	.then( function(response) {
-		                vm.appsList = response.data.apps;
-		                $timeout(tick, 10*1000);
+		                vm.appsList = response;
+		                $timeout(getAppsList, 10*1000);
 		            });	
 	        };
     	};
