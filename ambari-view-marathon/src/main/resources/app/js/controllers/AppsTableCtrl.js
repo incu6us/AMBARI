@@ -11,19 +11,20 @@
 	        var vm = this;
 	        
 	        vm.hostName = '';
-	        vm.dataTable = [];
+	        vm.appsList = [];
+
+			$q.all([ getHostNameFactory ])
+				.then( function(values) {
+			        vm.hostName = values[0];
+			        tick();
+			    });
 
 	        var tick = function () {
-	            $q.all([ getDataForAppsTableFactory(vm.hostName) ]).then(function(values){
-	                vm.dataTable = values[0];
-	                $timeout(tick, 10*1000);
-	            });
-	        }
-
-	        $q.all([ getHostNameFactory ]).then(function(values){
-		        vm.hostName = values[0];
-		        tick();
-		    });
-
+	            $q.all([ getDataForAppsTableFactory(vm.hostName) ])
+		            .then( function(values) {
+		                vm.appsList = values[0].data.apps;
+		                $timeout(tick, 10*1000);
+		            });	
+	        };
     	};
 }());

@@ -1,5 +1,5 @@
 <md-content>
-  <div class="data-table" ng-controller="AppsTableCtrl as appsTable">
+  <div class="data-table">
     <!-- TABLE -->
       <table>
         <tr>
@@ -9,7 +9,7 @@
           <th> Tasks / Instances </th>
           <th> Disk </th>
         </tr>
-        <tr ng-repeat="data in appsTable.dataTable.apps"> 
+        <tr ng-repeat="data in appsTable.appsList"> 
           <td class="border-left"> {{data.id}} </td>
           <td> {{data.mem}} </td>
           <td> {{data.cpus}} </td>

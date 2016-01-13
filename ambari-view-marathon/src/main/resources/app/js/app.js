@@ -24,8 +24,12 @@
 
     angular
         .module('MarathonApp', ['ngMaterial'])
-        .config(['$mdThemingProvider', function($mdThemingProvider) {
-            
+        .config(themeConfig);
+
+        themeConfig.$inject = ['$mdThemingProvider'];
+
+        function themeConfig ($mdThemingProvider) {
+
             $mdThemingProvider.theme('default')
                 .primaryPalette('green', {
                     'default': '600'
@@ -35,18 +39,7 @@
                 .backgroundPalette('green', {
                     'default': '50'
                 });
-        }]);
-
-
-
-
-    // var app = angular.module('MarathonApp', ['nvd3', 'ngMaterial', 'angularSpinner', 'ui.bootstrap']).config(function ($mdThemingProvider) {
-    //     $mdThemingProvider.theme('default')
-    //         .primaryPalette('green');
-    //     //.accentPalette('green');
-    //     //.dark();
-    // });
-
+        };
 
     // app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
     //     usSpinnerConfigProvider.setDefaults(spinOpts);
