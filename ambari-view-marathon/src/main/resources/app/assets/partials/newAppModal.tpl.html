@@ -1,10 +1,10 @@
 <md-dialog aria-label="New Application" ng-controller="NewAppCtrl as newapp">
-    <form>
+    <form name="createNewApp">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>New Application</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
+                <md-button class="md-icon-button" ng-click="newapp.cancel()">
                     <md-icon md-svg-src="icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
@@ -16,32 +16,32 @@
                         <div>
                             <div layout-gt-xs="row">
                                 <md-input-container md-no-float class="md-block" style="width:100%">
-                                    <label>ID</label>
-                                    <input>
+                                    <label md-autofocus>ID</label>
+                                    <input ng-model="newapp.newapp.id" ng-required="true">
                                 </md-input-container>
                             </div>
                             <div layout-gt-xs="row">
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>CPUs</label>
-                                    <input value="0.1">
+                                    <input ng-init="newapp.newapp.cpus = 0.1" type="number" step="any" min="0" ng-model="newapp.newapp.cpus">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>Memory (MB)</label>
-                                    <input value="16">
+                                    <input ng-init="newapp.newapp.mem = 16" type="number" step="any" min="0" ng-model="newapp.newapp.mem">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>Disk Space (MB)</label>
-                                    <input value="0">
+                                    <input ng-init="newapp.newapp.disk = 0" type="number" step="any" min="0" ng-model="newapp.newapp.disk">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:25%;padding-right: 15px;margin-top: 0;">
                                     <label>Instances</label>
-                                    <input value="1">
+                                    <input ng-init="newapp.newapp.instances = 1" type="number" step="1" min="1" ng-model="newapp.newapp.instances">
                                 </md-input-container>
                             </div>
                             <div layout-gt-xs="row">
                                 <md-input-container flex-gt-sm class="md-block" style="width:100%;margin-top: 0;">
                                     <label>Command</label>
-                                    <textarea columns="1" rows="2"></textarea>
+                                    <textarea columns="1" rows="2" ng-model="newapp.newapp.cmd"></textarea>
                                     <div class="hint" style="color: #8e929b;font-size: 14px;">May be left blank if a container image is supplied</div>
                                 </md-input-container>
                             </div>
@@ -53,12 +53,13 @@
                         <div layout-gt-sm="row">
                             <md-input-container flex-gt-sm class="md-block" style="width:48%;padding-right: 15px">
                                 <label>Image</label>
-                                <input>
+                                <input ng-model="newapp.newapp.container.docker.image">
                             </md-input-container>
+                            <input type="hidden" ng-model="newapp.newapp.container.type" ng-init="newapp.newapp.container.type = 'DOCKER'" ng-if="newapp.newapp.container.docker.image">
                             <md-input-container flex-gt-sm class="md-block" style="width:48%;padding-right: 15px">
                                 <label>Network</label>
-                                <md-select ng-model="docker_network">
-                                    <md-option ng-repeat="network in newapp.docker_networks" ng-value="network" value="{{network.netid}}">
+                                <md-select ng-model="newapp.newapp.container.docker.network">
+                                    <md-option ng-repeat="network in newapp.docker_networks" value="{{network.netid}}">
                                         {{network.value}}
                                     </md-option>
                                 </md-select>
@@ -69,7 +70,7 @@
                                 <legend>Privileges</legend>
                                 <div layout="column" layout-wrap layout-gt-sm="row" >
                                     <div flex-xs flex="100">
-                                        <md-checkbox>
+                                        <md-checkbox ng-model="newapp.newapp.container.docker.privileged">
                                             <code>Extend runtime privileges to this container</code>
                                         </md-checkbox>
                                         <div class="hint" style="color: #8e929b;font-size: 14px;">Select to give this container access to all devices on the host</div>
@@ -84,26 +85,26 @@
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Container Port</label>
-                                            <input type="number" step="1" min="0" max="65535">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.containerPort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Host Port</label>
-                                            <input type="number" step="1" min="0" max="65535">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.hostPort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="5">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Service Port</label>
-                                            <input type="number" step="1" min="0" max="65535">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.servicePort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="5">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Protocol</label>
-                                            <md-select ng-model="docker_network_protocol">
-                                                <md-option ng-repeat="protocol in newapp.docker_protocols" ng-value="protocol" value="{{protocol.netid}}">
+                                            <md-select ng-model="newapp.newapp.container.docker.portMappings.protocol">
+                                                <md-option ng-repeat="protocol in newapp.docker_protocols" value="{{protocol.netid}}">
                                                     {{protocol.value}}
                                                 </md-option>
                                             </md-select>
@@ -111,7 +112,7 @@
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
                                         <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;" ng-click="newapp.addPortMappings()">
-                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                            <md-icon md-svg-src="icons/ic_add_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
@@ -224,7 +225,7 @@
                         <div layout-gt-xs="row">
                             <md-input-container md-no-float class="md-block" style="width:100%;margin-top: 5px;margin-bottom: 0;">
                                 <label>Ports</label>
-                                <input value="0">
+                                <input ng-init="newapp.newapp.ports = [0]" ng-list ng-model="newapp.newapp.ports">
                                 <div class="hint" style="color: #8e929b;font-size: 14px;">Comma-separated list of numbers. 0's (zeros) assign random ports. (Default: one random port)</div>
                             </md-input-container>
                         </div>
@@ -247,10 +248,10 @@
             </md-tabs>
         </md-dialog-content>
         <md-dialog-actions layout="row">
-            <md-button class="md-raised md-primary" ng-click="submit()">
+            <md-button class="md-raised md-primary" ng-click="newapp.submit()" ng-disabled="createNewApp.$invalid">
                 + Create
             </md-button>
-            <md-button class="md-raised" ng-click="cancel()" style="margin-right:20px;">
+            <md-button class="md-raised" ng-click="newapp.cancel()" style="margin-right:20px;">
                 Cancel
             </md-button>
         </md-dialog-actions>
