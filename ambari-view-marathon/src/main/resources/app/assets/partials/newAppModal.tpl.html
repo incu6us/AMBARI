@@ -5,7 +5,7 @@
                 <h2>New Application</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                    <md-icon md-svg-src="icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -23,19 +23,19 @@
                             <div layout-gt-xs="row">
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>CPUs</label>
-                                    <input>
+                                    <input value="0.1">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>Memory (MB)</label>
-                                    <input>
+                                    <input value="16">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:23%;padding-right: 15px;margin-top: 0;">
                                     <label>Disk Space (MB)</label>
-                                    <input>
+                                    <input value="0">
                                 </md-input-container>
                                 <md-input-container md-no-float class="md-block" style="width:25%;padding-right: 15px;margin-top: 0;">
                                     <label>Instances</label>
-                                    <input>
+                                    <input value="1">
                                 </md-input-container>
                             </div>
                             <div layout-gt-xs="row">
@@ -58,7 +58,7 @@
                             <md-input-container flex-gt-sm class="md-block" style="width:48%;padding-right: 15px">
                                 <label>Network</label>
                                 <md-select ng-model="docker_network">
-                                    <md-option ng-repeat="network in docker_networks" ng-value="network" value="{{network.netid}}">
+                                    <md-option ng-repeat="network in newapp.docker_networks" ng-value="network" value="{{network.netid}}">
                                         {{network.value}}
                                     </md-option>
                                 </md-select>
@@ -80,7 +80,7 @@
                         <div layout-gt-sm="row" style="margin-top: 15px;">
                             <fieldset class="standard" style="width: 100%;">
                                 <legend>Port Mappings</legend>
-                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                <div layout="column" layout-wrap layout-gt-sm="row" data-ng-repeat="portmap in newapp.portMappings">
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Container Port</label>
@@ -103,20 +103,20 @@
                                         <md-input-container md-no-float class="md-block">
                                             <label>Protocol</label>
                                             <md-select ng-model="docker_network_protocol">
-                                                <md-option ng-repeat="protocol in docker_protocols" ng-value="protocol" value="{{protocol.netid}}">
+                                                <md-option ng-repeat="protocol in newapp.docker_protocols" ng-value="protocol" value="{{protocol.netid}}">
                                                     {{protocol.value}}
                                                 </md-option>
                                             </md-select>
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;" ng-click="newapp.addPortMappings()">
                                             <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
-                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;" ng-click="newapp.removePortMappings($index)">
+                                            <md-icon md-svg-src="icons/ic_remove_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@
                         <div layout-gt-sm="row" style="margin-top: 15px;">
                             <fieldset class="standard" style="width: 100%;">
                                 <legend>Parameters</legend>
-                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                <div layout="column" layout-wrap layout-gt-sm="row" data-ng-repeat="param in newapp.dockerParameters">
                                     <div flex-xs flex="15">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Key</label>
@@ -140,13 +140,13 @@
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
-                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;" ng-click="newapp.addDockerParameter()">
+                                            <md-icon md-svg-src="icons/ic_add_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
-                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;" ng-click="newapp.removeDockerParameter($index)">
+                                            <md-icon md-svg-src="icons/ic_remove_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                 </div>
@@ -155,7 +155,7 @@
                         <div layout-gt-sm="row" style="margin-top: 15px;">
                             <fieldset class="standard" style="width: 100%;">
                                 <legend>Volumes</legend>
-                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                <div layout="column" layout-wrap layout-gt-sm="row" data-ng-repeat="param in newapp.dockerVolumes">
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Container Path</label>
@@ -172,20 +172,20 @@
                                         <md-input-container md-no-float class="md-block">
                                             <label>Mode</label>
                                             <md-select ng-model="docker_volume_mode">
-                                                <md-option ng-repeat="mode in docker_volume_modes" ng-value="mode" value="{{mode.netid}}">
+                                                <md-option ng-repeat="mode in newapp.docker_volume_modes" ng-value="mode" value="{{mode.netid}}">
                                                     {{mode.value}}
                                                 </md-option>
                                             </md-select>
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
-                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;" ng-click="newapp.addDockerVolume()">
+                                            <md-icon md-svg-src="icons/ic_add_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
-                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
-                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;" ng-click="newapp.removeDockerVolume($index)">
+                                            <md-icon md-svg-src="icons/ic_remove_circle_outline_black_24px.svg"></md-icon>
                                         </md-button>
                                     </div>
                                 </div>
@@ -195,12 +195,53 @@
                 </md-tab>
                 <md-tab label="Environment">
                     <md-content class="md-padding">
-                        <p>TEST</p>
+                        <div layout-gt-xs="row" data-ng-repeat="param in newapp.newappEnv">
+                            <md-input-container md-no-float class="md-block" style="width:48%;padding-right: 15px;margin-top: 0;">
+                                <label>Key</label>
+                                <input>
+                            </md-input-container>
+                            <div style="margin-top: 10px;margin-right: 15px;">:</div>
+                            <md-input-container md-no-float class="md-block" style="width:48%;padding-right: 15px;margin-top: 0;">
+                                <label>Value</label>
+                                <input>
+                            </md-input-container>
+                            <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;" ng-click="newapp.addNewAppEnv()">
+                                <md-icon md-svg-src="icons/ic_add_circle_outline_black_24px.svg"></md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;" ng-click="newapp.removeNewAppEnv($index)">
+                                <md-icon md-svg-src="icons/ic_remove_circle_outline_black_24px.svg"></md-icon>
+                            </md-button>
+                        </div>
                     </md-content>
                 </md-tab>
                 <md-tab label="Optional">
                     <md-content class="md-padding">
-                        <p>TEST</p>
+                        <div layout-gt-xs="row">
+                            <md-input-container md-no-float class="md-block" style="width:100%;margin-bottom: 0;">
+                                <label>Executor</label>
+                                <input></md-input-container>
+                        </div>
+                        <div layout-gt-xs="row">
+                            <md-input-container md-no-float class="md-block" style="width:100%;margin-top: 5px;margin-bottom: 0;">
+                                <label>Ports</label>
+                                <input value="0">
+                                <div class="hint" style="color: #8e929b;font-size: 14px;">Comma-separated list of numbers. 0's (zeros) assign random ports. (Default: one random port)</div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-xs="row">
+                            <md-input-container md-no-float class="md-block" style="width:100%;margin-bottom: 0;">
+                                <label>URIs</label>
+                                <input>
+                                <div class="hint" style="color: #8e929b;font-size: 14px;">Comma-separated list of valid URIs.</div>
+                            </md-input-container>
+                        </div>
+                        <div layout-gt-xs="row">
+                            <md-input-container md-no-float class="md-block" style="width:100%;">
+                                <label>Constraints</label>
+                                <input>
+                                <div class="hint" style="color: #8e929b;font-size: 14px;">Comma-separated list of valid constraints. Valid constraint format is "field:operator[:value]".</div>
+                            </md-input-container>
+                        </div>
                     </md-content>
                 </md-tab>
             </md-tabs>
