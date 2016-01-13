@@ -122,6 +122,75 @@
                                 </div>
                             </fieldset>
                         </div>
+                        <div layout-gt-sm="row" style="margin-top: 15px;">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Parameters</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="15">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Key</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div style="margin-top: 30px;margin-left: 5px;margin-right: 5px;">:</div>
+                                    <div flex-xs flex="15">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Value</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
+                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div layout-gt-sm="row" style="margin-top: 15px;">
+                            <fieldset class="standard" style="width: 100%;">
+                                <legend>Volumes</legend>
+                                <div layout="column" layout-wrap layout-gt-sm="row" >
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Container Path</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="10">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Host Path</label>
+                                            <input>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="5">
+                                        <md-input-container md-no-float class="md-block">
+                                            <label>Mode</label>
+                                            <md-select ng-model="docker_volume_mode">
+                                                <md-option ng-repeat="mode in docker_volume_modes" ng-value="mode" value="{{mode.netid}}">
+                                                    {{mode.value}}
+                                                </md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Add" style="margin: 0 0 0 0;padding-right: 0;">
+                                            <md-icon md-svg-src="ic_add_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                    <div flex-xs flex="1" style="margin-top: 15px;">
+                                        <md-button class="md-icon-button md-accent" aria-label="Remove" style="margin: 0 0 0 0;padding-left: 0;">
+                                            <md-icon md-svg-src="ic_remove_circle_outline_black_24px.svg"></md-icon>
+                                        </md-button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </md-content>
                 </md-tab>
                 <md-tab label="Environment">
