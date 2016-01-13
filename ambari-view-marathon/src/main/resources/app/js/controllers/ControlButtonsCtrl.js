@@ -6,9 +6,10 @@
 		ControlButtonsCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia'];
 
 		function ControlButtonsCtrl ($scope, $mdDialog, $mdMedia) {
-		    $scope.status = '  ';
+		var vm = this;
+		    vm.status = '  ';
 
-		    $scope.newAppModal = function(ev) {
+		    vm.newAppModal = function(ev) {
 		        $mdDialog.show({
 		            templateUrl: 'partials/newAppModal.tpl.html',
 		            parent: angular.element(document.querySelector('#content')),
