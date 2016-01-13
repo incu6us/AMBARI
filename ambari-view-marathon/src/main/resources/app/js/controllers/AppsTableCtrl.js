@@ -5,24 +5,24 @@
     	.module('MarathonApp')
     	.controller('AppsTableCtrl', AppsTableCtrl); 
 	        
-    	AppsTableCtrl.$inject = ['$timeout', '$q', 'getDataForAppsTableFactory', 'getHostNameFactory']
+    	AppsTableCtrl.$inject = ['$timeout', 'DataForAppsTableFactory', 'HostNameFactory']
 	    
-    	function AppsTableCtrl ($timeout, $q, getDataForAppsTableFactory, getHostNameFactory) {
+    	function AppsTableCtrl ($timeout, DataForAppsTableFactory, HostNameFactory) {
 	        var vm = this;
 	        
 	        vm.hostName = '';
 	        vm.appsList = [];
 
-			$q.all([ getHostNameFactory ])
-				.then( function(values) {
-			        vm.hostName = values[0];
+			HostNameFactory.get()
+				.then( function(response) {
+			        vm.hostName = response.data.host_components[0].HostRoles.host_name;
 			        tick();
 			    });
 
 	        var tick = function () {
-	            $q.all([ getDataForAppsTableFactory(vm.hostName) ])
-		            .then( function(values) {
-		                vm.appsList = values[0].data.apps;
+	            DataForAppsTableFactory.get(vm.hostName)
+	            	.then( function(response) {
+		                vm.appsList = response.data.apps;
 		                $timeout(tick, 10*1000);
 		            });	
 	        };
