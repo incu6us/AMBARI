@@ -11,13 +11,13 @@
 
 		    vm.newAppModal = function(ev) {
 		        $mdDialog.show({
-		            templateUrl: 'partials/new-app-modal.tpl.html',
+		            templateUrl: 'app/components/new-app-modal/new-app-modal.tpl.html',
 		            controller: 'NewAppCtrl',
 		            controllerAs: 'newapp',
 		            parent: angular.element(document.querySelector('#content')),
 		            targetEvent: ev,
 		            clickOutsideToClose:true
-		        })
+		        });
 		    };
-		};
+		}
 }());

@@ -16,6 +16,8 @@ exports.config =
           'vendor/ui-bootstrap-tpls-1.0.0.min.js'
         ]
     stylesheets:
-      joinTo: 'app.css'
+      joinTo: 
+        'css/app.css': /^app/
+        'css/vendor.css': /^vendor/
     templates:
-      joinTo: 'app.js'
+      joinTo: 'js/templates.js': /^app/

@@ -8,10 +8,10 @@
 		function toolbar() {
 			return {
 				restrict: 'E',
-				templateUrl: 'partials/toolbar.tpl.html',
+				templateUrl: 'app/components/toolbar/toolbar.tpl.html',
 				controller: 'ToolbarCtrl',
 				controllerAs:  'toolbar'
 			};
-		};
+		}
 		
 }());

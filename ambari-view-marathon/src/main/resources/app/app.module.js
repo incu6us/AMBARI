@@ -23,7 +23,7 @@
     };
 
     angular
-        .module('MarathonApp', ['ngMaterial', 'ngRoute']);
+        .module('MarathonApp', ['ngMaterial', 'ngRoute', 'templates']);
 
     // app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
     //     usSpinnerConfigProvider.setDefaults(spinOpts);

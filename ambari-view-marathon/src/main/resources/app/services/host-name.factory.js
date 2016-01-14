@@ -25,7 +25,7 @@
                         .then(successHostName, errorHostName);
 
                     function successHostName(response) {
-                        return response.data.host_components[0].HostRoles.host_name;;
+                        return response.data.host_components[0].HostRoles.host_name;
                     }
 
                     function errorHostName (err) {
@@ -35,6 +35,6 @@
 
                 
             }
-        };
+        }
 
 }());

@@ -13,13 +13,13 @@
                     redirectTo: '/apps'
                 })
                 .when('/apps', {
-                    templateUrl: 'partials/apps-table.tpl.html',
+                    templateUrl: 'app/components/apps-table/apps-table.tpl.html',
                     controller: 'AppsTableCtrl',
                     controllerAs:  'appsTable'
                 })
                 .otherwise({
                     redirectTo: '/'
                 });
-        };
+        }
 
 }());
