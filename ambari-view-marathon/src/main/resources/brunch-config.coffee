@@ -13,10 +13,7 @@ exports.config =
           'vendor/angular.min.js',
           'vendor/angular-material.min.js',
           'vendor/angular-resource.min.js',
-          'vendor/ui-bootstrap-tpls-1.0.0.min.js',
-          'app/js/app.js',
-          'app/js/theme-config.js',
-          'app/js/route-config.js'
+          'vendor/ui-bootstrap-tpls-1.0.0.min.js'
         ]
     stylesheets:
       joinTo: 'app.css'

@@ -9,8 +9,8 @@
 			return {
 				restrict: 'E',
 				templateUrl: 'partials/toolbar.tpl.html',
-				controller: 'ControlButtonsCtrl',
-				controllerAs:  'ctrlbtns'
+				controller: 'ToolbarCtrl',
+				controllerAs:  'toolbar'
 			};
 		};
 		

@@ -1,7 +1,5 @@
 (function () {
     'use strict';
-    // You have to 'brunch build' 'theme-config.js' in order right after 'app.js'. 
-    // Define it in 'brunch-config.coffee'.
 
     angular
         .module('MarathonApp')
