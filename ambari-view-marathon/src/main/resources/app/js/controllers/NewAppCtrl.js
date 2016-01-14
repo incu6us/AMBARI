@@ -52,7 +52,7 @@
         vm.removeDockerParameter = function(itemIndex) {
                     vm.dockerParameters.splice(itemIndex, 1);
                 }
-	};
+	
 
 	vm.dockerVolumes = [
                         {
@@ -85,5 +85,5 @@
         vm.removeNewAppEnv = function(itemIndex) {
             vm.newappEnv.splice(itemIndex, 1);
         }
-
+    };
 }());
