@@ -5,9 +5,9 @@
   	.module('MarathonApp')
   	.controller('NewAppCtrl', NewAppCtrl);
 
-  	NewAppCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia'];
+  	NewAppCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia', 'DataForAppsTableFactory', 'HostNameFactory'];
 
-  	function NewAppCtrl ($scope, $mdDialog, $mdMedia) {
+  	function NewAppCtrl ($scope, $mdDialog, $mdMedia, DataForAppsTableFactory, HostNameFactory) {
   	var vm = this;
 
 	    vm.status = '  ';
@@ -86,8 +86,22 @@
 	    vm.submit = function() {
 	        var data=vm.newapp;
             console.log(data);
-	        alert('go johnny go');
-	        $mdDialog.cancel();
+
+	        HostNameFactory.get()
+                    		.then( function(response) {
+                    			vm.hostName = response;
+                    			postNewApp(data);
+                    		});
+
+            function postNewApp(data) {
+                DataForAppsTableFactory.post(vm.hostName, data)
+                	            	.then( function(response) {
+                		                var resp = response;
+                		                if (resp === 'ok') {
+                		                    $mdDialog.cancel();
+                		                }
+                		            });
+            }
 	    };
 	};
 

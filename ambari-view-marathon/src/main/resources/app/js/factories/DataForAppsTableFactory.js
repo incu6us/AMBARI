@@ -9,7 +9,8 @@
 
         function DataForAppsTableFactory ($http) {
             return {
-                get: get
+                get: get,
+                post: post
             };
 
             ///////////////////
@@ -26,6 +27,27 @@
                     console.log(err);
                 }
   	        };
+
+  	        function post (hostName, data) {
+  	        var config = {
+            headers: {
+               'X-Requested-By': hostName,
+               'X-Requested-With': 'XMLHttpRequest'
+             }
+            };
+                            return $http.post('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps', data, config)
+                                .then(successDataNewApp, errorDataNewApp);
+
+                            function successDataNewApp(response) {
+                                var resp = 'ok';
+                                return resp;
+                            }
+
+                            function errorDataNewApp (err) {
+                                console.log(err);
+                            }
+              	        };
+
  		};
      		
 }());
