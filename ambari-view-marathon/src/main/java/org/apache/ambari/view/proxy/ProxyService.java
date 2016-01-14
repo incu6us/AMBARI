@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -27,10 +28,12 @@ public class ProxyService {
 
     /**
      * Method for proxying json objects
+     *
      * @param url
      * @return
      */
     @GET
+    @POST
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getJson(@QueryParam("url") String url) {
@@ -59,6 +62,7 @@ public class ProxyService {
 
     /**
      * Method for proxying some content (files)
+     *
      * @param url
      * @return
      * @throws IOException
@@ -74,7 +78,7 @@ public class ProxyService {
         String filename = url.replaceAll("(.*)/(.*)", "$2");
 
         Response.ResponseBuilder response = Response.ok(is);
-        response.header("Content-Disposition", "attachment; filename=\""+filename+"\"");
+        response.header("Content-Disposition", "attachment; filename=\"" + filename + "\"");
         return response.build();
     }
 }
