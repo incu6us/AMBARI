@@ -3,9 +3,9 @@
 
 	angular
 		.module('MarathonApp')
-		.directive('appTable', appTable);
+		.directive('appsTable', appsTable);
 
-		function appTable() {
+		function appsTable() {
 			return {
 				restrict: 'E',
 				templateUrl: 'partials/apps-table.tpl.html',

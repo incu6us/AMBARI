@@ -11,35 +11,15 @@
 
 <body>
     <md-toolbar>
-        <div class="md-toolbar-tools" ng-controller="ControlButtonsCtrl as ctrlbtns">
-          <span><a href="#">Marathon view for Ambari</a></span>
-
-          <md-button class="md-primary md-hue-2 md-raised" href="#">
-            Apps
-          </md-button>
-
-          <md-button class="md-primary md-hue-2 md-raised" href="#">
-            Deployments
-          </md-button>
-
-          <!-- fill up the space between left and right area -->
-          <span flex></span>
-          <md-button class="md-primary md-hue-2 md-raised" ng-click="ctrlbtns.newAppModal($event)">
-            + New App
-          </md-button>   
-
-        </div>
+        <toolbar></toolbar>
     </md-toolbar>
 
     <md-content layout-padding>
-      <div class="container">
-        <app-table></app-table>
-<!--     
-    <div class="container" ng-controller="MarathonController">
+        <div class="container">
 
-    </div>
--->
-      </div>
+            <apps-table></apps-table>
+
+        </div>
     </md-content>
 
     <script type="text/javascript" src="js/vendor.js"></script>

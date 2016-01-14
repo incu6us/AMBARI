@@ -23,23 +23,7 @@
     };
 
     angular
-        .module('MarathonApp', ['ngMaterial'])
-        .config(themeConfig);
-
-        themeConfig.$inject = ['$mdThemingProvider'];
-
-        function themeConfig ($mdThemingProvider) {
-
-            $mdThemingProvider.theme('default')
-                .primaryPalette('green', {
-                    'default': '600'
-                })
-                .accentPalette('light-green')
-                .warnPalette('red')
-                .backgroundPalette('green', {
-                    'default': '50'
-                });
-        };
+        .module('MarathonApp', ['ngMaterial', 'ngRoute']);
 
     // app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
     //     usSpinnerConfigProvider.setDefaults(spinOpts);
