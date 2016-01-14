@@ -174,10 +174,10 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">Mesos slaves</div>
+        <div class="panel panel-default" ng-show="slaveData.length > 0">
+            <div class="panel-heading">Host details</div>
             <div class="panel-body">
-                auto-update: <span style="color: green;" ng-show="updatedMesosSlave">{{updatedMesosSlave}}</span> <span style="color: red;" ng-show="!updatedMesosSlave">{{updatedMesosSlave}}</span>
+                <!--auto-update: <span style="color: green;" ng-show="updatedMesosSlave">{{updatedMesosSlave}}</span> <span style="color: red;" ng-show="!updatedMesosSlave">{{updatedMesosSlave}}</span>-->
                 <span us-spinner ng-show="loading"></span>
 
                 <div class="container" ng-repeat="slave in slaveData | orderBy: 'id' "
@@ -222,11 +222,11 @@
                         <div class="col-md-6">
                             <ul class="list-unstyled">
                                 <li>Executors registering: {{ slave.metrics['slave/executors_registering']}}</li>
-                                <li>Executors running: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="auto-update disable until executors details shown" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>
+                                <li>Executors running: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="Show details about executors" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>
                                 <li style="cursor: pointer;" class="agentExecutors" id="agentExecutors-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
                                 <li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>
                                 <li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>
-                                <li>Frameworks active: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="auto-update disable until executors details shown" ng-click="showMetricFrameworksRunning(slave.id)">{{ slave.metrics['slave/frameworks_active']}}</a></li>
+                                <li>Frameworks active: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="Show details about frameworks" ng-click="showMetricFrameworksRunning(slave.id)">{{ slave.metrics['slave/frameworks_active']}}</a></li>
                                 <li style="cursor: pointer;" class="agentFrameworks" id="agentFrameworks-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
                             </ul>
                         </div>

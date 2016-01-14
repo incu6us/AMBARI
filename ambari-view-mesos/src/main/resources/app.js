@@ -119,7 +119,22 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
 
     $scope.events.click = function (data) {
         console.log.apply(console, arguments);
-        alert(JSON.stringify(data))
+        //alert(JSON.stringify(data))
+
+        //$scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+
+        $scope.slaveList = [];
+        $scope.slaveData = [];
+        $scope.slaveDataCpu = [];
+        $scope.slaveDataMem = [];
+        $scope.slaveDataDisk = [];
+
+        angular.forEach($scope.nodes, function (value, key) {
+            console.log("values -> "+value.id)
+            if(data.nodes[0] == value.id){
+                $scope.getMetricsForSlave(value.label)
+            }
+        })
     };
 
     $scope.options = {
@@ -529,11 +544,11 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                 }).then(function (mesosSlaveData) {
 
                     var slaveItems = mesosSlaveData.mesosSlave.data.host_components;
-                    $scope.slaveList = [];
-                    $scope.slaveData = [];
-                    $scope.slaveDataCpu = [];
-                    $scope.slaveDataMem = [];
-                    $scope.slaveDataDisk = [];
+                    //$scope.slaveList = [];
+                    //$scope.slaveData = [];
+                    //$scope.slaveDataCpu = [];
+                    //$scope.slaveDataMem = [];
+                    //$scope.slaveDataDisk = [];
 
                     // Network map drawing
                     var tmpNodeArr = [];
@@ -547,13 +562,13 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                     for (var i = 0; i < slaveItems.length; i++) {
                         $scope.slaveList.push(slaveItems[i].HostRoles.host_name);
                         // Call draw function for slaves
-                        $scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+                        //$scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
 
                         // draw map canvas with relations for hosts
                         if($scope.activeMaster != null || $scope.activeMaster != undefined) {
                             if (slaveItems[i].HostRoles.host_name == $scope.activeMaster) {
                                 tmpNodeArr.push(
-                                        {id: 1, label: $scope.activeMaster, "size":6, "color":"#93D276", "shape":"circle"}
+                                        {id: 1, label: $scope.activeMaster, "size":4, "color":"#5cb85c", "shape":"circle"}
                                     );
                             } else if (slaveItems[i].HostRoles.host_name != $scope.activeMaster && slaveItems[i].HostRoles.host_name.indexOf("master") > -1) {
                                 tmpNodeArr.push(
@@ -561,7 +576,7 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                                         id: ++nodesIdCounter,
                                         label: slaveItems[i].HostRoles.host_name,
                                         "size": 7,
-                                        "color": "#cccccc",
+                                        "color": "#337ab7",
                                         "shape": "circle"
                                     }
                                 );
