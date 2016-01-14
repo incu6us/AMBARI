@@ -28,6 +28,27 @@ public class ProxyService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProxyService.class);
 
+    @POST
+    @Path("/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject postJson(@QueryParam("url") String url) {
+        return getJson(url);
+    }
+
+    @PUT
+    @Path("/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject putJson(@QueryParam("url") String url) {
+        return getJson(url);
+    }
+
+    @DELETE
+    @Path("/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONObject deleteJson(@QueryParam("url") String url) {
+        return getJson(url);
+    }
+
     /**
      * Method for proxying json objects
      *
@@ -35,9 +56,6 @@ public class ProxyService {
      * @return
      */
     @GET
-    @POST
-    @PUT
-    @DELETE
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     public JSONObject getJson(@QueryParam("url") String url) {
