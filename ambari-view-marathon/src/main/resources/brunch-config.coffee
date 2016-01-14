@@ -15,7 +15,8 @@ exports.config =
           'vendor/angular-resource.min.js',
           'vendor/ui-bootstrap-tpls-1.0.0.min.js',
           'app/js/app.js',
-          'app/js/theme-config.js'
+          'app/js/theme-config.js',
+          'app/js/route-config.js'
         ]
     stylesheets:
       joinTo: 'app.css'
