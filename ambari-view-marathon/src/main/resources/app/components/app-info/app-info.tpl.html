@@ -1,0 +1,166 @@
+<div>
+	<ol>
+		<li>
+			<a href="#apps">Apps</a>
+		</li>
+		<li>/cassandra/mantl</li>
+			<li>
+				<a href="#apps/%2Fcassandra%2Fmantl">/cassandra/mantl</a>
+			</li>
+		<li></li>
+	</ol>
+	<div>
+		<div>
+			<span>/cassandra/mantl</span>
+			<ul>
+				<li>
+					<span>Running</span>
+				</li>
+			</ul>
+			<div>
+				<button>Suspend</button>
+				<button>Scale</button>
+				<button>Destroy App</button>
+				<button>Restart App</button>
+			</div>
+		</div>
+		<div>
+			<ul class="navbar">
+
+				<li class="active">
+					<a href="#apps/%2Fcassandra%2Fmantl">Tasks</a>
+					<div class="data-table">
+				    <!-- TABLE -->
+				        <table>
+				            <tr>
+				                <th> ID </th>
+				                <th> Status </th>
+				                <th> Version </th>
+				                <th> Updated </th>
+				                <th> Health (Alive) </th>
+				            </tr>
+				            <tr ng-repeat="task in appInfo.tasks">
+				                <td class="border-left"> {{task.id}} </td>
+				                <td> ??? </td>
+				                <td> {{task.version}} </td>
+				                <td> {{task.startedAt}} </td>
+				                <td class="border-right"> {{task.healthCheckResults.alive}} </td>
+				            </tr>    
+				        </table>
+				  	</div>
+				</li>
+
+				<li class="">
+					<a href="#apps/%2Fcassandra%2Fmantl/configuration">Configuration</a>
+					<div class="data-table">
+				    <!-- TABLE -->
+				        <table>
+				            <tr>
+				                <th> Current Version - {{appInfo.version}} </th>
+				            </tr>
+				            <tr>
+				                <td> Command </td>
+				                <td> {{appInfo.cmd}} </td>
+				            </tr>
+				            <tr>
+				                <td> Constraints </td>
+				                <td> {{appInfo.constraints}} </td>
+				            </tr>
+				            <tr>
+				                <td> Container </td>
+				                <td> {{appInfo.container}} </td>
+				            </tr>
+				            <tr>
+				                <td> CPUs </td>
+				                <td> {{appInfo.cpus}} </td>
+				            </tr>
+				            <tr>
+				                <td> Environment </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Executor </td>
+				                <td> 
+				                	<p>CASSANDRA_ZK_TIMEOUT_MS={{appInfo.env.CASSANDRA_ZK_TIMEOUT_MS}}</p>
+				                	<p>JAVA_OPTS={{appInfo.env.JAVA_OPTS}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+				                	<p>={{appInfo.env.}}</p>
+
+				                	<p ng-repeat="appInfo.env"></p>
+				                </td>
+				            </tr>
+				            <tr>
+				                <td> Health Checks </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Instances </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Memory </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Disk Space </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Ports </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Backoff Factor </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Backoff </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            
+				            <tr>
+				                <td> Max Launch Delay </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> URIs </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				            <tr>
+				                <td> Version </td>
+				                <td> {{appInfo.}} </td>
+				            </tr>
+				        </table>
+				  	</div>
+				</li>
+
+
+				<li class="">
+					<a href="#apps/%2Fcassandra%2Fmantl/debug">Debug</a>
+				</li>
+			</ul>
+			<div class="tab-content">
+				<div class="active tab-pane">
+					<div >
+					</div>
+					<div class="tab-pane" >
+						<div>
+						</div>
+						<div class="tab-pane">
+							<div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
