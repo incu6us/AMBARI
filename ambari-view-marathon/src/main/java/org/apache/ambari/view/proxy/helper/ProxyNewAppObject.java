@@ -11,14 +11,14 @@ public class ProxyNewAppObject {
     String image;
     String network;
     boolean privileged;
-    Array portMappings;
-    Array dockerParameters;
-    Array dockerVolumes;
-    Array newappEnv;
+    String[] portMappings;
+    String[] dockerParameters;
+    String[] dockerVolumes;
+    String[] newappEnv;
     String executor;
-    Array ports;
-    Array uris;
-    Array constraints;
+    int[] ports;
+    String[] uris;
+    String[] constraints;
 
     public String getId() {
         return id;
@@ -56,19 +56,19 @@ public class ProxyNewAppObject {
         return privileged;
     }
 
-    public Array getPortMappings() {
+    public String[] getPortMappings() {
         return portMappings;
     }
 
-    public Array getDockerParameters() {
+    public String[] getDockerParameters() {
         return dockerParameters;
     }
 
-    public Array getDockerVolumes() {
+    public String[] getDockerVolumes() {
         return dockerVolumes;
     }
 
-    public Array getNewappEnv() {
+    public String[] getNewappEnv() {
         return newappEnv;
     }
 
@@ -76,15 +76,15 @@ public class ProxyNewAppObject {
         return executor;
     }
 
-    public Array getPorts() {
+    public int[] getPorts() {
         return ports;
     }
 
-    public Array getUris() {
+    public String[] getUris() {
         return uris;
     }
 
-    public Array getConstraints() {
+    public String[] getConstraints() {
         return constraints;
     }
 
@@ -124,19 +124,19 @@ public class ProxyNewAppObject {
         this.privileged = value;
     }
 
-    public void setPortMappings(Array value) {
+    public void setPortMappings(String[] value) {
         this.portMappings = value;
     }
 
-    public void setDockerParameters(Array value) {
+    public void setDockerParameters(String[] value) {
         this.dockerParameters = value;
     }
 
-    public void setDockerVolumes(Array value) {
+    public void setDockerVolumes(String[] value) {
         this.dockerVolumes = value;
     }
 
-    public void setNewappEnv(Array value) {
+    public void setNewappEnv(String[] value) {
         this.newappEnv = value;
     }
 
@@ -144,15 +144,15 @@ public class ProxyNewAppObject {
         this.executor = value;
     }
 
-    public void setPorts(Array value) {
+    public void setPorts(int[] value) {
         this.ports = value;
     }
 
-    public void setUris(Array value) {
+    public void setUris(String[] value) {
         this.uris = value;
     }
 
-    public void setConstraints(Array value) {
+    public void setConstraints(String[] value) {
         this.constraints = value;
     }
 

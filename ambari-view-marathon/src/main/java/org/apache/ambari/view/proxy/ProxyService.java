@@ -1,6 +1,7 @@
 package org.apache.ambari.view.proxy;
 
 import org.apache.ambari.view.proxy.helper.ProxyConnection;
+import org.apache.ambari.view.proxy.helper.ProxyNewAppObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -26,7 +27,7 @@ public class ProxyService {
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public JSONObject postJson(@QueryParam("url") String url, @QueryParam("data") String data) {
+    public JSONObject postJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.POST, data);
     }
 
@@ -34,14 +35,14 @@ public class ProxyService {
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public JSONObject putJson(@QueryParam("url") String url, @QueryParam("data") String data) {
+    public JSONObject putJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.PUT, data);
     }
 
     @DELETE
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject deleteJson(@QueryParam("url") String url, @QueryParam("data") String data) {
+    public JSONObject deleteJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.DELETE, data);
     }
 
@@ -49,7 +50,7 @@ public class ProxyService {
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getJson(@QueryParam("url") String url, String data) {
+    public JSONObject getJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.GET, data);
     }
 
@@ -81,7 +82,7 @@ public class ProxyService {
      * @param url
      * @return
      */
-    private JSONObject json (String url, String httpMethod, String data){
+    private JSONObject json (String url, String httpMethod, ProxyNewAppObject data){
         ProxyConnection proxy = new ProxyConnection(false);
         proxy.connectWithoutBasicAuth();
         String apiResponse = proxy.getApiResponse(url, httpMethod, data);
