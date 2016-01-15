@@ -1,0 +1,62 @@
+.table-tasks table {
+	width: 100%;
+}
+
+.table-tasks td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 3px;
+}
+
+.table-tasks th:not(:first-child) {
+	text-align: right;
+}
+
+.table-tasks th:first-child {
+	text-align: left;
+}
+
+.table-tasks td:not(:first-child) {
+	text-align: right;
+}
+
+.table-tasks td:first-child {
+	text-align: left;
+}
+
+
+/*
+/
+/
+*/
+
+.table-config table {
+	width: 100%;
+}
+
+.table-config td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 3px;
+	vertical-align:top;
+}
+
+.table-config th:first-child {
+	text-align: left;
+}
+
+.table-config td:first-child {
+	text-align: right;
+	font-weight: bold;
+	width: 150px;
+}
+
+.table-config td:last-child {
+	text-align: left;
+}
+
+.table-config pre {
+	background:#F8F8FF; 
+	border:black dashed 1px; 
+	padding:6px
+}​

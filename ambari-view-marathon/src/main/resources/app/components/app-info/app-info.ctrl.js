@@ -12,7 +12,7 @@
 	        
 	        vm.appID = decodeURIComponent($routeParams.id);
 	        vm.hostName = '';
-	        vm.appInfo = {};
+	        vm.appData = {};
 
 	        HostNameFactory.get()
         		.then( function(response) {
@@ -25,11 +25,9 @@
 	        function getAppInfo () {
 	            DataForAppInfoFactory.get(vm.hostName, vm.appID)
 	            	.then( function(response) {
-		                vm.appInfo = response.app;
+		                vm.appData = response.app;
 		                $timeout(getAppInfo, 10*1000);
 		            });	
 	        }
-
-	        // http://128.107.17.60:8081/v2/apps//cassandra/mantl?embed=app.taskStats
 	    }
 }());

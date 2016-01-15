@@ -43,3 +43,7 @@
 .data-table table {
 	width: 100%;
 }
+
+.data-table p {
+	height: 5px;
+}
