@@ -16,7 +16,7 @@
             ///////////////////
             
             function get (hostName) {
-                return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps&type=GET')
+                return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps')
                     .then(successDataForAppsTable, errorDataForAppsTable);
 
                 function successDataForAppsTable(response) {
@@ -36,7 +36,7 @@
                      }
                 };
 
-                return $http.post('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps&type=POST', data, config)
+                return $http.post('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps', data, config)
                     .then(successDataNewApp, errorDataNewApp);
 
                 function successDataNewApp(response) {

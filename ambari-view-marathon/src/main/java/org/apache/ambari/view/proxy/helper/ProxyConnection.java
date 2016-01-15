@@ -69,7 +69,7 @@ public class ProxyConnection {
         if (type.equals("GET")) {
             response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
         } else if (type.equals("POST")) {
-            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").header("Content-type", "application/json").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
         } else if (type.equals("PUT")) {
             response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).put(ClientResponse.class, data);
         } else if (type.equals("DELETE")) {
