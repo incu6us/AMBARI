@@ -64,15 +64,15 @@ public class ProxyConnection {
     public String getApiResponse(String url, String type, String data) {
 //        WebResource webResource = client.resource(server).path(path);
         WebResource webResource = client.resource(url);
-        if (type == 'GET') {
+        if (type == "GET") {
             ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
-        } else if (type == 'POST') {
+        } else if (type == "POST") {
             ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
-        } else if (type == 'PUT') {
+        } else if (type == "PUT") {
             ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).put(ClientResponse.class, data);
-        } else if (type == 'DELETE') {
+        } else if (type == "DELETE") {
             ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).delete(ClientResponse.class);
-        }
+        };
 
         return response.getEntity(new GenericType<String>() {
         });

@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,7 +33,7 @@ public class ProxyService {
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public JSONObject postJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
+    public JSONObject postJson(@QueryParam("url") String url, @QueryParam("type") String type, String data) {
         return getJson(url, type, data);
     }
 
@@ -40,7 +41,7 @@ public class ProxyService {
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public JSONObject putJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
+    public JSONObject putJson(@QueryParam("url") String url, @QueryParam("type") String type, String data) {
         return getJson(url, type, data);
     }
 
@@ -60,7 +61,7 @@ public class ProxyService {
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
+    public JSONObject getJson(@QueryParam("url") String url, @QueryParam("type") String type, String data) {
 
         ProxyConnection proxy = new ProxyConnection(false);
         proxy.connectWithoutBasicAuth();
