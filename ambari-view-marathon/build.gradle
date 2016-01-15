@@ -8,6 +8,10 @@ targetCompatibility = 1.7
 
 //create a single Jar with all dependencies
 task fatJar(type: Jar) {
+    exec {
+        executable "bash"
+        args "-c", "echo 'test'"
+    }
     manifest {
         attributes 'Implementation-Title': 'Marathon view with dependencies',
                 'Implementation-Version': version

@@ -16,6 +16,7 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 public class ProxyConnection {
     private Client client;
     private boolean debug = false;
+    private ClientResponse response = null;
 
     /**
      * Init new instance
@@ -64,17 +65,17 @@ public class ProxyConnection {
     public String getApiResponse(String url, String type, String data) {
 //        WebResource webResource = client.resource(server).path(path);
         WebResource webResource = client.resource(url);
-        if (type == "GET") {
-            ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
-        } else if (type == "POST") {
-            ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
-        } else if (type == "PUT") {
-            ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).put(ClientResponse.class, data);
-        } else if (type == "DELETE") {
-            ClientResponse response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).delete(ClientResponse.class);
-        };
 
-        return response.getEntity(new GenericType<String>() {
-        });
+        if (type.equals("GET")) {
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
+        } else if (type.equals("POST")) {
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
+        } else if (type.equals("PUT")) {
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).put(ClientResponse.class, data);
+        } else if (type.equals("DELETE")) {
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).delete(ClientResponse.class);
+        }
+
+        return response.getEntity(new GenericType<String>() {});
     }
 }
