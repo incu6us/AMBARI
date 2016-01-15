@@ -50,7 +50,7 @@ public class ProxyService {
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getJson(@QueryParam("url") String url, ProxyNewAppObject data) {
+    public JSONObject getJson(@QueryParam("url") String url, @QueryParam("data") String data) {
         return json(url, HttpMethod.GET, data);
     }
 
@@ -82,7 +82,7 @@ public class ProxyService {
      * @param url
      * @return
      */
-    private JSONObject json (String url, String httpMethod, ProxyNewAppObject data){
+    private JSONObject json (String url, String httpMethod, Object data){
         ProxyConnection proxy = new ProxyConnection(false);
         proxy.connectWithoutBasicAuth();
         String apiResponse = proxy.getApiResponse(url, httpMethod, data);

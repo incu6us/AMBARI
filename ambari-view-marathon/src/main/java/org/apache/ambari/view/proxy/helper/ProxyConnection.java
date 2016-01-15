@@ -62,7 +62,7 @@ public class ProxyConnection {
     /**
      * Use https-connection gets its api object with server address
      */
-    public String getApiResponse(String url, String type, ProxyNewAppObject data) {
+    public String getApiResponse(String url, String type, Object data) {
 //        WebResource webResource = client.resource(server).path(path);
         WebResource webResource = client.resource(url);
 
