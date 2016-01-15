@@ -31,22 +31,24 @@ public class ProxyService {
     @POST
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject postJson(@QueryParam("url") String url) {
-        return getJson(url);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public JSONObject postJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
+        return getJson(url, type, data);
     }
 
     @PUT
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject putJson(@QueryParam("url") String url) {
-        return getJson(url);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public JSONObject putJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
+        return getJson(url, type, data);
     }
 
     @DELETE
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject deleteJson(@QueryParam("url") String url) {
-        return getJson(url);
+    public JSONObject deleteJson(@QueryParam("url") String url, @QueryParam("type") String type) {
+        return getJson(url, type, "");
     }
 
     /**
@@ -58,11 +60,11 @@ public class ProxyService {
     @GET
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject getJson(@QueryParam("url") String url) {
+    public JSONObject getJson(@QueryParam("url") String url, @QueryParam("type") String type, MultivaluedMap<String, String> data) {
 
         ProxyConnection proxy = new ProxyConnection(false);
         proxy.connectWithoutBasicAuth();
-        String apiResponse = proxy.getApiResponse(url);
+        String apiResponse = proxy.getApiResponse(url, type, data);
 
         JSONObject json = new JSONObject();
         try {
