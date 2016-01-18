@@ -573,8 +573,8 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                                     {
                                         id: ++nodesIdCounter,
                                         label: slaveItems[i].HostRoles.host_name,
-                                        "size": 7,
-                                        "color": "#337ab7",
+                                        "size": 4,
+                                        "color": "#87b6de",
                                         "shape": "circle"
                                     }
                                 );
@@ -584,7 +584,7 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                                     {
                                         id: ++nodesIdCounter,
                                         label: slaveItems[i].HostRoles.host_name,
-                                        "size": 5,
+                                        "size": 7,
                                         "color": "#b3b3ff",
                                         "shape": "square"
                                     }
