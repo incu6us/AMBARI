@@ -15,17 +15,16 @@
 
 	        vm.showAppInfo = showAppInfo;
 
-	        HostNameFactory.get()
-        		.then( function(response) {
-        			vm.hostName = response;
-        			getAppsList();
-        		});
+	        // HostNameFactory.get()
+        	// 	.then( function(response) {
+        	// 		vm.hostName = response;
+        	// 		getAppsList();
+        	// 	});
+			getAppsList();
 	        
 	        ///////////////////
 
 	        function showAppInfo (app) {
-	        	// app = {};
-	        	// app.id = '/mesos';
 	        	$location.path('/apps/' + encodeURIComponent(app.id));
 	        }
 

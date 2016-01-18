@@ -2,23 +2,21 @@
 <html lang="en" ng-app="MarathonApp">
 
 <head>
-
     <!-- <base href="/"> -->
     <meta charset="UTF-8">
     
     <title>Title</title>
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/app.css">
-
 </head>
 
-<body>
+<body layout="column">
     <md-toolbar>
         <toolbar></toolbar>
     </md-toolbar>
 
-    <md-content layout-padding>
-        <div class="container" ng-view>
+    <md-content layout="row" flex layout-padding>
+        <div flex layout="row" ng-view>
 
         </div>
     </md-content>
