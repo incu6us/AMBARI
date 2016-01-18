@@ -16,7 +16,7 @@
             ///////////////////
             // /api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps
             function get (hostName) {
-                return $http.get('https://nikke1.github.io/dataforapps.json')
+                return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps')
                     .then(successDataForAppsTable, errorDataForAppsTable);
 
                 function successDataForAppsTable(response) {
