@@ -15,12 +15,12 @@
 
 	        vm.showAppInfo = showAppInfo;
 
-	        // HostNameFactory.get()
-        	// 	.then( function(response) {
-        	// 		vm.hostName = response;
-        	// 		getAppsList();
-        	// 	});
-			getAppsList();
+	        HostNameFactory.get()
+        		.then( function(response) {
+        			vm.hostName = response;
+        			getAppsList();
+        		});
+
 	        
 	        ///////////////////
 

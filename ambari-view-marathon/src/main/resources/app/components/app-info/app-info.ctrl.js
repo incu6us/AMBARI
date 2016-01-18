@@ -14,13 +14,12 @@
 	        vm.hostName = '';
 	        vm.appData = {};
 
-	        // HostNameFactory.get()
-        	// 	.then( function(response) {
-        	// 		vm.hostName = response;
-        	// 		getAppInfo();
-        	// 	});
+	        HostNameFactory.get()
+        		.then( function(response) {
+        			vm.hostName = response;
+        			getAppInfo();
+        		});
 
-        	getAppInfo();
 	        
 	        ///////////////////
 
