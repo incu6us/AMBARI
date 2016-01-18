@@ -1,49 +1,49 @@
-.data-table td {
+.apps-table th {
 	border-spacing: 0px;
 	height: 30px;
-	padding: 3px;
+	padding: 5px;
 }
 
-.data-table tr:hover td{
+.apps-table td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 5px;
+}
+
+.apps-table tr:hover td{
 	background-color: #c5e1a5;
 	cursor:pointer; 
 }
 
-.data-table tr:hover td.border-left {
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
-    -khtml-border-radius: 5px 0 0 5px;
-    border-radius: 5px 0 0 5px;
+.apps-table tr:hover td.border-left {
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -khtml-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
 }
-.data-table tr:hover td.border-right {
-    -moz-border-radius: 0 5px 5px 0;
-    -webkit-border-radius: 0 5px 5px 0;
-    -khtml-border-radius: 0 5px 5px 0;
-    border-radius: 0 5px 5px 0;
+.apps-table tr:hover td.border-right {
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -khtml-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
 }
 
-.data-table td:not(:first-child) {
+.apps-table th:not(:first-child) {
 	text-align: right;
 }
 
-.data-table th {
-	border-spacing: 0px;
-	height: 30px;
-	padding: 3px;
-}
-
-.data-table th:not(:first-child) {
-	text-align: right;
-}
-
-.data-table th:first-child {
+.apps-table th:first-child {
 	text-align: left;
 }
 
-.data-table table {
+.apps-table td:not(:first-child) {
+	text-align: right;
+}
+
+.apps-table table {
 	width: 100%;
 }
 
-.data-table p {
+.apps-table p {
 	height: 5px;
 }

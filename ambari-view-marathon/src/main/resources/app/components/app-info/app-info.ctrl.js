@@ -19,6 +19,7 @@
         			vm.hostName = response;
         			getAppInfo();
         		});
+
 	        
 	        ///////////////////
 

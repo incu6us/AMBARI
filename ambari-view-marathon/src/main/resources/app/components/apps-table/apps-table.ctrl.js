@@ -20,12 +20,11 @@
         			vm.hostName = response;
         			getAppsList();
         		});
+
 	        
 	        ///////////////////
 
 	        function showAppInfo (app) {
-	        	// app = {};
-	        	// app.id = '/mesos';
 	        	$location.path('/apps/' + encodeURIComponent(app.id));
 	        }
 
