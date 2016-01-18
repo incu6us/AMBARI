@@ -64,14 +64,24 @@
     <br>
 
     <div ng-if="dataSelector == 'metrics'">
-        <div class="panel panel-default">
-            <div class="panel-heading">Mesos masters</div>
-            <div class="panel-body">
+        <!--<div class="panel panel-default">-->
+            <!--<div class="panel-heading">Mesos masters</div>-->
+            <!--<div class="panel-body">-->
+        <md-switch ng-model="showMasterInfo" class="md-primary" aria-label="Show master info">
+            Show master info
+        </md-switch>
 
+        <md-toolbar ng-show="showMasterInfo">
+            <h2 class="md-toolbar-tools">
+                <span flex>Master info</span>
+            </h2>
+        </md-toolbar>
+        <div ng-show="showMasterInfo" style="border: 1px #ccc solid">
+            <div>
                 <table valign="top">
                     <tr>
                         <td width="550px;">
-                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                            <div style="border: solid 1px #ccc; padding: 10px; margin-right: 10px;">
                                 <span><label class="label label-primary">CPU</label><nvd3 options="optionsMaster"
                                                                                           data="masterDataCpu"
                                                                                           class="with-3d-shadow with-transitions"
@@ -80,9 +90,9 @@
                         </td>
                         <td></td>
                         <td width="600px">
-                            <div style="float: right; width: 450px; position: absolute; top:160px;">
+                            <div style="float: right; width: 450px; position: absolute; top:222px;">
 
-                                <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px;">
+                                <div style="border: solid 1px #ccc; padding: 10px;">
                                     <label class="label label-default">Master hosts:</label><br>
 
                                     <div>
@@ -102,7 +112,7 @@
                                     </div>
                                 </div>
 
-                                <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-top: 10px;">
+                                <div style="border: solid 1px #ccc; padding: 10px; margin-top: 10px;">
                                     <label class="label label-default">Summary:</label><br>
 
                                     <div>
@@ -129,7 +139,7 @@
                     </tr>
                     <tr>
                         <td width="550px;">
-                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                            <div style="border: solid 1px #ccc; padding: 10px; margin-right: 10px;">
                                 <span><label class="label label-primary">Disk</label><nvd3 options="optionsMaster"
                                                                                            data="masterDataDisk"
                                                                                            class="with-3d-shadow with-transitions"
@@ -142,7 +152,7 @@
                     </tr>
                     <tr>
                         <td width="550px;">
-                            <div style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin-right: 10px;">
+                            <div style="border: solid 1px #ccc; padding: 10px; margin-right: 10px;">
                                 <span><label class="label label-primary">Memory</label><nvd3 options="optionsMaster"
                                                                                              data="masterDataMem"
                                                                                              class="with-3d-shadow with-transitions"
@@ -156,35 +166,37 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">Network map</div>
-            <div class="panel-body">
+        <br>
+        <br>
 
+        <md-toolbar>
+            <h2 class="md-toolbar-tools">
+                <span flex>Network map</span>
+            </h2>
+        </md-toolbar>
+        <div style="border: 1px #ccc solid;">
                 <span ng-show="activeMaster != null && nodes.length > 0">
-                    <vis-network data="network_data" options="options" events="events" height="100%"><!--options="network_options" on-select="onNodeSelect" id="previewNetwork">-->
+                    <vis-network data="network_data" options="options" events="events" height="1000"><!--options="network_options" on-select="onNodeSelect" id="previewNetwork">-->
                     </vis-network>
+                    <!--<vis-timeline data="timelineData" options="timelineOptions">-->
+                    <!--</vis-timeline>-->
+                    <!--<div style="position: relative; bottom:50px; border: 1px #ccc solid; border-radius: 10px; padding: 10px; background: #fff; opacity: 0.7; filter: alpha(Opacity=70);" ng-show="slaveData.length > 0">-->
+                    <!--</div>-->
                 </span>
-                <span ng-show="activeMaster == null">
+                <span style="padding: 20px;" ng-show="activeMaster == null">
                     <h2>Loading data...</h2>
                 </span>
-                <span ng-show="activeMaster != null && nodes.length == 0">
+                <span style="padding: 20px" ng-show="activeMaster != null && nodes.length == 0">
                     <h2>Drawing...</h2>
                 </span>
 
-            </div>
-        </div>
 
-        <div class="panel panel-default" ng-show="slaveData.length > 0">
-            <div class="panel-heading">Host details</div>
-            <div class="panel-body">
-                <!--auto-update: <span style="color: green;" ng-show="updatedMesosSlave">{{updatedMesosSlave}}</span> <span style="color: red;" ng-show="!updatedMesosSlave">{{updatedMesosSlave}}</span>-->
-                <span us-spinner ng-show="loading"></span>
-
-                <div class="container" ng-repeat="slave in slaveData | orderBy: 'id' "
-                     style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin: 10px; width: 900px;">
-                    <div class="row">
-                        <h4><span class="label label-success" style="margin-left: 30px;">{{slave.id}}</span></h4>
-                    </div>
+                <!-- -->
+                <div style="position: absolute; bottom:50px; border: 1px #ccc solid; padding: 10px; background: #fff; opacity: 0.7; filter: alpha(Opacity=70); width:800px; right: 140px;" ng-show="slaveData.length > 0" ng-repeat="slave in slaveData | orderBy: 'id'">
+                    <!--hostname-->
+                    <!--<div class="row">-->
+                        <!--<h4><span class="label label-success" style="margin-left: 30px;">{{slave.id}}</span></h4>-->
+                    <!--</div>-->
                     <div class="row">
                         <div class="col-md-2 text-center"><h5><span class="label label-primary label-load">CPU: {{slave.metrics['slave/cpus_used']}}/{{slave.metrics['slave/cpus_total']}} </span>
                         </h5></div>
@@ -232,8 +244,70 @@
                         </div>
                     </div>
                 </div>
+                <!-- -->
             </div>
-        </div>
+        <!--</div>-->
+
+        <!--<div class="panel panel-default" ng-show="slaveData.length > 0">-->
+            <!--<div class="panel-heading">Host details</div>-->
+            <!--<div class="panel-body">-->
+                <!--&lt;!&ndash;auto-update: <span style="color: green;" ng-show="updatedMesosSlave">{{updatedMesosSlave}}</span> <span style="color: red;" ng-show="!updatedMesosSlave">{{updatedMesosSlave}}</span>&ndash;&gt;-->
+                <!--<span us-spinner ng-show="loading"></span>-->
+
+                <!--<div class="container" ng-repeat="slave in slaveData | orderBy: 'id' "-->
+                     <!--style="border: solid 1px #ccc; border-radius: 10px; padding: 10px; margin: 10px; width: 900px;">-->
+                    <!--<div class="row">-->
+                        <!--<h4><span class="label label-success" style="margin-left: 30px;">{{slave.id}}</span></h4>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-md-2 text-center"><h5><span class="label label-primary label-load">CPU: {{slave.metrics['slave/cpus_used']}}/{{slave.metrics['slave/cpus_total']}} </span>-->
+                        <!--</h5></div>-->
+                        <!--<div class="col-md-2 text-center"><h5><span class="label label-primary label-load">Memory: {{slave.metrics['slave/mem_used'] | toGb}}/{{slave.metrics['slave/mem_total'] | toGb}} Gb</span>-->
+                        <!--</h5></div>-->
+                        <!--<div class="col-md-2 text-center"><h5><span class="label label-primary label-load">Disk: {{slave.metrics['slave/disk_used'] | toGb}}/{{slave.metrics['slave/disk_total'] | toGb}} Gb</span>-->
+                        <!--</h5></div>-->
+                        <!--<div class="col-md-6"></div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                        <!--<div ng-repeat="cpu in slaveDataCpu | orderBy: 'id' ">-->
+                            <!--<div class="col-md-2" ng-if="cpu.id == slave.id">-->
+                                <!--<span>-->
+                                    <!--<nvd3 options="optionsSlave" data="cpu.metrics"></nvd3>-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div ng-repeat="mem in slaveDataMem | orderBy: 'id' ">-->
+                            <!--<div class="col-md-2" ng-if="mem.id == slave.id">-->
+                                <!--<span>-->
+                                    <!--<nvd3 options="optionsSlave" data="mem.metrics"></nvd3>-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div ng-repeat="disk in slaveDataDisk | orderBy: 'id' ">-->
+                            <!--<div class="col-md-2" ng-if="disk.id == slave.id">-->
+                                <!--<span>-->
+                                    <!--<nvd3 options="optionsSlave" data="disk.metrics"></nvd3>-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-md-6">-->
+                            <!--<ul class="list-unstyled">-->
+                                <!--<li>Executors registering: {{ slave.metrics['slave/executors_registering']}}</li>-->
+                                <!--<li>Executors running: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="Show details about executors" ng-click="showMetricExecutorsRunning(slave.id)">{{ slave.metrics['slave/executors_running']}}</a></li>-->
+                                <!--<li style="cursor: pointer;" class="agentExecutors" id="agentExecutors-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>-->
+                                <!--<li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>-->
+                                <!--<li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>-->
+                                <!--<li>Frameworks active: <a href="#" popover-placement="right" popover-trigger="mouseenter" uib-popover="Show details about frameworks" ng-click="showMetricFrameworksRunning(slave.id)">{{ slave.metrics['slave/frameworks_active']}}</a></li>-->
+                                <!--<li style="cursor: pointer;" class="agentFrameworks" id="agentFrameworks-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 
     <div ng-if="dataSelector == 'frameworks'">

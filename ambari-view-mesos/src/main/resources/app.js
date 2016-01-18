@@ -118,10 +118,9 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
     $scope.events = {};
 
     $scope.events.click = function (data) {
-        console.log.apply(console, arguments);
-        //alert(JSON.stringify(data))
-
-        //$scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+        if(DEBUG){
+            console.log.apply(console, arguments);
+        }
 
         $scope.slaveList = [];
         $scope.slaveData = [];
@@ -130,7 +129,6 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
         $scope.slaveDataDisk = [];
 
         angular.forEach($scope.nodes, function (value, key) {
-            console.log("values -> "+value.id)
             if(data.nodes[0] == value.id){
                 $scope.getMetricsForSlave(value.label)
             }
@@ -139,7 +137,7 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
 
     $scope.options = {
         autoResize: true,
-        height: '800',
+        height: '1000',
         width: '100%'
     };
 
