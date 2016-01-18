@@ -67,7 +67,7 @@ public class ProxyConnection {
         WebResource webResource = client.resource(url);
 
         if (type.equals("GET")) {
-            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
+            response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").header("Content-type", "application/json").accept(MediaType.APPLICATION_JSON_TYPE).get(ClientResponse.class);
         } else if (type.equals("POST")) {
             response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").header("Content-type", "application/json").accept(MediaType.APPLICATION_JSON_TYPE).post(ClientResponse.class, data);
         } else if (type.equals("PUT")) {
