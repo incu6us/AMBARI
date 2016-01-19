@@ -138,7 +138,11 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
     $scope.options = {
         autoResize: true,
         height: '1000',
-        width: '100%'
+        width: '100%',
+        interaction: {
+            navigationButtons: true,
+            keyboard: true
+        }
     };
 
     //
