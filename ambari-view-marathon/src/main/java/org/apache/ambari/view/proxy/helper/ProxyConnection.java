@@ -3,6 +3,12 @@ package org.apache.ambari.view.proxy.helper;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -17,6 +23,7 @@ public class ProxyConnection {
     private Client client;
     private boolean debug = false;
     private ClientResponse response = null;
+    private static final Logger LOG = LoggerFactory.getLogger(ProxyConnection.class);
 
     /**
      * Init new instance
@@ -76,6 +83,25 @@ public class ProxyConnection {
             response = webResource.header(HttpHeaders.USER_AGENT, "json-proxy").header("Content-type", "application/json").accept(MediaType.APPLICATION_JSON_TYPE).delete(ClientResponse.class);
         }
 
-        return response.getEntity(new GenericType<String>() {});
+        String json_response = response.getEntity(new GenericType<String>() {});
+        JSONObject json = new JSONObject();
+        try {
+            json = (JSONObject) new JSONParser().parse(json_response);
+        } catch (ClassCastException e) {
+            try {
+                json.put("array", new JSONParser().parse(json_response));
+            } catch (ParseException e1) {
+                LOG.error("JsonArray Parse Error -> " + e1);
+            }
+        } catch (NullPointerException e) {
+            LOG.error("NullPointerException -> " + e);
+        } catch (ParseException e) {
+            LOG.error("ParseException -> " + e);
+        }
+        json.put("httpStatusCode", response.getStatus());
+
+        String response_with_status = json.toString();;
+
+        return response_with_status;
     }
 }

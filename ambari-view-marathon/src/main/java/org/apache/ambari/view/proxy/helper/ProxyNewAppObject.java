@@ -9,11 +9,11 @@ public class ProxyNewAppObject {
     int instances;
     String cmd;
     Object container;
-    String[] newappEnv;
+    Object env;
     String executor;
     int[] ports;
     String[] uris;
-    String[] constraints;
+    Object constraints;
 
     public String getId() {
         return id;
@@ -43,8 +43,8 @@ public class ProxyNewAppObject {
         return container;
     }
 
-    public String[] getNewappEnv() {
-        return newappEnv;
+    public Object getEnv() {
+        return env;
     }
 
     public String getExecutor() {
@@ -59,7 +59,7 @@ public class ProxyNewAppObject {
         return uris;
     }
 
-    public String[] getConstraints() {
+    public Object getConstraints() {
         return constraints;
     }
 
@@ -91,8 +91,8 @@ public class ProxyNewAppObject {
         this.container = value;
     }
 
-    public void setNewappEnv(String[] value) {
-        this.newappEnv = value;
+    public void setEnv(Object value) {
+        this.env = value;
     }
 
     public void setExecutor(String value) {
@@ -107,7 +107,7 @@ public class ProxyNewAppObject {
         this.uris = value;
     }
 
-    public void setConstraints(String[] value) {
+    public void setConstraints(Object value) {
         this.constraints = value;
     }
 
