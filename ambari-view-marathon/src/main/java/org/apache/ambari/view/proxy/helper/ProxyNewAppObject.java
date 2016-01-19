@@ -8,12 +8,7 @@ public class ProxyNewAppObject {
     float disk;
     int instances;
     String cmd;
-    String image;
-    String network;
-    boolean privileged;
-    String[] portMappings;
-    String[] dockerParameters;
-    String[] dockerVolumes;
+    Object container;
     String[] newappEnv;
     String executor;
     int[] ports;
@@ -44,28 +39,8 @@ public class ProxyNewAppObject {
         return cmd;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public String getNetwork() {
-        return network;
-    }
-
-    public boolean getPrivileged() {
-        return privileged;
-    }
-
-    public String[] getPortMappings() {
-        return portMappings;
-    }
-
-    public String[] getDockerParameters() {
-        return dockerParameters;
-    }
-
-    public String[] getDockerVolumes() {
-        return dockerVolumes;
+    public Object getContainer() {
+        return container;
     }
 
     public String[] getNewappEnv() {
@@ -112,28 +87,8 @@ public class ProxyNewAppObject {
         this.cmd = value;
     }
 
-    public void setImage(String value) {
-        this.image = value;
-    }
-
-    public void setNetwork(String value) {
-        this.network = value;
-    }
-
-    public void setPrivileged(boolean value) {
-        this.privileged = value;
-    }
-
-    public void setPortMappings(String[] value) {
-        this.portMappings = value;
-    }
-
-    public void setDockerParameters(String[] value) {
-        this.dockerParameters = value;
-    }
-
-    public void setDockerVolumes(String[] value) {
-        this.dockerVolumes = value;
+    public void setContainer(Object value) {
+        this.container = value;
     }
 
     public void setNewappEnv(String[] value) {
