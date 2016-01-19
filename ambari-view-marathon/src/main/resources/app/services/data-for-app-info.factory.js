@@ -16,7 +16,7 @@
             // /api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps/' + appID + '?embed=app.taskStats
             
             function get (hostName, appID) {
-                return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps/' + appID + '?embed=app.taskStats')
+                return $http.get('http://nikke1.github.io/mesos.json')
                     .then(successDataForAppInfo, errorDataForAppInfo);
 
                 function successDataForAppInfo(response) {

@@ -5,7 +5,7 @@
 .table-tasks td {
 	border-spacing: 0px;
 	height: 30px;
-	padding: 3px;
+	padding: 0 3px 0 3px;
 }
 
 .table-tasks th:not(:first-child) {
@@ -37,12 +37,11 @@
 .table-config td {
 	border-spacing: 0px;
 	height: 30px;
-	padding: 3px;
+	padding: 0 3px 0 3px;
 	vertical-align:top;
 }
-
-.table-config th:first-child {
-	text-align: left;
+.table-config tr:first-child td{
+	padding-top: 10px;
 }
 
 .table-config td:first-child {
@@ -55,8 +54,70 @@
 	text-align: left;
 }
 
+.table-config tr:first-child td:first-child {
+	border-radius: 10px 0 0 0;
+}
+.table-config tr:first-child td:last-child {
+	border-radius: 0 10px 0 0;
+}
+.table-config tr:last-child td:first-child {
+	border-radius: 0 0 0 10px;
+}
+.table-config tr:last-child td:last-child {
+	border-radius: 0 0 10px 0;
+}
+
 .table-config pre {
 	background:#F8F8FF; 
 	border:black dashed 1px; 
 	padding:6px
 }​
+
+
+/*
+/
+/
+*/
+.table-debug {
+	width: 100%;
+}
+
+.table-debug table {
+	width: 100%;
+	margin-bottom: 50px;
+}
+
+.table-debug td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 0 3px 0 3px;
+	background-color: #C8E6C9;
+}
+
+.table-debug td:first-child {
+	text-align: left;
+}
+
+.table-debug tr:first-child td:first-child {
+	border-radius: 10px 0 0 0;
+}
+.table-debug tr:first-child td:last-child {
+	border-radius: 0 10px 0 0;
+}
+.table-debug tr:last-child td:first-child {
+	border-radius: 0 0 0 10px;
+}
+.table-debug tr:last-child td:last-child {
+	border-radius: 0 0 10px 0;
+}
+
+
+.table-debug td:first-child {
+	text-align: right;
+	font-weight: bold;
+	width: 150px;
+}
+
+.table-debug td:last-child {
+	text-align: left;
+}

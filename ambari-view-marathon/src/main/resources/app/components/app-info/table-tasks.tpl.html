@@ -1,0 +1,18 @@
+<div class="table-tasks">
+	<table>
+	    <tr>
+	        <th> ID </th>
+	        <th> Status </th>
+	        <th> Version </th>
+	        <th> Updated </th>
+	        <th> Health (Alive) </th>
+	    </tr>
+	    <tr ng-repeat="task in appInfo.appData.tasks">
+	        <td class="border-left"> {{task.id}} </td>
+	        <td> ??? </td>
+	        <td> {{task.version | date}} </td>
+	        <td> {{task.startedAt | date}} </td>
+	        <td class="border-right"> ??? </td>
+	    </tr>    
+	</table>
+</div>
