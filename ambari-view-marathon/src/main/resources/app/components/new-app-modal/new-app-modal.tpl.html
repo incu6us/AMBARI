@@ -85,25 +85,25 @@
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Container Port</label>
-                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.containerPort[$index]">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings[$index].containerPort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Host Port</label>
-                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.hostPort[$index]">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings[$index].hostPort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="5">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Service Port</label>
-                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings.servicePort[$index]">
+                                            <input type="number" step="1" min="0" max="65535" ng-model="newapp.newapp.container.docker.portMappings[$index].servicePort">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="5">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Protocol</label>
-                                            <md-select ng-model="newapp.newapp.container.docker.portMappings.protocol[$index]">
+                                            <md-select ng-model="newapp.newapp.container.docker.portMappings[$index].protocol">
                                                 <md-option ng-repeat="protocol in newapp.docker_protocols" value="{{protocol.netid}}">
                                                     {{protocol.value}}
                                                 </md-option>
@@ -130,14 +130,14 @@
                                     <div flex-xs flex="15">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Key</label>
-                                            <input ng-model="newapp.newapp.container.docker.parameters.key[$index]">
+                                            <input ng-model="newapp.newapp.container.docker.parameters[$index].key">
                                         </md-input-container>
                                     </div>
                                     <div style="margin-top: 30px;margin-left: 5px;margin-right: 5px;">:</div>
                                     <div flex-xs flex="15">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Value</label>
-                                            <input ng-model="newapp.newapp.container.docker.parameters.value[$index]">
+                                            <input ng-model="newapp.newapp.container.docker.parameters[$index].value">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="1" style="margin-top: 15px;">
@@ -160,19 +160,19 @@
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Container Path</label>
-                                            <input ng-model="newapp.newapp.container.volumes.containerPath[$index]">
+                                            <input ng-model="newapp.newapp.container.volumes[$index].containerPath">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="10">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Host Path</label>
-                                            <input ng-model="newapp.newapp.container.volumes.hostPath[$index]">
+                                            <input ng-model="newapp.newapp.container.volumes[$index].hostPath">
                                         </md-input-container>
                                     </div>
                                     <div flex-xs flex="5">
                                         <md-input-container md-no-float class="md-block">
                                             <label>Mode</label>
-                                            <md-select ng-model="newapp.newapp.container.volumes.mode[$index]">
+                                            <md-select ng-model="newapp.newapp.container.volumes[$index].mode">
                                                 <md-option ng-repeat="mode in newapp.docker_volume_modes" value="{{mode.netid}}">
                                                     {{mode.value}}
                                                 </md-option>
