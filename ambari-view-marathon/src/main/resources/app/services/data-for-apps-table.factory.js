@@ -40,8 +40,7 @@
                     .then(successDataNewApp, errorDataNewApp);
 
                 function successDataNewApp(response) {
-                    var resp = 'ok';
-                    return resp;
+                    return response;
                 }
 
                 function errorDataNewApp (err) {
