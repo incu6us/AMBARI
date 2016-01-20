@@ -10,7 +10,10 @@
         function DataForAppsTableFactory ($http) {
             return {
                 get: get,
-                post: post
+                post: post,
+                getDeploys: getDeploys,
+                stopDeploy: stopDeploy,
+                rollbackDeploy: rollbackDeploy
             };
 
             ///////////////////
@@ -61,6 +64,32 @@
                                 console.log(err);
                             }
               	        }
+
+            function stopDeploy (hostName, deployId) {
+                                        return $http.delete('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/deployments/' + deployId)
+                                            .then(successDataForAppsTable, errorDataForAppsTable);
+
+                                        function successDataForAppsTable(response) {
+                                            return response;
+                                        }
+
+                                        function errorDataForAppsTable (err) {
+                                            console.log(err);
+                                        }
+                          	        }
+
+            function rollbackDeploy (hostName, deployId) {
+                                                    return $http.delete('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/deployments/' + deployId + '?force=true')
+                                                        .then(successDataForAppsTable, errorDataForAppsTable);
+
+                                                    function successDataForAppsTable(response) {
+                                                        return response;
+                                                    }
+
+                                                    function errorDataForAppsTable (err) {
+                                                        console.log(err);
+                                                    }
+                                      	        }
 
  		}
      		
