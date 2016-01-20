@@ -118,10 +118,9 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
     $scope.events = {};
 
     $scope.events.click = function (data) {
-        console.log.apply(console, arguments);
-        //alert(JSON.stringify(data))
-
-        //$scope.getMetricsForSlave(slaveItems[i].HostRoles.host_name)
+        if(DEBUG){
+            console.log.apply(console, arguments);
+        }
 
         $scope.slaveList = [];
         $scope.slaveData = [];
@@ -130,7 +129,6 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
         $scope.slaveDataDisk = [];
 
         angular.forEach($scope.nodes, function (value, key) {
-            console.log("values -> "+value.id)
             if(data.nodes[0] == value.id){
                 $scope.getMetricsForSlave(value.label)
             }
@@ -139,8 +137,12 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
 
     $scope.options = {
         autoResize: true,
-        height: '800',
-        width: '100%'
+        height: '1000',
+        width: '100%',
+        interaction: {
+            navigationButtons: true,
+            keyboard: true
+        }
     };
 
     //
@@ -575,8 +577,8 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                                     {
                                         id: ++nodesIdCounter,
                                         label: slaveItems[i].HostRoles.host_name,
-                                        "size": 7,
-                                        "color": "#337ab7",
+                                        "size": 4,
+                                        "color": "#87b6de",
                                         "shape": "circle"
                                     }
                                 );
@@ -586,7 +588,7 @@ app.controller('MetricsController', ['$scope', '$http', '$interval', '$q', '$mdD
                                     {
                                         id: ++nodesIdCounter,
                                         label: slaveItems[i].HostRoles.host_name,
-                                        "size": 5,
+                                        "size": 7,
                                         "color": "#b3b3ff",
                                         "shape": "square"
                                     }

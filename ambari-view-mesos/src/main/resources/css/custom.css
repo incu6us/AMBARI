@@ -7,7 +7,6 @@
     color:#fff;
 }
 
-md-toast {
-    margin-left: auto;
-    margin-right: auto;
+.green{
+    background-color: rgba(0, 255, 0, 0.87);
 }
