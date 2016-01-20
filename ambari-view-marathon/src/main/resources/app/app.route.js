@@ -26,6 +26,11 @@
                     controller: 'AppInfoCtrl',
                     controllerAs: 'appInfo'
                 })
+                .when('/deployments', {
+                    templateUrl: 'app/components/apps-deployments/apps-deployments.tpl.html',
+                    controller: 'AppsDeploymentsCtrl',
+                    controllerAs: 'appsDeploys'
+                }')
                 .otherwise({
                     redirectTo: '/'
                 });
