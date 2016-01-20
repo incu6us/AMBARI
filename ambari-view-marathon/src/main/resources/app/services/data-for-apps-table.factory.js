@@ -49,6 +49,19 @@
                 }
   	        }
 
+  	        function getDeploys (hostName) {
+                            return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/deployments')
+                                .then(successDataForAppsTable, errorDataForAppsTable);
+
+                            function successDataForAppsTable(response) {
+                                return response;
+                            }
+
+                            function errorDataForAppsTable (err) {
+                                console.log(err);
+                            }
+              	        }
+
  		}
      		
 }());

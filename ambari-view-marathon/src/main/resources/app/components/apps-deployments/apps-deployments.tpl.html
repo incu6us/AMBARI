@@ -1,0 +1,18 @@
+<div class="apps-table" flex layout="row">
+    <table>
+        <tr>
+            <th> ID </th>
+            <th> Affected Apps </th>
+            <th> Action </th>
+            <th> Progress </th>
+            <th> Controls </th>
+        </tr>
+        <tr ng-repeat="deploy in appsDeploys.deployList">
+            <td class="border-left"> {{deploy.id}} </td>
+            <td> {{deploy.affApps}} </td>
+            <td> {{deploy.action}} </td>
+            <td> {{deploy.progress}} </td>
+            <td class="border-right"> {{deploy.controls}} </td>
+        </tr>
+    </table>
+</div>
