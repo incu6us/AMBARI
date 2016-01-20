@@ -5,9 +5,9 @@
     	.module('MarathonApp')
     	.controller('AppsDeploymentsCtrl', AppsDeploymentsCtrl);
 
-    	AppsDeploymentsCtrl.$inject = ['$timeout', '$location', 'DataForAppsTableFactory', 'HostNameFactory'];
+    	AppsDeploymentsCtrl.$inject = ['$timeout', '$location', 'AppDeploymentFactory', 'HostNameFactory'];
 
-    	function AppsDeploymentsCtrl ($timeout, $location, DataForAppsTableFactory, HostNameFactory) {
+    	function AppsDeploymentsCtrl ($timeout, $location, AppDeploymentFactory, HostNameFactory) {
 	        var vm = this;
 
 	        vm.hostName = '';
@@ -20,7 +20,7 @@
         		});
 
 	        function getDeploysList () {
-	            DataForAppsTableFactory.getDeploys(vm.hostName)
+	            AppDeploymentFactory.get(vm.hostName)
 	            	.then( function(response) {
 		                vm.deployList = response.data.array;
 		                $timeout(getDeploysList, 10*1000);
@@ -32,14 +32,14 @@
 	        }
 
 	        function stopDeploy (deployId) {
-                DataForAppsTableFactory.stopDeploy(vm.hostName, deployId)
+                AppDeploymentFactory.stop(vm.hostName, deployId)
 	            	.then( function(response) {
 		                console.log(response);
 		            });
 	        }
 
 	        function rollbackDeploy (deployId) {
-                            DataForAppsTableFactory.rollbackDeploy(vm.hostName, deployId)
+                            AppDeploymentFactory.rollback(vm.hostName, deployId)
             	            	.then( function(response) {
             		                console.log(response);
             		            });
