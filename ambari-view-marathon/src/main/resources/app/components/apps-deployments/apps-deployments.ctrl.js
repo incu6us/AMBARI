@@ -7,7 +7,7 @@
 
     	AppsDeploymentsCtrl.$inject = ['$timeout', 'DataForAppsTableFactory', 'HostNameFactory'];
 
-    	function AppsDeploymentsCtrl ($timeout, $location, DataForAppsTableFactory, HostNameFactory) {
+    	function AppsDeploymentsCtrl ($timeout, DataForAppsTableFactory, HostNameFactory) {
 	        var vm = this;
 
 	        vm.hostName = '';
