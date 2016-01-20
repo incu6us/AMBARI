@@ -1,6 +1,11 @@
 <div class="table-tasks">
 	<table>
 	    <tr>
+	    	<th> 
+	    		<md-checkbox ng-model="data.cb1">
+
+		        </md-checkbox>
+      		</th>
 	        <th> ID </th>
 	        <th> Status </th>
 	        <th> Version </th>
@@ -8,6 +13,11 @@
 <!-- 	    <th> Health (Alive) </th> -->
 	    </tr>
 	    <tr ng-repeat="task in appInfo.appData.tasks">
+	    	<td>
+	    		<md-checkbox ng-model="data.cb1">
+
+		        </md-checkbox>
+	    	</td>
 	        <td> {{task.id}} </td>
 	        <td> 
 				<span ng-show="task.startedAt">Started</span>

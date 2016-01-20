@@ -28,6 +28,7 @@
                         vm.hostName = response;
                         DestroyAppFactory.del(vm.hostName, vm.appID)
                             .then( function(response) {
+                                $mdDialog.cancel();
                                 $location.path('/apps');
                             });
                     });  

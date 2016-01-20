@@ -1,47 +1,50 @@
 <div class="table-debug"> 
-	<p> Last Changes </p>
-	<table>
-		<tr>
-			<td> Last Scaling </td>
-			<td> {{appInfo.appData.versionInfo.lastScalingAt}} </td>
-		</tr>
-		<tr>
-			<td> Last Configuration </td>
-			<td> {{appInfo.appData.versionInfo.lastConfigChangeAt}} </td>
-		</tr>
-	</table>
+	<fieldset class="standard">
+      <legend>Using </legend>
+		<p> Last Changes </p>
+		<table>
+			<tr>
+				<td> Last Scaling </td>
+				<td> {{appInfo.appData.versionInfo.lastScalingAt}} </td>
+			</tr>
+			<tr>
+				<td> Last Configuration </td>
+				<td> {{appInfo.appData.versionInfo.lastConfigChangeAt}} </td>
+			</tr>
+		</table>
 
-	<p> Last Task Failure </p>			
-	<table>
-		<tr>
-			<td> Task id </td>
-			<td> {{appInfo.appData.lastTaskFailure.taskId}} </td>
-		</tr>
-		<tr>
-			<td> State </td>
-			<td> {{appInfo.appData.lastTaskFailure.state}} </td>
-		</tr>
-		<tr>
-			<td> Message </td>
-			<td> {{appInfo.appData.lastTaskFailure.message}} </td>
-		</tr>
-		<tr>
-			<td> Host </td>
-			<td> {{appInfo.appData.lastTaskFailure.host}} </td>
-		</tr>
-		<tr>
-			<td> Timestamp </td>
-			<td> {{appInfo.appData.lastTaskFailure.timestamp}} </td>
-		</tr>
-		<tr>
-			<td> Version </td>
-			<td> {{appInfo.appData.lastTaskFailure.version}} </td>
-		</tr>
-<!-- 		<tr>
-			<td> Mesos Details </td>
-			<td> ??? </td>
-		</tr> -->
-	</table>
+		<p> Last Task Failure </p>			
+		<table>
+			<tr>
+				<td> Task id </td>
+				<td> {{appInfo.appData.lastTaskFailure.taskId}} </td>
+			</tr>
+			<tr>
+				<td> State </td>
+				<td> {{appInfo.appData.lastTaskFailure.state}} </td>
+			</tr>
+			<tr>
+				<td> Message </td>
+				<td> {{appInfo.appData.lastTaskFailure.message}} </td>
+			</tr>
+			<tr>
+				<td> Host </td>
+				<td> {{appInfo.appData.lastTaskFailure.host}} </td>
+			</tr>
+			<tr>
+				<td> Timestamp </td>
+				<td> {{appInfo.appData.lastTaskFailure.timestamp}} </td>
+			</tr>
+			<tr>
+				<td> Version </td>
+				<td> {{appInfo.appData.lastTaskFailure.version}} </td>
+			</tr>
+	<!-- 		<tr>
+				<td> Mesos Details </td>
+				<td> ??? </td>
+			</tr> -->
+		</table>
+	</fieldset>
 
 	<p> Task Statistics </p>
 	<div layout="row"  layout-align="space-around start">

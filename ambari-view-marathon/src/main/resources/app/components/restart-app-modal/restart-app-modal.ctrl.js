@@ -28,6 +28,7 @@
                         vm.hostName = response;
                         RestartAppFactory.post(vm.hostName, vm.appID)
                             .then( function(response) {
+                                $mdDialog.cancel();
                                 $location.path('/apps');
                             });
                     }); 

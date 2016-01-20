@@ -5,8 +5,7 @@
     	.module('MarathonApp')
     	.controller('AppInfoCtrl', AppInfoCtrl); 
 	        
-    	AppInfoCtrl.$inject = [
-    		'$timeout', 
+    	AppInfoCtrl.$inject = [ 
     		'$location', 
     		'$routeParams',
     		'$mdDialog',
@@ -14,7 +13,7 @@
     		'HostNameFactory'
     	];
 	    
-    	function AppInfoCtrl ($timeout, $location, $routeParams, $mdDialog, DataForAppInfoFactory, HostNameFactory) {
+    	function AppInfoCtrl ($location, $routeParams, $mdDialog, DataForAppInfoFactory, HostNameFactory) {
 	        var vm = this;
 	        
 	        vm.appID = decodeURIComponent($routeParams.id);
@@ -25,6 +24,8 @@
 	        vm.scaleApp = scaleApp;
 	        vm.restartApp = restartApp;
 	        vm.destroyApp = destroyApp;
+
+	        vm.refreshAppInfo = getAppInfo;
 
 	        HostNameFactory.get()
         		.then( function(response) {
@@ -39,7 +40,6 @@
 	            DataForAppInfoFactory.get(vm.hostName, vm.appID)
 	            	.then( function(response) {
 		                vm.appData = response.app;
-		                $timeout(getAppInfo, 10*1000);
 		            });	
 	        }
 
