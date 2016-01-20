@@ -1,23 +1,36 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-  	.module('MarathonApp')
-  	.controller('RestartAppCtrl', RestartAppCtrl);
+    angular
+      	.module('MarathonApp')
+      	.controller('RestartAppCtrl', RestartAppCtrl);
 
-  	RestartAppCtrl.$inject = ['$mdDialog', '$routeParams'];
+      	RestartAppCtrl.$inject = ['$mdDialog', '$routeParams', '$location', 'HostNameFactory', 'RestartAppFactory'];
 
-  	function RestartAppCtrl ($mdDialog, $routeParams) {
-        var vm = this;
+      	function RestartAppCtrl ($mdDialog, $routeParams, $location, HostNameFactory, RestartAppFactory) {
+            var vm = this;
 
-        vm.appID = decodeURIComponent($routeParams.id);
+            vm.appID = decodeURIComponent($routeParams.id);
+            vm.hostName = '';
 
-	    vm.cancel = function() {
-            $mdDialog.cancel();
-        };
+            vm.cancel = cancel;
+            vm.submit = submit;
 
-        vm.submit = function() {
-            
-        };
-    }
+            ///////////////
+
+    	    function cancel () {
+                $mdDialog.cancel();
+            }
+
+            function submit () {
+                HostNameFactory.get()
+                    .then( function(response) {
+                        vm.hostName = response;
+                        RestartAppFactory.post(vm.hostName, vm.appID)
+                            .then( function(response) {
+                                $location.path('/apps');
+                            });
+                    }); 
+            }
+        }
 }());

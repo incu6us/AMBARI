@@ -5,14 +5,16 @@
 	        <th> Status </th>
 	        <th> Version </th>
 	        <th> Updated </th>
-	        <th> Health (Alive) </th>
+<!-- 	    <th> Health (Alive) </th> -->
 	    </tr>
 	    <tr ng-repeat="task in appInfo.appData.tasks">
-	        <td class="border-left"> {{task.id}} </td>
-	        <td> ??? </td>
+	        <td> {{task.id}} </td>
+	        <td> 
+				<span ng-show="task.startedAt">Started</span>
+	        </td>
 	        <td> {{task.version | date}} </td>
-	        <td> {{task.startedAt | date}} </td>
-	        <td class="border-right"> ??? </td>
+	        <td> {{task.stagedAt | date}} </td>
+<!-- 	    <td> ??? </td> -->
 	    </tr>    
 	</table>
 </div>

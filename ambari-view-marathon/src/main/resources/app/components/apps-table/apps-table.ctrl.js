@@ -12,7 +12,7 @@
 	        
 	        vm.hostName = '';
 	        vm.appsList = [];
-
+	        
 	        vm.showAppInfo = showAppInfo;
 
 	        HostNameFactory.get()
@@ -20,6 +20,7 @@
         			vm.hostName = response;
         			getAppsList();
         		});
+
 	        
 	        ///////////////////
 

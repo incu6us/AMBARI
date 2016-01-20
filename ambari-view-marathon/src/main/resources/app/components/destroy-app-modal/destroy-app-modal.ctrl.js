@@ -1,23 +1,36 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-  	.module('MarathonApp')
-  	.controller('DestroyAppCtrl', DestroyAppCtrl);
+    angular
+      	.module('MarathonApp')
+      	.controller('DestroyAppCtrl', DestroyAppCtrl);
 
-  	DestroyAppCtrl.$inject = ['$mdDialog', '$routeParams'];
+      	DestroyAppCtrl.$inject = ['$mdDialog', '$routeParams', '$location', 'DestroyAppFactory', 'HostNameFactory'];
 
-  	function DestroyAppCtrl ($mdDialog, $routeParams) {
-        var vm = this;
+      	function DestroyAppCtrl ($mdDialog, $routeParams, $location, DestroyAppFactory, HostNameFactory) {
+            var vm = this;
 
-        vm.appID = decodeURIComponent($routeParams.id);
+            vm.appID = decodeURIComponent($routeParams.id);
+            vm.hostName = '';
 
-	    vm.cancel = function() {
-            $mdDialog.cancel();
-        };
+    	    vm.cancel = cancel;
+            vm.submit = submit;
 
-        vm.submit = function() {
-            
-        };
-    }
+            ///////////////
+
+            function cancel () {
+                $mdDialog.cancel();
+            }
+
+            function submit () {
+                HostNameFactory.get()
+                    .then( function(response) {
+                        vm.hostName = response;
+                        DestroyAppFactory.del(vm.hostName, vm.appID)
+                            .then( function(response) {
+                                $location.path('/apps');
+                            });
+                    });  
+            }
+        }
 }());
