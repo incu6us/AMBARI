@@ -31,6 +31,7 @@
         			vm.hostName = response;
         			getAppInfo();
         		});
+
 	        
 	        ///////////////////
 
