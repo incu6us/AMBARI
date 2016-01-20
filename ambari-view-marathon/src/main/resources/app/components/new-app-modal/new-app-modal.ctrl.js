@@ -20,35 +20,36 @@
 
         vm.submit = function() {
 
-        if (vm.newapp.container.docker) {
-        if (vm.newapp.container.docker.portMappings) {
-            var ports_array = [];
-            var ports = vm.newapp.container.docker.portMappings;
-            angular.forEach(ports, function(element) {
-              ports_array.push(element);
-            });
-            vm.newapp.container.docker.portMappings = ports_array;
-        }
-
-        if (vm.newapp.container.docker.parameters) {
-            var docker_params = [];
-            var params_array = vm.newapp.container.docker.parameters;
-            angular.forEach(params_array, function(element) {
-                docker_params.push(element);
-            });
-            vm.newapp.container.docker.parameters = docker_params;
-        }
-        }
-
         if (vm.newapp.container) {
-        if (vm.newapp.container.volumes) {
-            var docker_volumes = [];
-            var volumes_array = vm.newapp.container.volumes;
-            angular.forEach(volumes_array, function(element) {
-                docker_volumes.push(element);
-            });
-            vm.newapp.container.volumes = docker_volumes;
-        }
+            if (vm.newapp.container.docker) {
+                if (vm.newapp.container.docker.portMappings) {
+                    var ports_array = [];
+                    var ports = vm.newapp.container.docker.portMappings;
+                    angular.forEach(ports, function(element) {
+                      ports_array.push(element);
+                    });
+                    vm.newapp.container.docker.portMappings = ports_array;
+                }
+
+                if (vm.newapp.container.docker.parameters) {
+                    var docker_params = [];
+                    var params_array = vm.newapp.container.docker.parameters;
+                    angular.forEach(params_array, function(element) {
+                        docker_params.push(element);
+                    });
+                    vm.newapp.container.docker.parameters = docker_params;
+                }
+            }
+
+
+            if (vm.newapp.container.volumes) {
+                var docker_volumes = [];
+                var volumes_array = vm.newapp.container.volumes;
+                angular.forEach(volumes_array, function(element) {
+                    docker_volumes.push(element);
+                });
+                vm.newapp.container.volumes = docker_volumes;
+            }
         }
 
         if (vm.newapp.env) {
@@ -76,10 +77,13 @@
             function postNewApp(data) {
                 DataForAppsTableFactory.post(vm.hostName, data)
                                     .then( function(response) {
-                                        if (response.data.httpStatusCode !== 201) {
-                                            vm.responseMessage = response.data.message;
-                                        } else {
+                                        if (response.data.httpStatusCode === 201) {
                                             $mdDialog.cancel();
+                                            vm.responseMessage = "";
+                                        } else if (response.data.httpStatusCode === 422) {
+                                            vm.responseMessage = response.data.errors[0].error;
+                                        } else {
+                                            vm.responseMessage = response.data.message;
                                         }
                                     });
             }
