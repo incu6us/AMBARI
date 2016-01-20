@@ -5,9 +5,9 @@
       	.module('MarathonApp')
       	.controller('DestroyAppCtrl', DestroyAppCtrl);
 
-      	DestroyAppCtrl.$inject = ['$mdDialog', '$routeParams', 'DestroyAppFactory', 'HostNameFactory'];
+      	DestroyAppCtrl.$inject = ['$mdDialog', '$routeParams', '$location', 'DestroyAppFactory', 'HostNameFactory'];
 
-      	function DestroyAppCtrl ($mdDialog, $routeParams, DestroyAppFactory, HostNameFactory) {
+      	function DestroyAppCtrl ($mdDialog, $routeParams, $location, DestroyAppFactory, HostNameFactory) {
             var vm = this;
 
             vm.appID = decodeURIComponent($routeParams.id);
@@ -16,22 +16,21 @@
     	    vm.cancel = cancel;
             vm.submit = submit;
 
-            HostNameFactory.get()
-                .then( function(response) {
-                    vm.hostName = response;
-                });
-
             ///////////////
 
             function cancel () {
                 $mdDialog.cancel();
             }
 
-            function submit () {    
-                DestroyAppFactory.del(hostName, appID)
+            function submit () {
+                HostNameFactory.get()
                     .then( function(response) {
-                        $location.path('/apps');
-                    });
+                        vm.hostName = response;
+                        DestroyAppFactory.del(vm.hostName, vm.appID)
+                            .then( function(response) {
+                                $location.path('/apps');
+                            });
+                    });  
             }
         }
 }());
