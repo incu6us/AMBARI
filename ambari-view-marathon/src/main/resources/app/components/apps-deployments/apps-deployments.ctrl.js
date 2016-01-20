@@ -5,9 +5,9 @@
     	.module('MarathonApp')
     	.controller('AppsDeploymentsCtrl', AppsDeploymentsCtrl);
 
-    	AppsDeploymentsCtrl.$inject = ['$timeout', 'DataForAppsTableFactory', 'HostNameFactory'];
+    	AppsDeploymentsCtrl.$inject = ['$timeout', '$location', 'DataForAppsTableFactory', 'HostNameFactory'];
 
-    	function AppsDeploymentsCtrl ($timeout, DataForAppsTableFactory, HostNameFactory) {
+    	function AppsDeploymentsCtrl ($timeout, $location, DataForAppsTableFactory, HostNameFactory) {
 	        var vm = this;
 
 	        vm.hostName = '';
@@ -25,6 +25,10 @@
 		                vm.deployList = response.data.array;
 		                $timeout(getDeploysList, 10*1000);
 		            });
+	        }
+
+	        function showAppInfo (appId) {
+	            $location.path('/apps/' + encodeURIComponent(appId));
 	        }
 
 	        function stopDeploy (deployId) {

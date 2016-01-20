@@ -7,17 +7,17 @@
             <th> Progress </th>
             <th> Controls </th>
         </tr>
-        <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="appsDeploys.deployList.length">
+        <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
             <td class="border-left"> {{deploy.id}} </td>
-            <td><div ng-repeat="affApp in deploy.affectedApps"> {{affApp}} </div></td>
+            <td><div ng-repeat="affApp in deploy.affectedApps"><a href="#" ng-click="appsDeploys.showAppInfo(deploy.id)"> {{affApp}} </a></div></td>
             <td><div ng-repeat="currAction in deploy.currentActions"> {{currAction.action}} </div></td>
             <td> {{deploy.currentStep}}/{{deploy.totalSteps}} </td>
             <td class="border-right">
-                <md-button ng-click="appsDeploys.stopDeploy(deploy.id)" class="md-raised">Stop</md-button>
-                <md-button ng-click="appsDeploys.rollbackDeploy(deploy.id)" style="margin-right:20px;" class="md-raised md-warn">RollBack</md-button>
+                <md-button flex="5" ng-click="appsDeploys.stopDeploy(deploy.id)" class="md-raised">Stop</md-button>
+                <md-button flex="5" ng-click="appsDeploys.rollbackDeploy(deploy.id)" style="margin-right:20px;" class="md-raised md-warn">RollBack</md-button>
             </td>
         </tr>
-        <tr ng-hide="!appsDeploys.deployList.length">
+        <tr flex ng-hide="appsDeploys.deployList.length">
             <td colspan="5" style="text-align: center;">No deployments in progress.</td>
         </tr>
     </table>
