@@ -23,13 +23,13 @@
                 };
 
                 return $http.delete('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps/' + appID, config)
-                    .then(successDataForAppInfo, errorDataForAppInfo);
+                    .then(successDestroyApp, errorDestroyApp);
 
-                function successDataForAppInfo(response) {
+                function successDestroyApp(response) {
                     console.log(response);
                 }
 
-                function errorDataForAppInfo (err) {
+                function errorDestroyApp (err) {
                     console.log(err);
                 }
   	        }
