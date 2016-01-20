@@ -8,17 +8,12 @@ public class ProxyNewAppObject {
     float disk;
     int instances;
     String cmd;
-    String image;
-    String network;
-    boolean privileged;
-    String[] portMappings;
-    String[] dockerParameters;
-    String[] dockerVolumes;
-    String[] newappEnv;
+    Object container;
+    Object env;
     String executor;
     int[] ports;
     String[] uris;
-    String[] constraints;
+    Object constraints;
 
     public String getId() {
         return id;
@@ -44,32 +39,12 @@ public class ProxyNewAppObject {
         return cmd;
     }
 
-    public String getImage() {
-        return image;
+    public Object getContainer() {
+        return container;
     }
 
-    public String getNetwork() {
-        return network;
-    }
-
-    public boolean getPrivileged() {
-        return privileged;
-    }
-
-    public String[] getPortMappings() {
-        return portMappings;
-    }
-
-    public String[] getDockerParameters() {
-        return dockerParameters;
-    }
-
-    public String[] getDockerVolumes() {
-        return dockerVolumes;
-    }
-
-    public String[] getNewappEnv() {
-        return newappEnv;
+    public Object getEnv() {
+        return env;
     }
 
     public String getExecutor() {
@@ -84,7 +59,7 @@ public class ProxyNewAppObject {
         return uris;
     }
 
-    public String[] getConstraints() {
+    public Object getConstraints() {
         return constraints;
     }
 
@@ -112,32 +87,12 @@ public class ProxyNewAppObject {
         this.cmd = value;
     }
 
-    public void setImage(String value) {
-        this.image = value;
+    public void setContainer(Object value) {
+        this.container = value;
     }
 
-    public void setNetwork(String value) {
-        this.network = value;
-    }
-
-    public void setPrivileged(boolean value) {
-        this.privileged = value;
-    }
-
-    public void setPortMappings(String[] value) {
-        this.portMappings = value;
-    }
-
-    public void setDockerParameters(String[] value) {
-        this.dockerParameters = value;
-    }
-
-    public void setDockerVolumes(String[] value) {
-        this.dockerVolumes = value;
-    }
-
-    public void setNewappEnv(String[] value) {
-        this.newappEnv = value;
+    public void setEnv(Object value) {
+        this.env = value;
     }
 
     public void setExecutor(String value) {
@@ -152,7 +107,7 @@ public class ProxyNewAppObject {
         this.uris = value;
     }
 
-    public void setConstraints(String[] value) {
+    public void setConstraints(Object value) {
         this.constraints = value;
     }
 

@@ -42,7 +42,7 @@ public class ProxyService {
     @DELETE
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public JSONObject deleteJson(@QueryParam("url") String url, ProxyNewAppObject data) {
+    public JSONObject deleteJson(@QueryParam("url") String url, @QueryParam("data") String data) {
         return json(url, HttpMethod.DELETE, data);
     }
 

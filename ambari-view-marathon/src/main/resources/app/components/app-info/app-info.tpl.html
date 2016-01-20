@@ -3,225 +3,48 @@
 		<span> Apps </span>
 		<span> > </span>	
 		<span> {{appInfo.appID}} </span>
-		<span> > </span>
-		<span> {{appInfo.taskID}} </span>
 	</md-content>			
 
 	<div>
 		<div layout="row">
-			<md-button class="md-primary md-hue-1 md-raised" href="#">
+			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.suspendApp()">
 				Suspend
 			</md-button>
-			<md-button class="md-primary md-hue-1 md-raised" href="#">
+			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.scaleApp()">
 				Scale
+			</md-button>
+
+			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.refreshAppInfo()">
+				Refresh
 			</md-button>
 
 			<!-- fill up the space between left and right area -->
    			<span flex></span>
 
-			<md-button class="md-warn md-hue-1 md-raised" href="#">
-				Destroy App
-			</md-button>
-			<md-button class="md-primary md-hue-1 md-raised" href="#">
+			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.restartApp()">
 				Restart App
+			</md-button>
+			<md-button class="md-warn md-hue-1 md-raised" ng-click="appInfo.destroyApp()">
+				Destroy App
 			</md-button>
 		</div>
 		
-		<md-tabs md-dynamic-height="true">
-			
+		<md-tabs md-dynamic-height="true">			
 			<md-tab label="Tasks">
 				<md-content layout-padding>
-					<div class="table-tasks">
-				        <table>
-				            <tr>
-				                <th> ID </th>
-				                <th> Status </th>
-				                <th> Version </th>
-				                <th> Updated </th>
-				                <th> Health (Alive) </th>
-				            </tr>
-				            <tr ng-repeat="task in appInfo.appData.tasks">
-				                <td class="border-left"> {{task.id}} </td>
-				                <td> ??? </td>
-				                <td> {{task.version | date}} </td>
-				                <td> {{task.startedAt | date}} </td>
-				                <td class="border-right"> ??? </td>
-				            </tr>    
-				        </table>
-				  	</div>
+					<table-tasks></table-tasks>
 			  	</md-content>
 		  	</md-tab>
-
 		  	<md-tab label="Configuration">
 		  		<md-content layout-padding>
-		  			<p> Current Version - {{appInfo.appData.version | date}} </p>
-					<div class="table-config">
-				        <table>
-				            <tr>
-				                <td> Command </td>
-				                <td> {{appInfo.appData.cmd || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Constraints </td>
-				                <td>
-			                		<span ng-show="!!appInfo.appData.constraints.length">
-			                			<span ng-repeat="constraint in appInfo.appData.constraints">
-			                				{{constraint}} <br>
-			                			</span>
-			                   		</span>
-			                		<span ng-show="!!!appInfo.appData.constraints.length">
-			                			Unspecified
-			                		</span>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td> Container </td>
-				                <td> 
-				                	<pre ng-show="appInfo.appData.container"> 
-				                		{{appInfo.appData.container | json:4 || "Unspecified"}} 
-				                	</pre>
-				                	<span ng-show="!appInfo.appData.container">
-				                		Unspecified
-				                	</span>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td> CPUs </td>
-				                <td> {{appInfo.appData.cpus || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Environment </td>
-				                <td> 
-				                	<span ng-show="appInfo.appData.env">
-										<span ng-repeat="(envOption, value) in appInfo.appData.env">
-					                		{{envOption}}={{value}} <br>
-					                	</span>
-				                	</span>
-				                	<span ng-show="!!appInfo.appData.env">
-				                		Unspecified
-				                	</span>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td> Executor </td>
-				                <td> {{appInfo.appData.executor || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Health Checks </td>
-				                <td> 
-				                	<pre ng-show="appInfo.appData.healthChecks[0]"> 
-				                		{{appInfo.appData.healthChecks[0] | json:4 || "Unspecified"}} 
-				                	</pre>
-				                	<span ng-show="!appInfo.appData.healthChecks[0]">
-				                		Unspecified
-				                	</span>
-				                </td>
-				            </tr>
-				            <tr>
-				                <td> Instances </td>
-				                <td> {{appInfo.appData.instances || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Memory </td>
-				                <td> {{appInfo.appData.mem || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Disk Space </td>
-				                <td> {{appInfo.appData.disk || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Ports </td>
-				                <td>
-				                	<span ng-show="!!appInfo.appData.ports.length">
-										<span ng-repeat="port in appInfo.appData.ports">
-											{{port}} <br>
-										</span>
-				                	</span>
-			                		<span ng-show="!!!appInfo.appData.ports.length">
-			                			Unspecified
-			                		</span>
-				            	</td>
-				            </tr>
-				            <tr>
-				                <td> Backoff Factor </td>
-				                <td> {{appInfo.appData.backoffFactor || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> Backoff </td>
-				                <td> {{appInfo.appData.backoffSeconds || "Unspecified"}} </td>
-				            </tr>
-				            
-				            <tr>
-				                <td> Max Launch Delay </td>
-				                <td> {{appInfo.appData.maxLaunchDelaySeconds || "Unspecified"}} </td>
-				            </tr>
-				            <tr>
-				                <td> URIs </td>
-								<td>
-									<span ng-show="!!appInfo.appData.uris.length">
-					                	<span ng-repeat="uri in appInfo.appData.uris">
-					                		{{uri}} <br>
-					                	</span>
-				                	</span>
-				                	<span ng-show="!!!appInfo.appData.uris.length">
-				                		Unspecified
-				                	</span>
-				            	</td>
-				            </tr>
-				            <tr>
-				                <td> Version </td>
-				                <td> {{appInfo.appData.version || "Unspecified"}} </td>
-				            </tr>
-				        </table>
-				  	</div>
+					<table-config></table-config>
 				</md-content>
-			 </md-tab>
-
+			</md-tab>
 			<md-tab label="Debug">
 				<md-content layout-padding>
-					<p> Last Changes </p>
-					<div class="table-debug"> 
-						<table>
-							
-						</table>
-					</div>
-
-					<p> Last Task Failure </p>
-					<div class="table-debug">					
-						<table>
-							<tr>
-								<td> Task id </td>
-								<td> {{appInfo.appData.lastTaskFailure.taskId}} </td>
-							</tr>
-							<tr>
-								<td> State </td>
-								<td> {{appInfo.appData.lastTaskFailure.state}} </td>
-							</tr>
-							<tr>
-								<td> Message </td>
-								<td> {{appInfo.appData.lastTaskFailure.message}} </td>
-							</tr>
-							<tr>
-								<td> Host </td>
-								<td> {{appInfo.appData.lastTaskFailure.host}} </td>
-							</tr>
-							<tr>
-								<td> Timestamp </td>
-								<td> {{appInfo.appData.lastTaskFailure.timestamp}} </td>
-							</tr>
-							<tr>
-								<td> Version </td>
-								<td> {{appInfo.appData.lastTaskFailure.version}} </td>
-							</tr>
-							<tr>
-								<td> Mesos Details </td>
-								<td> ??? </td>
-							</tr>
-						</table>
-					</div>
+					<table-debug></table-debug>
 				</md-content>		
 			</md-tab>
-
 		</md-tabs>
 	</div>
 </div>

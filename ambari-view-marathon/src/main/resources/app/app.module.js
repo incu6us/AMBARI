@@ -4,7 +4,6 @@
     var VERSION = '0.1.0';
     var DEBUG = false;
 
-
     var spinOpts = {
         lines: 11, // The number of lines to draw
         length: 5, // The length of each line
@@ -19,7 +18,7 @@
         shadow: false, // Whether to render a shadow
         hwaccel: false, // Whether to use hardware acceleration
         className: 'spinner', // The CSS class to assign to the spinner
-        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        zIndex: 2e9 // The z-index (defaults to 2000000000)
     };
 
     angular

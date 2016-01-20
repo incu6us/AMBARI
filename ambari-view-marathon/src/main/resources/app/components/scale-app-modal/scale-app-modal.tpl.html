@@ -1,0 +1,14 @@
+<md-dialog>
+    <md-content layout-padding>
+        <md-input-container class="md-block">
+            <label md-autofocus>Scale to how many instances?</label>
+            <input ng-model="scaleApp.parametrs.instances" ng-required="true">
+        </md-input-container>
+        <md-button class="md-primary md-raised" ng-click="scaleApp.cancel()">
+            Cancel
+        </md-button>
+        <md-button class="md-primary md-raised" ng-click="scaleApp.submit()">
+            Ok
+        </md-button>
+    </md-content>
+</md-dialog>
