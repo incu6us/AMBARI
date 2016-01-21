@@ -30,7 +30,7 @@
                 HostNameFactory.get()
                     .then( function(response) {
                         vm.hostName = response;
-                        ScaleAppFactory.put(vm.hostName, vm.appID, vm.data)
+                        ScaleAppFactory.put(vm.hostName, vm.appID, vm.parametrs)
                             .then( function(response) {
                                 $mdDialog.cancel();
                             });
