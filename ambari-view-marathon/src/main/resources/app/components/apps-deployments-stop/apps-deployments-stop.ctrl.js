@@ -24,8 +24,3 @@
 
         }
 }());
-
-       modified:   ambari-view-marathon/src/main/resources/app/components/apps-deployments-rollback/apps-deployments-rollback.tpl.html
-#       modified:   ambari-view-marathon/src/main/resources/app/components/apps-deployments-stop/apps-deployments-stop.tpl.html
-#       modified:   ambari-view-marathon/src/main/resources/app/components/apps-deployments/apps-deployments.ctrl.js
-#       modified:   ambari-view-marathon/src/main/resources/app/components/apps-deployments/apps-deployments.tpl.html
