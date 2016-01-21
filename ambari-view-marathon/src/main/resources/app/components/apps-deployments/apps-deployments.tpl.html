@@ -9,8 +9,16 @@
         </tr>
         <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
             <td class="border-left"> {{deploy.id}} </td>
-            <td><div ng-repeat="affApp in deploy.affectedApps"><a href="#" ng-click="appsDeploys.showAppInfo(affApp)"> {{affApp}} </a></div></td>
-            <td><div ng-repeat="currAction in deploy.currentActions"> {{currAction.action}} </div></td>
+            <td>
+                <span ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)"> 
+                    <u> {{affApp}} </u> <br>
+                </span>
+            </td>
+            <td>
+                <span ng-repeat="currAction in deploy.currentActions"> 
+                    {{currAction.action}} <br>
+                </span>
+            </td>
             <td> {{deploy.currentStep}}/{{deploy.totalSteps}} </td>
             <td class="border-right">
                 <md-button ng-click="appsDeploys.stopDeploy(deploy.id)" class="md-raised">Stop</md-button>
