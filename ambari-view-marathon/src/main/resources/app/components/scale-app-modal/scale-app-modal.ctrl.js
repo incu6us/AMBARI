@@ -14,8 +14,22 @@
             vm.hostName = '';
 
             vm.parametrs = {
-                instances: 0
+                instances: "Loading..."
             };
+
+            HostNameFactory.get()
+                .then( function(response) {
+                    vm.hostName = response;
+                    ScaleAppFactory.version(vm.hostName, vm.appID)
+                        .then( function(response) {
+                            var appVersion = response;
+                            ScaleAppFactory.get(vm.hostName, vm.appID, appVersion)
+                                .then( function(response) {
+                                    vm.appConfig = response;
+                                    vm.parametrs.instances = vm.appConfig.instances;
+                                });
+                        });
+                });
 
             vm.cancel = cancel;
             vm.submit = submit;
@@ -30,7 +44,13 @@
                 HostNameFactory.get()
                     .then( function(response) {
                         vm.hostName = response;
-                        ScaleAppFactory.put(vm.hostName, vm.appID, vm.parametrs)
+                        vm.appConfig.instances = vm.parametrs.instances;
+
+                        delete vm.appConfig.httpStatusCode;
+                        delete vm.appConfig.version;
+                        delete vm.appConfig.versionInfo;
+                        
+                        ScaleAppFactory.put(vm.hostName, vm.appID, vm.appConfig)
                             .then( function(response) {
                                 $mdDialog.cancel();
                             });
