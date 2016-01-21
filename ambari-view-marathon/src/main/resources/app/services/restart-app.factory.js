@@ -22,7 +22,9 @@
                      }
                 };
 
-                return $http.post('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps/' + appID + '/restart', config)
+                var data = {};
+
+                return $http.post('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps/' + appID + '/restart', data, config)
                     .then(successRestartApp, errorRestartApp);
 
                 function successRestartApp (response) {
