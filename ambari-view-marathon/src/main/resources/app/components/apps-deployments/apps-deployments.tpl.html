@@ -21,8 +21,8 @@
             </td>
             <td> {{deploy.currentStep}}/{{deploy.totalSteps}} </td>
             <td class="border-right">
-                <md-button ng-click="appsDeploys.stopDeploy(deploy.id)" class="md-raised">Stop</md-button>
-                <md-button ng-click="appsDeploys.rollbackDeploy(deploy.id)" style="margin-right:0;" class="md-raised md-warn">RollBack</md-button>
+                <md-button ng-click="appsDeploys.stopDeploy($event, deploy.id)" class="md-raised">Stop</md-button>
+                <md-button ng-click="appsDeploys.rollbackDeploy($event, deploy.id)" style="margin-right:0;" class="md-raised md-warn">RollBack</md-button>
             </td>
         </tr>
         <tr flex ng-hide="appsDeploys.deployList.length">
