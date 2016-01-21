@@ -17,14 +17,23 @@
 	        var vm = this;
 	        
 	        vm.appID = decodeURIComponent($routeParams.id);
+
 	        vm.hostName = '';
 	        vm.appData = {};
+
+			vm.tasksToKill = {
+			    ids: []
+			};
+			vm.checkedTasks = {};
+
+			vm.checkTask = checkTask;
+			vm.checkAllTasks = checkAllTasks;
 
 	        vm.suspendApp = suspendApp;
 	        vm.scaleApp = scaleApp;
 	        vm.restartApp = restartApp;
 	        vm.destroyApp = destroyApp;
-
+	        vm.killTasks = killTasks;
 	        vm.refreshAppInfo = getAppInfo;
 
 	        HostNameFactory.get()
@@ -32,9 +41,15 @@
         			vm.hostName = response;
         			getAppInfo();
         		});
+			// getAppInfo();
 
+			vm.showTaskInfo = showTaskInfo;
 	        
-	        ///////////////////
+		    ///////////////////
+
+		    function showTaskInfo (taskId) {
+		    	$location.path($location.path() + '/' + taskId);
+		    }
 
 	        function getAppInfo () {
 	            DataForAppInfoFactory.get(vm.hostName, vm.appID)
@@ -86,5 +101,45 @@
 		            clickOutsideToClose:true
 		        });
 	    	}
+
+	    	function killTasks (shouldScale) {
+	    		HostNameFactory.get()
+                    .then( function(response) {
+                        vm.hostName = response;
+                        KillTasksFactory.post(vm.hostName, vm.tasksToKill, shouldScale)
+                            .then( function(response) {
+                                getAppInfo();
+                            });
+                    });  
+	    	}
+
+	    	function checkTask (taskId) {
+	    		var indexOfTask = vm.tasksToKill.ids.indexOf(taskId);
+
+	    		if ( indexOfTask === -1 ) {
+	    			vm.tasksToKill.ids.push(taskId);
+	    		} else {
+	    			vm.tasksToKill.ids.splice(indexOfTask, 1);
+	    		}
+	    	}
+
+	    	function checkAllTasks () {
+				vm.tasksToKill.ids = [];
+
+				if (vm.allCheckedState === true) {
+					vm.allCheckedState = false;
+					for (var i = 0; i < vm.appData.tasks.length; i++) {
+						var task1 = vm.appData.tasks[i];
+						vm.checkedTasks[task1.id] = false;
+					}
+				} else {
+					vm.allCheckedState = true;
+					for (var k = 0; k < vm.appData.tasks.length; k++) {
+						var task2 = vm.appData.tasks[k];
+						vm.checkedTasks[task2.id] = true;
+						vm.checkTask(task2.id);
+					}
+				}
+			}
 	    }
 }());

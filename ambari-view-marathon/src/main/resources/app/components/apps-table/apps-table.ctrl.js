@@ -20,6 +20,7 @@
         			vm.hostName = response;
         			getAppsList();
         		});
+			// getAppsList();
 
 	        
 	        ///////////////////

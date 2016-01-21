@@ -57,8 +57,8 @@
 	        }
 
 	        vm.cancelStop = function cancel () {
-                            $mdDialog.cancel();
-                        }
+                $mdDialog.cancel();
+            };
 
 	        function rollbackDeploy (deployId) {
 	            vm.deployId = deployId;

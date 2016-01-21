@@ -6,22 +6,43 @@
 	border-spacing: 0px;
 	height: 30px;
 	padding: 0 3px 0 3px;
+	height: 50px;
 }
 
-.table-tasks th:not(:first-child) {
+.table-tasks th {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 0 3px 0 3px;
+}
+
+.table-tasks th:not(:nth-child(2)) {
 	text-align: right;
+}
+
+.table-tasks th:nth-child(2) {
+	text-align: left;
 }
 
 .table-tasks th:first-child {
 	text-align: left;
+	width: 30px;
 }
 
-.table-tasks td:not(:first-child) {
+.table-tasks td:not(:nth-child(2)) {
 	text-align: right;
+}
+
+.table-tasks td:nth-child(2) {
+	text-align: left;
 }
 
 .table-tasks td:first-child {
 	text-align: left;
+	width: 30px;
+}
+
+.table-tasks th md-checkbox {
+	margin-bottom: 0px;
 }
 
 
@@ -40,6 +61,13 @@
 	padding: 0 3px 0 3px;
 	vertical-align:top;
 }
+
+.table-config th {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 0 3px 0 3px;
+}
+
 .table-config tr:first-child td{
 	padding-top: 10px;
 }
@@ -84,33 +112,23 @@
 
 .table-debug table {
 	width: 100%;
-	margin-bottom: 50px;
 }
 
 .table-debug td {
 	border-spacing: 0px;
 	height: 30px;
 	padding: 0 3px 0 3px;
-	background-color: #C8E6C9;
+}
+
+.table-debug th {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 0 3px 0 3px;
 }
 
 .table-debug td:first-child {
 	text-align: left;
 }
-
-.table-debug tr:first-child td:first-child {
-	border-radius: 10px 0 0 0;
-}
-.table-debug tr:first-child td:last-child {
-	border-radius: 0 10px 0 0;
-}
-.table-debug tr:last-child td:first-child {
-	border-radius: 0 0 0 10px;
-}
-.table-debug tr:last-child td:last-child {
-	border-radius: 0 0 10px 0;
-}
-
 
 .table-debug td:first-child {
 	text-align: right;
@@ -120,4 +138,8 @@
 
 .table-debug td:last-child {
 	text-align: left;
+}
+
+.table-debug fieldset {
+	margin-bottom: 30px; 
 }

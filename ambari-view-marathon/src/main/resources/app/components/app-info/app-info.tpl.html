@@ -1,6 +1,6 @@
 <div flex>
 	<md-content layout-padding>
-		<span> Apps </span>
+		<span> <a ng-href="#/apps"> Apps </a> </span>
 		<span> > </span>	
 		<span> {{appInfo.appID}} </span>
 	</md-content>			
@@ -13,7 +13,6 @@
 			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.scaleApp()">
 				Scale
 			</md-button>
-
 			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.refreshAppInfo()">
 				Refresh
 			</md-button>
@@ -21,6 +20,12 @@
 			<!-- fill up the space between left and right area -->
    			<span flex></span>
 
+			<md-button class="md-primary md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(false)">
+				Kill
+			</md-button>
+			<md-button class="md-primary md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(true)">
+				Kill & Scale
+			</md-button>
 			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.restartApp()">
 				Restart App
 			</md-button>

@@ -9,8 +9,8 @@
         </tr>
         <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
             <td class="border-left"> {{deploy.id}} </td>
-            <td>
-                <span ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)"> 
+            <td ng-click="appsDeploys.showAppInfo(affApp)">
+                <span ng-repeat="affApp in deploy.affectedApps"> 
                     <u> {{affApp}} </u> <br>
                 </span>
             </td>

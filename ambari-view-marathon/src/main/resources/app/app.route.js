@@ -26,6 +26,9 @@
                     controller: 'AppInfoCtrl',
                     controllerAs: 'appInfo'
                 })
+                .when('/apps/:id/:idt', {
+                    templateUrl: 'app/components/app.html',
+                })
                 .when('/deployments', {
                     templateUrl: 'app/components/apps-deployments/apps-deployments.tpl.html',
                     controller: 'AppsDeploymentsCtrl',
