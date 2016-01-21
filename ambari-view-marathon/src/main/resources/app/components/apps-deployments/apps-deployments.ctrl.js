@@ -35,54 +35,36 @@
 	            $location.path('/apps/' + encodeURIComponent(appId));
 	        }
 
-	        function stopDeploy (deployId) {
+	        function stopDeploy (ev, deployId) {
 	            vm.deployId = deployId;
                 $mdDialog.show({
-                		            templateUrl: 'app/components/apps-deployments/apps-deployments-stop.tpl.html',
-                		            controller: 'AppsDeploymentsCtrl',
-                		            controllerAs: 'appDeploys',
+                		            templateUrl: 'app/components/apps-deployments-stop/apps-deployments-stop.tpl.html',
+                		            controller: 'StopAppDeployCtrl',
+                		            controllerAs: 'stopAppDeploy',
                 		            parent: angular.element(document.querySelector('#content')),
                 		            targetEvent: ev,
-                		            clickOutsideToClose:true
+                		            clickOutsideToClose:true,
+                		            locals: {
+                		                deployId: vm.deployId,
+                		                hostName: vm.hostName
+                		            }
                 		        });
 	        }
 
-	        vm.submitStop = function submit () {
-	            var deployId = vm.deployId;
-	            AppDeploymentFactory.stop(vm.hostName, deployId)
-            	            	.then( function(response) {
-            	            	    $mdDialog.cancel();
-            		                console.log(response);
-            		            });
-	        }
-
-	        vm.cancelStop = function cancel () {
-                            $mdDialog.cancel();
-                        }
-
-	        function rollbackDeploy (deployId) {
+	        function rollbackDeploy (ev, deployId) {
 	            vm.deployId = deployId;
 	            $mdDialog.show({
-                                		            templateUrl: 'app/components/apps-deployments/apps-deployments-rollback.tpl.html',
-                                		            controller: 'AppsDeploymentsCtrl',
-                                		            controllerAs: 'appDeploys',
-                                		            parent: angular.element(document.querySelector('#content')),
-                                		            targetEvent: ev,
-                                		            clickOutsideToClose:true
-                                		        });
-            	        }
-
-            vm.submitDestory = function () {
-                var deployId = vm.deployId;
-                AppDeploymentFactory.rollback(vm.hostName, deployId)
-                            	            	.then( function(response) {
-                            	            	    $mdDialog.cancel();
-                            		                console.log(response);
-                            		            });
-            }
-
-            vm.cancelDestory = function () {
-                $mdDialog.cancel();
+                                	templateUrl: 'app/components/apps-deployments-rollback/apps-deployments-rollback.tpl.html',
+                                	controller: 'RollbackAppDeployCtrl',
+                                	controllerAs: 'rollbackAppDeploy',
+                                	parent: angular.element(document.querySelector('#content')),
+                                	targetEvent: ev,
+                                	clickOutsideToClose:true,
+                                	locals: {
+                                        deployId: vm.deployId,
+                                        hostName: vm.hostName
+                                    }
+                              });
             }
     	}
 }());
