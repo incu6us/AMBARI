@@ -10,10 +10,11 @@
     		'$routeParams',
     		'$mdDialog',
     		'DataForAppInfoFactory', 
-    		'HostNameFactory'
+    		'HostNameFactory',
+    		'KillTasksFactory'
     	];
 	    
-    	function AppInfoCtrl ($location, $routeParams, $mdDialog, DataForAppInfoFactory, HostNameFactory) {
+    	function AppInfoCtrl ($location, $routeParams, $mdDialog, DataForAppInfoFactory, HostNameFactory, KillTasksFactory) {
 	        var vm = this;
 	        
 	        vm.appID = decodeURIComponent($routeParams.id);
@@ -44,11 +45,16 @@
 			// getAppInfo();
 
 			vm.showTaskInfo = showTaskInfo;
+			vm.goToAllApps = goToAllApps;
 	        
 		    ///////////////////
 
 		    function showTaskInfo (taskId) {
 		    	$location.path($location.path() + '/' + taskId);
+		    }
+
+		    function goToAllApps () {
+		    	$location.path('#/apps/');
 		    }
 
 	        function getAppInfo () {
@@ -108,6 +114,8 @@
                         vm.hostName = response;
                         KillTasksFactory.post(vm.hostName, vm.tasksToKill, shouldScale)
                             .then( function(response) {
+                            	vm.checkedTasks = {};
+                            	vm.tasksToKill.ids = [];
                                 getAppInfo();
                             });
                     });  

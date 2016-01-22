@@ -21,7 +21,6 @@
         			getAppsList();
         		});
 			// getAppsList();
-
 	        
 	        ///////////////////
 

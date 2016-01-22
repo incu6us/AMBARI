@@ -1,4 +1,4 @@
-<div class="apps-table" flex layout="row">
+<div class="apps-deployments" flex layout="row">
     <table>
         <tr>
             <th> ID </th>
@@ -10,8 +10,8 @@
         <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
             <td class="border-left"> {{deploy.id}} </td>
             <td>
-                <span ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)">
-                    <u> {{affApp}} </u> <br>
+                <span class="link" ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)">
+                    {{affApp}} <br>
                 </span>
             </td>
             <td>

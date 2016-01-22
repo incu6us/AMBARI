@@ -26,8 +26,10 @@
                     controller: 'AppInfoCtrl',
                     controllerAs: 'appInfo'
                 })
-                .when('/apps/:id/:idt', {
-                    templateUrl: 'app/components/app.html',
+                .when('/apps/:id/:taskId', {
+                    templateUrl: 'app/components/task-info/task-info.tpl.html',
+                    controller: 'TaskInfoCtrl',
+                    controllerAs: 'taskInfo'
                 })
                 .when('/deployments', {
                     templateUrl: 'app/components/apps-deployments/apps-deployments.tpl.html',

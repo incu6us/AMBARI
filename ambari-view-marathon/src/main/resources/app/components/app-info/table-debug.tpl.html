@@ -53,11 +53,8 @@
 			<div layout="column">
 				<fieldset class="standard">
       				<legend> Started After Last Scaling </legend>
+      				<span> Tasks Status </span>
 					<table>
-						<tr>
-							<td> Tasks Status </td>
-							<td></td>
-						</tr>
 						<tr>
 							<td> Running </td>
 							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.running}}</td>
@@ -74,10 +71,10 @@
 							<td> Staged </td>
 							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.staged}} </td>
 						</tr>
-						<tr>
-							<td> Tasks Lifetime </td>
-							<td> </td>
-						</tr>
+					</table>
+					
+					<span> Tasks Lifetime </span>
+					<table>
 						<tr>
 							<td> Average </td>
 							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.lifeTime.averageSeconds}} s</td>
@@ -94,11 +91,8 @@
 			<div layout="column"> 
 				<fieldset class="standard">
       				<legend> With Latest Config </legend>
+					<span> Tasks Status </span>
 					<table>
-						<tr>
-							<td> Tasks Status </td>
-							<td></td>
-						</tr>
 						<tr>
 							<td> Running </td>
 							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.running}}</td>
@@ -115,10 +109,10 @@
 							<td> Staged </td>
 							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.staged}} </td>
 						</tr>
-						<tr>
-							<td> Tasks Lifetime </td>
-							<td> </td>
-						</tr>
+					</table>
+
+					<span> Tasks Lifetime </span>
+					<table>
 						<tr>
 							<td> Average </td>
 							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.lifeTime.averageSeconds}} s</td>
@@ -135,11 +129,8 @@
 			<div layout="column">
 				<fieldset class="standard">
       				<legend> Total Summary </legend>
+					<span> Tasks Status </span>
 					<table>
-						<tr>
-							<td> Tasks Status </td>
-							<td></td>
-						</tr>
 						<tr>
 							<td> Running </td>
 							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.running}}</td>
@@ -156,10 +147,10 @@
 							<td> Staged </td>
 							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.staged}} </td>
 						</tr>
-						<tr>
-							<td> Tasks Lifetime </td>
-							<td> </td>
-						</tr>
+					</table>
+
+					<span> Tasks Lifetime </span>
+					<table>
 						<tr>
 							<td> Average </td>
 							<td> {{appInfo.appData.taskStats.totalSummary.stats.lifeTime.averageSeconds}} s</td>

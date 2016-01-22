@@ -51,6 +51,20 @@
                 		        });
 	        }
 
+
+	        vm.submitStop = function submit () {
+	            var deployId = vm.deployId;
+	            AppDeploymentFactory.stop(vm.hostName, deployId)
+            	            	.then( function(response) {
+            	            	    $mdDialog.cancel();
+            		                console.log(response);
+            		            });
+	        };
+
+	        vm.cancelStop = function cancel () {
+                $mdDialog.cancel();
+            };
+
 	        function rollbackDeploy (ev, deployId) {
 	            vm.deployId = deployId;
 	            $mdDialog.show({

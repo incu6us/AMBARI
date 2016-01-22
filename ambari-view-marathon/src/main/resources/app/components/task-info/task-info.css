@@ -1,0 +1,22 @@
+.task-info {
+	margin-top: 10px;
+}
+
+.task-info td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 0 3px 0 3px;
+}
+
+.task-info td:first-child {
+	text-align: right;
+	font-weight: bold;
+}
+
+.task-info td:last-child {
+	text-align: left;
+}
+
+.task-info fieldset {
+	margin-bottom: 30px; 
+}

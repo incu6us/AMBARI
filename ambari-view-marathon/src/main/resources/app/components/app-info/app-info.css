@@ -1,3 +1,20 @@
+.link {
+	color: #2E7D32;
+	cursor: pointer;
+	
+}
+
+.link:hover {
+	color: #4CAF50;
+	text-decoration:underline;
+}
+
+/*
+/
+/
+/
+*/
+
 .table-tasks table {
 	width: 100%;
 }
@@ -124,10 +141,6 @@
 	border-spacing: 0px;
 	height: 30px;
 	padding: 0 3px 0 3px;
-}
-
-.table-debug td:first-child {
-	text-align: left;
 }
 
 .table-debug td:first-child {
