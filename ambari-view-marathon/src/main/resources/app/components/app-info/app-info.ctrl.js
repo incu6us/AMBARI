@@ -46,12 +46,13 @@
 	        vm.killTasks = killTasks;
 	        vm.refreshAppInfo = getAppInfo;
 
-	        // HostNameFactory.get()
-        	// 	.then( function(response) {
-        	// 		vm.hostName = response;
-        	// 		getAppInfo();
-        	// 	});
-			getAppInfo();
+	        HostNameFactory.get()
+        		.then( function(response) {
+        			vm.hostName = response;
+        			getAppInfo();
+        		});
+			// getAppInfo();
+			// for Brunch server
 
 			vm.showTaskInfo = showTaskInfo;
 			vm.goToAllApps = goToAllApps;
