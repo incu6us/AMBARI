@@ -44,7 +44,6 @@
 	        vm.restartApp = restartApp;
 	        vm.destroyApp = destroyApp;
 	        vm.killTasks = killTasks;
-	        vm.refreshAppInfo = getAppInfo;
 
 	        HostNameFactory.get()
         		.then( function(response) {
