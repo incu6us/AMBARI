@@ -5,22 +5,34 @@
     	.module('MarathonApp')
     	.controller('AppsTableCtrl', AppsTableCtrl); 
 	        
-    	AppsTableCtrl.$inject = ['$timeout', '$location', 'DataForAppsTableFactory', 'HostNameFactory'];
+    	AppsTableCtrl.$inject = [
+    		'$timeout', 
+    		'$location',
+    		'$scope', 
+    		'DataForAppsTableFactory', 
+    		'HostNameFactory'
+    	];
 	    
-    	function AppsTableCtrl ($timeout, $location, DataForAppsTableFactory, HostNameFactory) {
+    	function AppsTableCtrl ($timeout, $location, $scope, DataForAppsTableFactory, HostNameFactory) {
+    		$scope.$on('$locationChangeStart', function(){
+			    $timeout.cancel(promise);
+			});
+
 	        var vm = this;
+
+	        var promise;
 	        
 	        vm.hostName = '';
 	        vm.appsList = [];
 	        
 	        vm.showAppInfo = showAppInfo;
 
-	        HostNameFactory.get()
-        		.then( function(response) {
-        			vm.hostName = response;
-        			getAppsList();
-        		});
-			// getAppsList();
+	        // HostNameFactory.get()
+        	// 	.then( function(response) {
+        	// 		vm.hostName = response;
+        	// 		getAppsList();
+        	// 	});
+			getAppsList();
 	        
 	        ///////////////////
 
@@ -32,7 +44,7 @@
 	            DataForAppsTableFactory.get(vm.hostName)
 	            	.then( function(response) {
 		                vm.appsList = response;
-		                $timeout(getAppsList, 10*1000);
+		                promise = $timeout(getAppsList, 10*1000);
 		            });	
 	        }
     	}

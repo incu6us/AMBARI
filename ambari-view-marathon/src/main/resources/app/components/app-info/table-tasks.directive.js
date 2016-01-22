@@ -8,9 +8,7 @@
 		function tableTasks() {
 			return {
 				restrict: 'E',
-				templateUrl: 'app/components/app-info/table-tasks.tpl.html',
-				controller: 'AppInfoCtrl',
-				controllerAs:  'appInfo'
+				templateUrl: 'app/components/app-info/table-tasks.tpl.html'
 			};
 		}
 		

@@ -5,9 +5,9 @@
         .module('MarathonApp')
         .config(routeConfig);
 
-        routeConfig.$inject = ['$routeProvider', '$locationProvider'];
+        routeConfig.$inject = ['$routeProvider'];
 
-        function routeConfig ($routeProvider, $locationProvider) {
+        function routeConfig ($routeProvider) {
 //          to prevent '#', but including '<base hreg="/">' not working
 //          maybe because of Ember
 //          $locationProvider.html5Mode(true);

@@ -9,13 +9,21 @@
     		'$location', 
     		'$routeParams',
     		'$mdDialog',
+    		'$timeout',
+    		'$scope',
     		'DataForAppInfoFactory', 
     		'HostNameFactory',
     		'KillTasksFactory'
     	];
 	    
-    	function AppInfoCtrl ($location, $routeParams, $mdDialog, DataForAppInfoFactory, HostNameFactory, KillTasksFactory) {
+    	function AppInfoCtrl ($location, $routeParams, $mdDialog, $timeout, $scope, DataForAppInfoFactory, HostNameFactory, KillTasksFactory) {
+    		$scope.$on('$locationChangeStart', function(){
+			    $timeout.cancel(promise);
+			});
+
 	        var vm = this;
+
+	        var promise;
 	        
 	        vm.appID = decodeURIComponent($routeParams.id);
 
@@ -38,12 +46,12 @@
 	        vm.killTasks = killTasks;
 	        vm.refreshAppInfo = getAppInfo;
 
-	        HostNameFactory.get()
-        		.then( function(response) {
-        			vm.hostName = response;
-        			getAppInfo();
-        		});
-			// getAppInfo();
+	        // HostNameFactory.get()
+        	// 	.then( function(response) {
+        	// 		vm.hostName = response;
+        	// 		getAppInfo();
+        	// 	});
+			getAppInfo();
 
 			vm.showTaskInfo = showTaskInfo;
 			vm.goToAllApps = goToAllApps;
@@ -62,6 +70,7 @@
 	            DataForAppInfoFactory.get(vm.hostName, vm.appID)
 	            	.then( function(response) {
 		                vm.appData = response.app;
+		                promise = $timeout(getAppInfo, 10*1000);
 		            });	
 	        }
 

@@ -9,7 +9,12 @@
 		var vm = this;
 		    vm.status = '  ';
 
-		    vm.newAppModal = function(ev) {
+		    vm.goToAllApps = goToAllApps;
+		    vm.newAppModal = newAppModal;
+
+		    ///////////////
+
+		    function newAppModal (ev) {
 		        $mdDialog.show({
 		            templateUrl: 'app/components/new-app-modal/new-app-modal.tpl.html',
 		            controller: 'NewAppCtrl',
@@ -18,6 +23,13 @@
 		            targetEvent: ev,
 		            clickOutsideToClose:true
 		        });
-		    };
+		    }
+
+		    function goToAllApps () {
+		    	$timeout.cancel(promise);
+		    	$location.path('#/apps/');
+		    }
+
+
 		}
 }());
