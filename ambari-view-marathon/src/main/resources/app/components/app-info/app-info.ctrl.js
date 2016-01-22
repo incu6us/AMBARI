@@ -29,6 +29,7 @@
 
 			vm.checkTask = checkTask;
 			vm.checkAllTasks = checkAllTasks;
+			vm.checkAllTaskBool = false;
 
 	        vm.suspendApp = suspendApp;
 	        vm.scaleApp = scaleApp;
@@ -114,9 +115,10 @@
                         vm.hostName = response;
                         KillTasksFactory.post(vm.hostName, vm.tasksToKill, shouldScale)
                             .then( function(response) {
+                            	getAppInfo();
+                            	vm.checkAllTaskBool = false;
                             	vm.checkedTasks = {};
                             	vm.tasksToKill.ids = [];
-                                getAppInfo();
                             });
                     });  
 	    	}
