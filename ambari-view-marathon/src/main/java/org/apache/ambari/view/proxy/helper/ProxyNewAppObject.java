@@ -28,6 +28,15 @@ public class ProxyNewAppObject {
     String user;
     String version;
     Object versionInfo;
+    Object ids;
+
+    public Object getIds() {
+        return ids;
+    }
+
+    public void setIds(Object ids) {
+        this.ids = ids;
+    }
 
     public void setAcceptedResourceRoles(Object acceptedResourceRoles) {
         this.acceptedResourceRoles = acceptedResourceRoles;
