@@ -9,5 +9,6 @@
     <instance>
         <name>mesos</name>
         <description>mesos</description>
+        <visible>false</visible>
     </instance>
 </view>
