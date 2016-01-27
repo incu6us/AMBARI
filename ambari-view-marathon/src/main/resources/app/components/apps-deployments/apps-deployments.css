@@ -1,0 +1,31 @@
+.apps-deployments th {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 5px;
+}
+
+.apps-deployments td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 5px;
+}
+
+.apps-deployments th:not(:first-child) {
+	text-align: right;
+}
+
+.apps-deployments th:first-child {
+	text-align: left;
+}
+
+.apps-deployments td:not(:first-child) {
+	text-align: right;
+}
+
+.apps-deployments table {
+	width: 100%;
+}
+
+.apps-deployments p {
+	height: 5px;
+}

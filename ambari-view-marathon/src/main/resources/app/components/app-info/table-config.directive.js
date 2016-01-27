@@ -8,9 +8,7 @@
 		function tableConfig() {
 			return {
 				restrict: 'E',
-				templateUrl: 'app/components/app-info/table-config.tpl.html',
-				controller: 'AppInfoCtrl',
-				controllerAs:  'appInfo'
+				templateUrl: 'app/components/app-info/table-config.tpl.html'
 			};
 		}
 		

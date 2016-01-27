@@ -14,6 +14,142 @@ public class ProxyNewAppObject {
     int[] ports;
     String[] uris;
     Object constraints;
+    Object acceptedResourceRoles;
+    Object args;
+    float backoffFactor;
+    int backoffSeconds;
+    Object dependencies;
+    Object healthChecks;
+    Object labels;
+    float maxLaunchDelaySeconds;
+    boolean requirePorts;
+    Object storeUrls;
+    Object upgradeStrategy;
+    String user;
+    String version;
+    Object versionInfo;
+    Object ids;
+
+    public Object getIds() {
+        return ids;
+    }
+
+    public void setIds(Object ids) {
+        this.ids = ids;
+    }
+
+    public void setAcceptedResourceRoles(Object acceptedResourceRoles) {
+        this.acceptedResourceRoles = acceptedResourceRoles;
+    }
+
+    public void setArgs(Object args) {
+        this.args = args;
+    }
+
+    public void setBackoffFactor(float backoffFactor) {
+        this.backoffFactor = backoffFactor;
+    }
+
+    public void setBackoffSeconds(int backoffSeconds) {
+        this.backoffSeconds = backoffSeconds;
+    }
+
+    public void setDependencies(Object dependencies) {
+        this.dependencies = dependencies;
+    }
+
+    public void setHealthChecks(Object healthChecks) {
+        this.healthChecks = healthChecks;
+    }
+
+    public void setMaxLaunchDelaySeconds(float maxLaunchDelaySeconds) {
+        this.maxLaunchDelaySeconds = maxLaunchDelaySeconds;
+    }
+
+    public void setLabels(Object labels) {
+        this.labels = labels;
+    }
+
+    public void setRequirePorts(boolean requirePorts) {
+        this.requirePorts = requirePorts;
+    }
+
+    public void setStoreUrls(Object storeUrls) {
+        this.storeUrls = storeUrls;
+    }
+
+    public void setUpgradeStrategy(Object upgradeStrategy) {
+        this.upgradeStrategy = upgradeStrategy;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setVersionInfo(Object versionInfo) {
+        this.versionInfo = versionInfo;
+    }
+
+    public Object getAcceptedResourceRoles() {
+
+        return acceptedResourceRoles;
+    }
+
+    public Object getArgs() {
+        return args;
+    }
+
+    public float getBackoffFactor() {
+        return backoffFactor;
+    }
+
+    public int getBackoffSeconds() {
+        return backoffSeconds;
+    }
+
+    public Object getDependencies() {
+        return dependencies;
+    }
+
+    public Object getHealthChecks() {
+        return healthChecks;
+    }
+
+    public Object getLabels() {
+        return labels;
+    }
+
+    public float getMaxLaunchDelaySeconds() {
+        return maxLaunchDelaySeconds;
+    }
+
+    public boolean isRequirePorts() {
+        return requirePorts;
+    }
+
+    public Object getStoreUrls() {
+        return storeUrls;
+    }
+
+    public Object getUpgradeStrategy() {
+        return upgradeStrategy;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public Object getVersionInfo() {
+        return versionInfo;
+    }
 
     public String getId() {
         return id;

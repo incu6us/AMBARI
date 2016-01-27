@@ -8,9 +8,7 @@
 		function tableDebug() {
 			return {
 				restrict: 'E',
-				templateUrl: 'app/components/app-info/table-debug.tpl.html',
-				controller: 'AppInfoCtrl',
-				controllerAs:  'appInfo'
+				templateUrl: 'app/components/app-info/table-debug.tpl.html'
 			};
 		}
 		

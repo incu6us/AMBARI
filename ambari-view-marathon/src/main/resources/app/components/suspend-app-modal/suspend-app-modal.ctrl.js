@@ -13,16 +13,25 @@
             vm.appID = decodeURIComponent($routeParams.id);
             vm.hostName = '';
 
-            vm.parametrs = {
-                instances: 0
-            };
+            HostNameFactory.get()
+                .then( function(response) {
+                    vm.hostName = response;
+                    SuspendAppFactory.version(vm.hostName, vm.appID)
+                        .then( function(response) {
+                            var appVersion = response;
+                            SuspendAppFactory.get(vm.hostName, vm.appID, appVersion)
+                                .then( function(response) {
+                                    vm.appConfig = response;
+                                });
+                        });
+                });
 
             vm.cancel = cancel;
             vm.submit = submit;
 
             ///////////////
 
-          function cancel () {
+            function cancel () {
                 $mdDialog.cancel();
             }
 
@@ -30,7 +39,13 @@
                 HostNameFactory.get()
                     .then( function(response) {
                         vm.hostName = response;
-                        SuspendAppFactory.put(vm.hostName, vm.appID, vm.data)
+                        vm.appConfig.instances = 0;
+
+                        delete vm.appConfig.httpStatusCode;
+                        delete vm.appConfig.version;
+                        delete vm.appConfig.versionInfo;
+
+                        SuspendAppFactory.put(vm.hostName, vm.appID, vm.appConfig)
                             .then( function(response) {
                                 $mdDialog.cancel();
                             });

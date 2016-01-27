@@ -5,9 +5,9 @@
   	.module('MarathonApp')
   	.controller('NewAppCtrl', NewAppCtrl);
 
-  	NewAppCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia', 'DataForAppsTableFactory', 'HostNameFactory'];
+  	NewAppCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia', 'NewAppFactory', 'HostNameFactory'];
 
-  	function NewAppCtrl ($scope, $mdDialog, $mdMedia, DataForAppsTableFactory, HostNameFactory) {
+  	function NewAppCtrl ($scope, $mdDialog, $mdMedia, NewAppFactory, HostNameFactory) {
   	var vm = this;
 
 	    vm.status = '  ';
@@ -75,7 +75,7 @@
                             });
 
             function postNewApp(data) {
-                DataForAppsTableFactory.post(vm.hostName, data)
+                NewAppFactory.post(vm.hostName, data)
                                     .then( function(response) {
                                         if (response.data.httpStatusCode === 201) {
                                             $mdDialog.cancel();
