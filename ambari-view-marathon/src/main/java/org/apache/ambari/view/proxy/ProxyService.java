@@ -26,7 +26,6 @@ public class ProxyService {
     @POST
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public JSONObject postJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.POST, data);
     }
@@ -34,7 +33,6 @@ public class ProxyService {
     @PUT
     @Path("/json")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     public JSONObject putJson(@QueryParam("url") String url, ProxyNewAppObject data) {
         return json(url, HttpMethod.PUT, data);
     }
