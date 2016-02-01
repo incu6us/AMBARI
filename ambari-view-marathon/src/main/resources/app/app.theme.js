@@ -10,12 +10,12 @@
         function themeConfig ($mdThemingProvider) {
 
             $mdThemingProvider.theme('default')
-                .primaryPalette('green', {
-                    'default': '600'
+                .primaryPalette('brown', {
+                    'default': '900'
                 })
-                .accentPalette('light-green')
+                .accentPalette('orange')
                 .warnPalette('red')
-                .backgroundPalette('green', {
+                .backgroundPalette('brown', {
                     'default': '50'
                 });
         };

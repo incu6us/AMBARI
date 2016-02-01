@@ -9,6 +9,5 @@
     <instance>
         <name>marathon</name>
         <description>marathon</description>
-        <visible>false</visible>
     </instance>
 </view>

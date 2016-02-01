@@ -48,121 +48,38 @@
 	</fieldset>
 
 	<fieldset class="standard">
-  	<legend> Task Statistics </legend>	
-		<div layout="row"  layout-align="space-around center">
-			<div layout="column">
-				<fieldset class="standard">
-      				<legend> Started After Last Scaling </legend>
-      				<span> Tasks Status </span>
-					<table>
-						<tr>
-							<td> Running </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.running}}</td>
-						</tr>
-						<tr>
-							<td> Healthy </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.healthy}} </td>
-						</tr>
-						<tr>
-							<td> Unhealthy </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.unhealthy}} </td>
-						</tr>
-						<tr>
-							<td> Staged </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.counts.staged}} </td>
-						</tr>
-					</table>
-					
-					<span> Tasks Lifetime </span>
-					<table>
-						<tr>
-							<td> Average </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.lifeTime.averageSeconds}} s</td>
-						</tr>
+	  	<legend> Tasks Total Summery </legend>	
+		<span> Tasks Status </span>
+		<table>
+			<tr>
+				<td> Running </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.running}}</td>
+			</tr>
+			<tr>
+				<td> Healthy </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.healthy}} </td>
+			</tr>
+			<tr>
+				<td> Unhealthy </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.unhealthy}} </td>
+			</tr>
+			<tr>
+				<td> Staged </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.staged}} </td>
+			</tr>
+		</table>
 
-						<tr>
-							<td> Median </td>
-							<td> {{appInfo.appData.taskStats.startedAfterLastScaling.stats.lifeTime.medianSeconds}} s</td>
-						</tr>
-					</table>
-				</fieldset>
-			</div>
+		<span> Tasks Lifetime </span>
+		<table>
+			<tr>
+				<td> Average </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.lifeTime.averageSeconds}} s</td>
+			</tr>
 
-			<div layout="column"> 
-				<fieldset class="standard">
-      				<legend> With Latest Config </legend>
-					<span> Tasks Status </span>
-					<table>
-						<tr>
-							<td> Running </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.running}}</td>
-						</tr>
-						<tr>
-							<td> Healthy </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.healthy}} </td>
-						</tr>
-						<tr>
-							<td> Unhealthy </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.unhealthy}} </td>
-						</tr>
-						<tr>
-							<td> Staged </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.counts.staged}} </td>
-						</tr>
-					</table>
-
-					<span> Tasks Lifetime </span>
-					<table>
-						<tr>
-							<td> Average </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.lifeTime.averageSeconds}} s</td>
-						</tr>
-
-						<tr>
-							<td> Median </td>
-							<td> {{appInfo.appData.taskStats.withLatestConfig.stats.lifeTime.medianSeconds}} s</td>
-						</tr>
-					</table>
-				</fieldset>
-			</div>
-
-			<div layout="column">
-				<fieldset class="standard">
-      				<legend> Total Summary </legend>
-					<span> Tasks Status </span>
-					<table>
-						<tr>
-							<td> Running </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.running}}</td>
-						</tr>
-						<tr>
-							<td> Healthy </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.healthy}} </td>
-						</tr>
-						<tr>
-							<td> Unhealthy </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.unhealthy}} </td>
-						</tr>
-						<tr>
-							<td> Staged </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.counts.staged}} </td>
-						</tr>
-					</table>
-
-					<span> Tasks Lifetime </span>
-					<table>
-						<tr>
-							<td> Average </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.lifeTime.averageSeconds}} s</td>
-						</tr>
-
-						<tr>
-							<td> Median </td>
-							<td> {{appInfo.appData.taskStats.totalSummary.stats.lifeTime.medianSeconds}} s</td>
-						</tr>
-					</table>
-				</fieldset>
-			<div>
-		</div>
+			<tr>
+				<td> Median </td>
+				<td> {{appInfo.appData.taskStats.totalSummary.stats.lifeTime.medianSeconds}} s</td>
+			</tr>
+		</table>
 	</fieldset>
 </div>
