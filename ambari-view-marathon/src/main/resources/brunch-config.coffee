@@ -19,5 +19,9 @@ exports.config =
       joinTo: 
         'css/app.css': /^app/
         'css/vendor.css': /^vendor/
+      order:
+        after: [
+          'app/custom.css'
+        ]
     templates:
       joinTo: 'js/templates.js': /^app/

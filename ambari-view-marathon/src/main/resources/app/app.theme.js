@@ -10,13 +10,15 @@
         function themeConfig ($mdThemingProvider) {
 
             $mdThemingProvider.theme('default')
-                .primaryPalette('green', {
-                    'default': '600'
+                .primaryPalette('grey', {
+                    'default': '900'
                 })
-                .accentPalette('light-green')
+                .accentPalette('orange', {
+                    'hue-1': '400'
+                })
                 .warnPalette('red')
-                .backgroundPalette('green', {
-                    'default': '50'
+                .backgroundPalette('brown', {
+                    'default': '800'
                 });
         };
 }());

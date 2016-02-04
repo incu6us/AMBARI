@@ -1,37 +1,37 @@
 <div flex>
 	<md-content layout-padding>
 		<span class="link" ng-click="appInfo.goToAllApps()"> Apps </span>
-		<span> > </span>	
-		<span> {{appInfo.appID}} </span>
+		<span class="link-white"> > </span>	
+		<span class="link-white"> {{appInfo.appID}} </span>
 	</md-content>			
 
 	<div>
 		<div layout="row">
-			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.suspendApp()">
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="appInfo.suspendApp()">
 				Suspend
 			</md-button>
-			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.scaleApp()">
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="appInfo.scaleApp()">
 				Scale
 			</md-button>
 
 			<!-- fill up the space between left and right area -->
    			<span flex></span>
 
-			<md-button class="md-primary md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(false)">
+			<md-button class="md-accent md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(false)">
 				Kill
 			</md-button>
-			<md-button class="md-primary md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(true)">
+			<md-button class="md-accent md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(true)">
 				Kill & Scale
 			</md-button>
-			<md-button class="md-primary md-hue-1 md-raised" ng-click="appInfo.restartApp()">
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="appInfo.restartApp()">
 				Restart App
 			</md-button>
-			<md-button class="md-warn md-hue-1 md-raised" ng-click="appInfo.destroyApp()">
+			<md-button class="md-warn md-hue-2 md-raised" ng-click="appInfo.destroyApp()">
 				Destroy App
 			</md-button>
 		</div>
 		
-		<md-tabs md-dynamic-height="true">			
+		<md-tabs md-dynamic-height="true" class="app-tabs">			
 			<md-tab label="Tasks">
 				<md-content layout-padding>
 					<table-tasks></table-tasks>

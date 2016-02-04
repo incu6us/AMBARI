@@ -1,3 +1,11 @@
+.apps-deployments {
+	width: 100%;
+}
+
+.apps-deployments table {
+	width: 100%;
+}
+
 .apps-deployments th {
 	border-spacing: 0px;
 	height: 30px;

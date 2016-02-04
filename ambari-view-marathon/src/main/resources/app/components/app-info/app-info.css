@@ -1,5 +1,5 @@
 .link {
-	color: #2E7D32;
+	color: #F57C00;
 	cursor: pointer;
 	
 }
@@ -7,6 +7,10 @@
 .link:hover {
 	color: #4CAF50;
 	text-decoration:underline;
+}
+
+.link-white {
+	color: white;
 }
 
 /*
@@ -154,5 +158,6 @@
 }
 
 .table-debug fieldset {
-	margin-bottom: 30px; 
+	margin-bottom: 30px;
+	border-color: #795548;  
 }

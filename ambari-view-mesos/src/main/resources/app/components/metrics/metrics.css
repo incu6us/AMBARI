@@ -1,0 +1,29 @@
+md-sidenav, 
+md-sidenav.md-locked-open, 
+md-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 200px !important;
+    width: 400px !important;
+    max-width: 400px !important;
+} 
+
+.slave-data-container {
+	position: absolute; 
+	padding: 10px; 
+	background: #fff; 
+	opacity: 0.7; 
+	width:750px;
+	min-height:180px; 
+	right: 60px;
+	bottom: 60px; 
+}
+
+.link {
+	cursor: pointer;
+	color: blue;
+}
+
+.link:hover {
+	cursor: pointer;
+	color: blue;
+	text-decoration: underline;
+}
