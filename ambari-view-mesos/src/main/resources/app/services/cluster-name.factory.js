@@ -18,7 +18,7 @@
             // /api/v1/clusters
 
             function get () {
-                return $http.get('http://nikke1.github.io/clusters-mesos.json')
+                return $http.get('/api/v1/clusters')
                     .then(successClusterName, errorClusterName);
 
                 function successClusterName(response) {

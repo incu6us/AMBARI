@@ -334,8 +334,9 @@
 		    function getMetricsForMaster (clusterName, masterHost) {
 		    	// http://nikke1.github.io/1snapshot.json
 		    	// /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot
+		    	
 		    	// !!! Tried to use MetricsForMasterFactory.get(VERSION, masterHost).then(...) but it fails.
-		        $http.get('http://nikke1.github.io/1snapshot.json', {cache: true})
+		        $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
 		            .success(function (data) {
 		                //items = JSON.parse(data);
 		                var items = data;
