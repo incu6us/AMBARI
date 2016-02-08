@@ -7,7 +7,7 @@
 
 		MetricsCtrl.$inject = [
 			'$scope', 
-			'$interval', 
+			'$timeout', 
 			'$mdDialog', 
 			'$uibModal', 
 			'VisDataSet',
@@ -25,9 +25,16 @@
 			'$mdSidenav'
 		];
 
-		function MetricsCtrl ($scope, $interval, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
+		function MetricsCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
 			var VERSION = "0.1.0";
 			var DEBUG = false;
+
+			$scope.$on('$locationChangeStart', function(){
+				console.log('canceled');
+			    $timeout.cancel(promise);
+			});
+
+			var promise;
 
 		    $scope.dataSelector = 'metrics';
 		    $scope.errors = null;
@@ -121,7 +128,6 @@
 		    $scope.getMesosMetrics = getMesosMetrics;
 
 		    $scope.events.click = click;
-		    $scope.callAtInterval = callAtInterval;
 
 		    $scope.setUpdatedMesosSlave = setUpdatedMesosSlave;
 
@@ -139,6 +145,8 @@
 		     * GET METRICS
 		     */
 		    function getMesosMetrics () {
+		    	promise = $timeout(getMesosMetrics, 10*1000);
+		    	
 		        /*
 		         * Get clusterName from master
 		         */
@@ -247,7 +255,6 @@
 				                            nodes: $scope.nodes,
 				                            edges: $scope.edges
 				                        };
-
 				                    }
 
 				                    if (DEBUG) {
@@ -276,18 +283,6 @@
 		        });
 		    }
 
-			function callAtInterval () {
-		        if ($scope.dataSelector == 'metrics') {
-		            $scope.getMesosMetrics();
-		        }
-
-		        if (DEBUG) {
-		            console.log("detailsForTask: " + $scope.detailsForTask);
-		        }
-		        //else if ($scope.dataSelector == 'executors') {
-		        // $scope.getExecutors();
-		        //}
-		    }
 
 		    function setUpdatedMesosSlave (val) {
 		        // console.log("setUpdatedMesosSlave -> " + val);
@@ -565,11 +560,7 @@
 
 		    function toggleRight() {
 			    $mdSidenav('right').toggle();
-			};
-
-		    $interval(function () {
-		        $scope.callAtInterval();
-		    }, 10000);
+			}
 
 		    // $scope.executorsStat.push({name: exec.name, cpu: exec.resources.cpus.toFixed(2), mem: (exec.resources.mem / 1024), disk: (exec.resources.disk / 1024)});
 		}
