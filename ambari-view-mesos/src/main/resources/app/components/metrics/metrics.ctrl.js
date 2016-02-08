@@ -34,8 +34,6 @@
 		    $scope.masterList = [];
 		    $scope.slaveList = [];
 
-		    $scope.slaveMetrics = [];
-		    $scope.masterStates = [];
 		    $scope.masterDataCpu = [];
 		    $scope.masterDataMem = [];
 		    $scope.masterDataDisk = [];
@@ -54,32 +52,13 @@
 		    $scope.updatedMesosSlave = true;
 		    $scope.executorsStat = [];
 
-		    $scope.frameworks = [];
-		    $scope.completedFrameworks = [];
-
-		    $scope.frameworkTasks = [];
-		    $scope.frameworkTasksSlaves = undefined;
-
-
-
-		    $scope.tasks = [];
-		    $scope.executors = [];
-		    $scope.directories = [];
-
-		    $scope.executorUrl = null;
-		    $scope.executorDir = null;
-		    $scope.executorLastDir = null;
-
 		    // Network Map variables
 		    $scope.nodes = [];
 		    $scope.edges = [];
 		    $scope.network_data = {};
 		    $scope.events = {};
 
-		    $scope.toggleRight = function() {
-			    $mdSidenav('right').toggle();
-			 };
-
+		    // Configs
 		    $scope.options = {
 		        autoResize: true,
 		        height: '100%',
@@ -152,13 +131,13 @@
 		    $scope.showMetricExecutorsRunning = showMetricExecutorsRunning;
 		    $scope.showMetricFrameworksRunning = showMetricFrameworksRunning;
 
+		    $scope.toggleRight = toggleRight;
+
 		    ////////////////
 
 		    /*
 		     * GET METRICS
 		     */
-
-		     // here
 		    function getMesosMetrics () {
 		        /*
 		         * Get clusterName from master
@@ -330,9 +309,8 @@
 
 		    // Get metrics for elected master host 
 
-		    // here
 		    function getMetricsForMaster (clusterName, masterHost) {
-		    	// http://nikke1.github.io/1snapshot.json
+		    	// http://nikke1.github.io/hard-data/1snapshot.json
 		    	// /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot
 		    	
 		    	// !!! Tried to use MetricsForMasterFactory.get(VERSION, masterHost).then(...) but it fails.
@@ -584,6 +562,10 @@
 		            alert("Please wait for leading master...");
 		        }
 		    }
+
+		    function toggleRight() {
+			    $mdSidenav('right').toggle();
+			};
 
 		    $interval(function () {
 		        $scope.callAtInterval();

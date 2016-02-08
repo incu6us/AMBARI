@@ -14,11 +14,11 @@
 
             ///////////////////
 
-            // http://nikke1.github.io/clusters-mesos.json
+            // http://nikke1.github.io/hard-data/clusters-mesos.json
             // /api/v1/clusters
 
             function get () {
-                return $http.get('/api/v1/clusters')
+                return $http.get('http://nikke1.github.io/hard-data/clusters-mesos.json')
                     .then(successClusterName, errorClusterName);
 
                 function successClusterName(response) {

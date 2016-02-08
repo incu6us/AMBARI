@@ -14,11 +14,11 @@
 
             ///////////////////
 
-            // Brunch http://nikke1.github.io/mesos-slave.json
+            // Brunch http://nikke1.github.io/hard-data/mesos-slave.json
             //  /api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_SLAVE
             
             function get (clusterName) {
-                return $http.get('/api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_SLAVE')
+                return $http.get('http://nikke1.github.io/hard-data/mesos-slave.json')
                     .then(successClusterName, errorClusterName);
 
                 function successClusterName(response) {
