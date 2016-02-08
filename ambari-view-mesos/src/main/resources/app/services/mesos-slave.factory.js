@@ -18,7 +18,7 @@
             //  /api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_SLAVE
             
             function get (clusterName) {
-                return $http.get('http://nikke1.github.io/hard-data/mesos-slave.json')
+                return $http.get('/api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_SLAVE')
                     .then(successClusterName, errorClusterName);
 
                 function successClusterName(response) {
