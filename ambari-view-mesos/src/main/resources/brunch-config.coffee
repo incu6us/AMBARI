@@ -1,3 +1,6 @@
+# !!!!!!!!!!!! 
+# Worked with NodeJS v4.2.6 and Brunch v2.2.2
+
 exports.config =
   # See http://brunch.io/#documentation for docs.
   modules:
