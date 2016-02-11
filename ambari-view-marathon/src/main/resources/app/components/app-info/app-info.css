@@ -1,16 +1,20 @@
 .link {
-	color: #F57C00;
+	color: #3E2723;
 	cursor: pointer;
 	
 }
 
 .link:hover {
-	color: #4CAF50;
+	color: #F57C00;
 	text-decoration:underline;
 }
 
-.link-white {
-	color: white;
+.arrow {
+	color: #3E2723;
+}
+
+.current {
+	color: #F57C00;
 }
 
 /*

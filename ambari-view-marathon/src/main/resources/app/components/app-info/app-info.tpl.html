@@ -1,8 +1,8 @@
 <div flex>
 	<md-content layout-padding>
 		<span class="link" ng-click="appInfo.goToAllApps()"> Apps </span>
-		<span class="link-white"> > </span>	
-		<span class="link-white"> {{appInfo.appID}} </span>
+		<span class="arrow"> > </span>	
+		<span class="current"> {{appInfo.appID}} </span>
 	</md-content>			
 
 	<div>
@@ -26,7 +26,7 @@
 			<md-button class="md-accent md-hue-1 md-raised" ng-click="appInfo.restartApp()">
 				Restart App
 			</md-button>
-			<md-button class="md-warn md-hue-2 md-raised" ng-click="appInfo.destroyApp()">
+			<md-button class="md-warn md-hue-1 md-raised" ng-click="appInfo.destroyApp()">
 				Destroy App
 			</md-button>
 		</div>

@@ -11,7 +11,7 @@
 }
 
 .apps-table tr:hover td{
-	background-color: #c5e1a5;
+	background-color: #FFE0B2;
 	cursor:pointer; 
 }
 
@@ -42,7 +42,6 @@
 
 .apps-table table {
 	width: 100%;
-	color: white;
 }
 
 .apps-table p {

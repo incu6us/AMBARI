@@ -10,7 +10,7 @@
         function themeConfig ($mdThemingProvider) {
 
             $mdThemingProvider.theme('default')
-                .primaryPalette('grey', {
+                .primaryPalette('brown', {
                     'default': '900'
                 })
                 .accentPalette('orange', {
@@ -18,7 +18,7 @@
                 })
                 .warnPalette('red')
                 .backgroundPalette('brown', {
-                    'default': '800'
+                    'default': '50'
                 });
         };
 }());
