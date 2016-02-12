@@ -50,8 +50,22 @@ task compileUi(type: NodeTask) {
     }
 }
 
+task cleanResources(type: Delete){
+    delete "${project.projectDir}/ui/public"
+
+    delete "${project.projectDir}/src/main/resources/css"
+    delete "${project.projectDir}/src/main/resources/icons"
+    delete "${project.projectDir}/src/main/resources/img"
+    delete "${project.projectDir}/src/main/resources/js"
+    delete "${project.projectDir}/src/main/resources/index.html"
+}
+
+
 //create a single Jar with all dependencies
-task fatJar(type: Jar) {
+task fatJar(type: Jar, dependsOn: ['npmInstall', 'compileUi', 'cleanResources']) {
+
+    compileUi.mustRunAfter npmInstall
+
     exec {
         executable "bash"
         args "-c", "echo 'test'"
@@ -64,6 +78,9 @@ task fatJar(type: Jar) {
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+
+    // clean
+    cleanResources
 }
 
 repositories {
