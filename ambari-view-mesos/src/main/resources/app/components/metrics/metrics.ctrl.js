@@ -7,7 +7,7 @@
 
 		MetricsCtrl.$inject = [
 			'$scope', 
-			'$interval', 
+			'$timeout', 
 			'$mdDialog', 
 			'$uibModal', 
 			'VisDataSet',
@@ -25,17 +25,22 @@
 			'$mdSidenav'
 		];
 
-		function MetricsCtrl ($scope, $interval, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
+		function MetricsCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
 			var VERSION = "0.1.0";
 			var DEBUG = false;
+
+			$scope.$on('$locationChangeStart', function(){
+				console.log('canceled');
+			    $timeout.cancel(promise);
+			});
+
+			var promise;
 
 		    $scope.dataSelector = 'metrics';
 		    $scope.errors = null;
 		    $scope.masterList = [];
 		    $scope.slaveList = [];
 
-		    $scope.slaveMetrics = [];
-		    $scope.masterStates = [];
 		    $scope.masterDataCpu = [];
 		    $scope.masterDataMem = [];
 		    $scope.masterDataDisk = [];
@@ -54,32 +59,13 @@
 		    $scope.updatedMesosSlave = true;
 		    $scope.executorsStat = [];
 
-		    $scope.frameworks = [];
-		    $scope.completedFrameworks = [];
-
-		    $scope.frameworkTasks = [];
-		    $scope.frameworkTasksSlaves = undefined;
-
-
-
-		    $scope.tasks = [];
-		    $scope.executors = [];
-		    $scope.directories = [];
-
-		    $scope.executorUrl = null;
-		    $scope.executorDir = null;
-		    $scope.executorLastDir = null;
-
 		    // Network Map variables
 		    $scope.nodes = [];
 		    $scope.edges = [];
 		    $scope.network_data = {};
 		    $scope.events = {};
 
-		    $scope.toggleRight = function() {
-			    $mdSidenav('right').toggle();
-			 };
-
+		    // Configs
 		    $scope.options = {
 		        autoResize: true,
 		        height: '100%',
@@ -142,7 +128,6 @@
 		    $scope.getMesosMetrics = getMesosMetrics;
 
 		    $scope.events.click = click;
-		    $scope.callAtInterval = callAtInterval;
 
 		    $scope.setUpdatedMesosSlave = setUpdatedMesosSlave;
 
@@ -152,14 +137,16 @@
 		    $scope.showMetricExecutorsRunning = showMetricExecutorsRunning;
 		    $scope.showMetricFrameworksRunning = showMetricFrameworksRunning;
 
+		    $scope.toggleRight = toggleRight;
+
 		    ////////////////
 
 		    /*
 		     * GET METRICS
 		     */
-
-		     // here
 		    function getMesosMetrics () {
+		    	promise = $timeout(getMesosMetrics, 10*1000);
+		    	
 		        /*
 		         * Get clusterName from master
 		         */
@@ -268,7 +255,6 @@
 				                            nodes: $scope.nodes,
 				                            edges: $scope.edges
 				                        };
-
 				                    }
 
 				                    if (DEBUG) {
@@ -297,18 +283,6 @@
 		        });
 		    }
 
-			function callAtInterval () {
-		        if ($scope.dataSelector == 'metrics') {
-		            $scope.getMesosMetrics();
-		        }
-
-		        if (DEBUG) {
-		            console.log("detailsForTask: " + $scope.detailsForTask);
-		        }
-		        //else if ($scope.dataSelector == 'executors') {
-		        // $scope.getExecutors();
-		        //}
-		    }
 
 		    function setUpdatedMesosSlave (val) {
 		        // console.log("setUpdatedMesosSlave -> " + val);
@@ -330,12 +304,12 @@
 
 		    // Get metrics for elected master host 
 
-		    // here
 		    function getMetricsForMaster (clusterName, masterHost) {
-		    	// http://nikke1.github.io/1snapshot.json
+		    	// http://nikke1.github.io/hard-data/1snapshot.json
 		    	// /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot
+		    	
 		    	// !!! Tried to use MetricsForMasterFactory.get(VERSION, masterHost).then(...) but it fails.
-		        $http.get('http://nikke1.github.io/1snapshot.json', {cache: true})
+		        $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
 		            .success(function (data) {
 		                //items = JSON.parse(data);
 		                var items = data;
@@ -584,9 +558,9 @@
 		        }
 		    }
 
-		    $interval(function () {
-		        $scope.callAtInterval();
-		    }, 10000);
+		    function toggleRight() {
+			    $mdSidenav('right').toggle();
+			}
 
 		    // $scope.executorsStat.push({name: exec.name, cpu: exec.resources.cpus.toFixed(2), mem: (exec.resources.mem / 1024), disk: (exec.resources.disk / 1024)});
 		}

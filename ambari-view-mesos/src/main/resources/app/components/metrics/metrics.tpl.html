@@ -1,6 +1,6 @@
-<md-content ng-controller="MetricsCtrl" data-ng-init="getMesosMetrics()" layout="column" flex>
+<md-content ng-controller="MetricsCtrl" data-ng-init="getMesosMetrics()" layout="column" style="height:100%;width:100%;">
 
-	<div layout="row" layout-align="end start" flex="5">
+	<div class="show-master-btn">
 		<md-button class="md-accent md-hue-2 md-raised" ng-click="toggleRight()">
 			Show Master Info
 		</md-button>
@@ -20,7 +20,7 @@
         <h2>Drawing...</h2>
     </div>
 
-  	<div ng-show="activeMaster != null && nodes.length > 0" flex="95">
+  	<div ng-show="activeMaster != null && nodes.length > 0" style="height:100%;">
   		<vis-network data="network_data" options="options" events="events"></vis-network>
   	</div>
 

@@ -1,6 +1,6 @@
 
-<div data-ng-init="getMesosMastersForFrameworks()" ng-controller="FrameworksCtrl" layout="row" flex>
-    <div style="border: solid 1px #ccc;" ng-show="!detailsForSandbox && !detailsForExecutors" flex>
+<div data-ng-init="getMesosMastersForFrameworks()" class="container-my" ng-controller="FrameworksCtrl" layout="row" flex>
+    <div ng-show="!detailsForSandbox && !detailsForExecutors" flex>
         <md-button class="btn btn-default"
                    ng-click="getFrameworks()">
             <span class="glyphicon glyphicon-refresh"></span>

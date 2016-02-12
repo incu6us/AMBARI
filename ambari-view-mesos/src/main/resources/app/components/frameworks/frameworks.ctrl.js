@@ -7,7 +7,7 @@
 
 		FrameworksCtrl.$inject = [
 			'$scope', 
-			'$interval', 
+			'$timeout', 
 			'$mdDialog', 
 			'$uibModal', 
 			'VisDataSet',
@@ -25,14 +25,23 @@
 			'$mdSidenav'
 		];
 
-		function FrameworksCtrl ($scope, $interval, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
+		function FrameworksCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
 			var VERSION = "0.1.0";
+
+			$scope.$on('$locationChangeStart', function(){
+				console.log('canceled');
+			    $timeout.cancel(promise);
+			});
+
+			var promise;
 
 			$scope.detailsForTask = false;
 		    $scope.detailsForExecutors = false;
 		    $scope.detailsForSandbox = false;
 
 			$scope.activeMaster = '';
+
+			/////////////////////
 
 			$scope.getActiveMaster = getActiveMaster;
 
@@ -42,13 +51,13 @@
 		    $scope.getMesosMastersForFrameworks = getMesosMastersForFrameworks;
 
 		    $scope.getSlaves = getSlaves;
-		    // $scope.getExecutors = getExecutors;
+
 		    $scope.getExecutor = getExecutor;
 
 		    $scope.getSandbox = getSandbox;
 		    $scope.getSandboxByPath = getSandboxByPath;
 
-		    		    $scope.setDetailsForTask = setDetailsForTask;
+		    $scope.setDetailsForTask = setDetailsForTask;
 		    $scope.setDetailsForExecutors = setDetailsForExecutors;
 		    $scope.setDetailsForSandbox = setDetailsForSandbox;
 
@@ -57,6 +66,8 @@
 		     */
 
 		    function getMesosMastersForFrameworks () {
+		    	promise = $timeout(getMesosMastersForFrameworks, 10*1000);
+
 		        ClusterNameFactory.get()
 		        	.then(function (masterData) {
 			            $scope.clusterName = masterData.data.items[0].Clusters.cluster_name;
@@ -72,6 +83,8 @@
 				                    // Call draw function for masters
 				                    $scope.getActiveMaster($scope.clusterName, masterItems[i].HostRoles.host_name);
 				                }
+
+				                
 				            });
 				    });
 			}
@@ -127,7 +140,6 @@
 
 		            }
 		        });
-
 		    }
 
 		    // Get details from master about slaves
@@ -140,31 +152,6 @@
 			            });
 		        }
 		    }
-
-		    // // Draw Executors
-		    // function getExecutors () {
-		    //     if ($scope.activeMaster !== null) {
-
-		    //         $scope.frameworkTasksSlaves = undefined;
-		    //         $scope.getSlaves();
-		    //         $scope.loading = true;
-		            
-		    //         ActiveMasterStateFactory(VERSION, $scope.activeMaster)
-			   //          .then(function (values) {
-
-
-			   //              $scope.frameworkTasks = [];
-
-			   //              for (var executorsInt = 0; executorsInt < values.data.frameworks.length; executorsInt++) {
-			   //                  for (var tasksInt = 0; tasksInt < values.data.frameworks[executorsInt].tasks.length; tasksInt++) {
-			   //                      $scope.frameworkTasks.push(values.data.frameworks[executorsInt].tasks[tasksInt]);
-			   //                      //console.log("executorsInfoTasks -> " + values.data.frameworks[executorsInt].tasks[tasksInt]);
-			   //                  }
-			   //              }
-			   //              $scope.loading = false;
-			   //          });
-		    //     }
-		    // }
 
 		    // Draw Executor info (tasks)
 		    function getExecutor (slave_id, framework_id, executor_id) {

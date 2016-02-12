@@ -14,11 +14,11 @@
 
             ///////////////////
 
-            // Brunch http://nikke1.github.io/mesos-master.json
+            // Brunch http://nikke1.github.io/hard-data/mesos-master.json
             // /api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER
 
             function get (clusterName) {
-                return $http.get('http://nikke1.github.io/mesos-master.json')
+                return $http.get('/api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER')
                     .then(successClusterName, errorClusterName);
 
                 function successClusterName(response) {

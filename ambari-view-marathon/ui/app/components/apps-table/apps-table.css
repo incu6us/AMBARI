@@ -1,0 +1,49 @@
+.apps-table th {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 5px;
+}
+
+.apps-table td {
+	border-spacing: 0px;
+	height: 30px;
+	padding: 5px;
+}
+
+.apps-table tr:hover td{
+	background-color: #FFE0B2;
+	cursor:pointer; 
+}
+
+.apps-table tr:hover td.border-left {
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+    -khtml-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+}
+.apps-table tr:hover td.border-right {
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -khtml-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.apps-table th:not(:first-child) {
+	text-align: right;
+}
+
+.apps-table th:first-child {
+	text-align: left;
+}
+
+.apps-table td:not(:first-child) {
+	text-align: right;
+}
+
+.apps-table table {
+	width: 100%;
+}
+
+.apps-table p {
+	height: 5px;
+}
