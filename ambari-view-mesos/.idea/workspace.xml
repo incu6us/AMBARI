@@ -5,427 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ecfc970-c1ec-4011-aabf-12fde192c729" name="Default" comment="design re-builded">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/view.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/README.md" afterPath="$PROJECT_DIR$/ui/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/app.module.js" afterPath="$PROJECT_DIR$/ui/app/app.module.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/app.route.js" afterPath="$PROJECT_DIR$/ui/app/app.route.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/app.theme.js" afterPath="$PROJECT_DIR$/ui/app/app.theme.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/ui/js/vis/docs/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/ui/js/vis/docs/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/ui/js/vis/docs/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/ui/js/vis/docs/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/ui/js/vis/docs/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/logo_mantl.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/logo_mantl.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/acceptDeleteIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/acceptDeleteIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/addNodeIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/addNodeIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/backIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/backIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/connectIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/connectIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/cross.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/cross.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/cross2.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/cross2.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/deleteIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/deleteIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/downArrow.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/downArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/editIcon.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/editIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/leftArrow.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/leftArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/minus.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/minus.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/plus.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/plus.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/rightArrow.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/rightArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/upArrow.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/upArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/network/zoomExtends.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/network/zoomExtends.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/img/timeline/delete.png" afterPath="$PROJECT_DIR$/ui/js/vis/dist/img/timeline/delete.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/assets/index.html" afterPath="$PROJECT_DIR$/ui/app/assets/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/frameworks/frameworks.ctrl.js" afterPath="$PROJECT_DIR$/ui/app/components/frameworks/frameworks.ctrl.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/frameworks/frameworks.tpl.html" afterPath="$PROJECT_DIR$/ui/app/components/frameworks/frameworks.tpl.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/lattency/lattency.tpl.html" afterPath="$PROJECT_DIR$/ui/app/components/lattency/lattency.tpl.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/master-info/master-info.css" afterPath="$PROJECT_DIR$/ui/app/components/master-info/master-info.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/master-info/master-info.directive.js" afterPath="$PROJECT_DIR$/ui/app/components/master-info/master-info.directive.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/master-info/master-info.tpl.html" afterPath="$PROJECT_DIR$/ui/app/components/master-info/master-info.tpl.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/metrics/metrics.css" afterPath="$PROJECT_DIR$/ui/app/components/metrics/metrics.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/metrics/metrics.ctrl.js" afterPath="$PROJECT_DIR$/ui/app/components/metrics/metrics.ctrl.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/metrics/metrics.tpl.html" afterPath="$PROJECT_DIR$/ui/app/components/metrics/metrics.tpl.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/toolbar/toolbar.css" afterPath="$PROJECT_DIR$/ui/app/components/toolbar/toolbar.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/toolbar/toolbar.ctrl.js" afterPath="$PROJECT_DIR$/ui/app/components/toolbar/toolbar.ctrl.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/toolbar/toolbar.directive.js" afterPath="$PROJECT_DIR$/ui/app/components/toolbar/toolbar.directive.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/components/toolbar/toolbar.tpl.html" afterPath="$PROJECT_DIR$/ui/app/components/toolbar/toolbar.tpl.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/filters/to-fixed.filter.js" afterPath="$PROJECT_DIR$/ui/app/filters/to-fixed.filter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/filters/to-gb.filter.js" afterPath="$PROJECT_DIR$/ui/app/filters/to-gb.filter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/filters/to-hpath.filter.js" afterPath="$PROJECT_DIR$/ui/app/filters/to-hpath.filter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/filters/truncate-mesos-id.filter.js" afterPath="$PROJECT_DIR$/ui/app/filters/truncate-mesos-id.filter.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/active-master-slaves.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/active-master-slaves.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/active-master-state.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/active-master-state.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/cluster-name.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/cluster-name.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/datas.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/datas.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/dirs.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/dirs.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/frameworks.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/frameworks.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/mesos-master.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/mesos-master.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/mesos-slave.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/mesos-slave.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/metrics-for-master.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/metrics-for-master.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/app/services/metrics-for-slave.factory.js" afterPath="$PROJECT_DIR$/ui/app/services/metrics-for-slave.factory.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/bower.json" afterPath="$PROJECT_DIR$/ui/bower.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/brunch-config.coffee" afterPath="$PROJECT_DIR$/ui/brunch-config.coffee" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/.bower.json" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/.bower.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/.gitignore" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/README.md" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/angular-vis.js" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/angular-vis.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/app-graph2d.js" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/app-graph2d.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/app.js" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/app.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/bower.json" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/bower.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/index-graph2d.html" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/index-graph2d.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/angular-visjs/index.html" afterPath="$PROJECT_DIR$/ui/js/angular-visjs/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/.bower.json" afterPath="$PROJECT_DIR$/ui/js/vis/.bower.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/CONTRIBUTING.md" afterPath="$PROJECT_DIR$/ui/js/vis/CONTRIBUTING.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/HISTORY.md" afterPath="$PROJECT_DIR$/ui/js/vis/HISTORY.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/LICENSE-APACHE-2.0" afterPath="$PROJECT_DIR$/ui/js/vis/LICENSE-APACHE-2.0" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/LICENSE-MIT" afterPath="$PROJECT_DIR$/ui/js/vis/LICENSE-MIT" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/NOTICE" afterPath="$PROJECT_DIR$/ui/js/vis/NOTICE" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/README.md" afterPath="$PROJECT_DIR$/ui/js/vis/README.md" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/bower.json" afterPath="$PROJECT_DIR$/ui/js/vis/bower.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/acceptDeleteIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/acceptDeleteIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/addNodeIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/addNodeIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/backIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/backIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/connectIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/connectIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/cross.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/cross.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/cross2.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/cross2.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/deleteIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/deleteIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/downArrow.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/downArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/editIcon.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/editIcon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/leftArrow.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/leftArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/minus.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/minus.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/plus.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/plus.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/rightArrow.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/rightArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/upArrow.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/upArrow.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/network/zoomExtends.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/network/zoomExtends.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/img/timeline/delete.png" afterPath="$PROJECT_DIR$/ui/app/assets/img/timeline/delete.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/vis.css" afterPath="$PROJECT_DIR$/ui/js/vis/dist/vis.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/vis.js" afterPath="$PROJECT_DIR$/ui/js/vis/dist/vis.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/vis.map" afterPath="$PROJECT_DIR$/ui/js/vis/dist/vis.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/vis.min.css" afterPath="$PROJECT_DIR$/ui/js/vis/dist/vis.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/dist/vis.min.js" afterPath="$PROJECT_DIR$/ui/vendor/vis.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap-theme.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap-theme.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap-theme.css.map" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap-theme.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap-theme.min.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap-theme.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap.css.map" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap.css.map" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/carousel.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/carousel.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/prettify.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/prettify.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/css/style.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/css/style.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/data/dataset.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/data/dataset.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/data/dataview.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/data/dataview.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/data/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/data/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/ui/app/assets/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/ui/app/assets/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/ui/app/assets/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/ui/app/assets/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/ui/app/assets/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/graph2d/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/graph2d/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/graph3d/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/graph3d/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/crossword.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/crossword.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/crosswordStrong.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/crosswordStrong.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/external-link-icons/external-link-icon-white.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/external-link-icons/external-link-icon-white.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/external-link-icons/external-link-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/external-link-icons/external-link-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/external-link-icons/license.txt" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/external-link-icons/license.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/graph/graph.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/graph/graph.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/graph/graph120x60.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/graph/graph120x60.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/graph3d.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/graph3d.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/graph3d120x60.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/graph3d120x60.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/timeline/timeline.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/timeline/timeline.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/timeline/timeline120x60.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/timeline/timeline120x60.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/vis_overview.odg" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/vis_overview.odg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/img/vis_overview.png" afterPath="$PROJECT_DIR$/ui/js/vis/docs/img/vis_overview.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/bootstrap.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/bootstrap.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/docs.min.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/docs.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/googleAnalytics.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/googleAnalytics.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/ie-emulation-modes-warning.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/ie-emulation-modes-warning.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/ie10-viewport-bug-workaround.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/ie10-viewport-bug-workaround.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/jquery.min.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/jquery.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-apollo.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-apollo.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-css.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-css.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-hs.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-hs.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-lisp.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-lisp.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-lua.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-lua.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-ml.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-ml.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-proto.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-proto.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-scala.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-scala.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-sql.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-sql.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-vb.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-vb.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-vhdl.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-vhdl.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-wiki.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-wiki.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/lang-yaml.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/lang-yaml.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/prettify.css" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/prettify.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/prettify/prettify.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/prettify/prettify.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/smooth-scroll.min.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/smooth-scroll.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/js/toggleTable.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/toggleTable.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/configure.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/configure.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/edges.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/edges.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/groups.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/groups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/interaction.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/interaction.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/layout.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/layout.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/manipulation.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/manipulation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/nodes.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/nodes.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/network/physics.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/network/physics.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/docs/timeline/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/docs/timeline/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/googleAnalytics.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/googleAnalytics.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/01_basic.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/01_basic.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/02_bars.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/02_bars.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/03_groups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/03_groups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/04_rightAxis.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/04_rightAxis.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/05_bothAxis.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/05_bothAxis.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/06_interpolation.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/06_interpolation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/07_scrollingAndSorting.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/07_scrollingAndSorting.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/08_performance.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/08_performance.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/09_external_legend.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/09_external_legend.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/10_barsSideBySide.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/10_barsSideBySide.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/11_barsSideBySideGroups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/11_barsSideBySideGroups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/12_customRange.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/12_customRange.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/13_localization.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/13_localization.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/14_toggleGroups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/14_toggleGroups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/15_streaming_data.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/15_streaming_data.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/16_bothAxisTitles.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/16_bothAxisTitles.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/17_dynamicStyling.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/17_dynamicStyling.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/18_scatterplot.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/18_scatterplot.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/19_labels.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/19_labels.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph2d/default.css" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/default.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/01_basics.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/01_basics.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/02_camera.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/02_camera.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/03_filter_data.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/03_filter_data.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/04_animation.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/04_animation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/05_line.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/05_line.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/06_moving_dots.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/06_moving_dots.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/07_dot_cloud_colors.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/07_dot_cloud_colors.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/08_dot_cloud_size.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/08_dot_cloud_size.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/09_mobile.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/09_mobile.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/10_styling.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/10_styling.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/11_tooltips.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/11_tooltips.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/12_custom_labels.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/12_custom_labels.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/default.css" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph2d/default.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/csv2array.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/csv2array.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/csv2datatable.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/csv2datatable.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/datasource.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/datasource.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/datasource.php" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/datasource.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/index.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/playground.css" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/playground.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/playground.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/graph3d/playground/playground.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-apollo.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-apollo.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-css.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-css.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-hs.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-hs.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-lisp.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-lisp.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-lua.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-lua.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-ml.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-ml.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-proto.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-proto.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-scala.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-scala.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-sql.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-sql.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-vb.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-vb.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-vhdl.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-vhdl.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-wiki.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-wiki.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/lang-yaml.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/lang-yaml.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/prettify.css" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/prettify.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/graph3d/playground/prettify/prettify.js" afterPath="$PROJECT_DIR$/ui/js/vis/docs/js/prettify/prettify.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/basicUsage.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/basicUsage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/datasets.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/datasets.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/data/cellular_automata.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/data/cellular_automata.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/data/computer_network.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/data/computer_network.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/data/simple.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/data/simple.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/dotLanguage.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/dotLanguage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/dotPlayground.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/dotPlayground.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/fsm.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/fsm.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/hello.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/hello.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/process.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/process.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/fsm.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/fsm.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/hello.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/hello.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/softmaint.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/softmaint.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/traffic_lights.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/screenshots/traffic_lights.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/siblings.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/siblings.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/softmaint.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/softmaint.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/traffic_lights.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/traffic_lights.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/transparency.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/transparency.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/twopi2.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/twopi2.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/unix.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/unix.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dotLanguage/graphvizGallery/world.gv.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dotLanguage/graphvizGallery/world.gv.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/dynamicData.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/dynamicData.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/importingFromGephi.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/importingFromGephi.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/scalingCustom.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/scalingCustom.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/scalingNodesEdges.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/scalingNodesEdges.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/data/scalingNodesEdgesLabels.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/data/scalingNodesEdgesLabels.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/datasources/WorldCup2014.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/datasources/WorldCup2014.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/datasources/WorldCup2014.json" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/datasources/WorldCup2014.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/edgeStyles/arrows.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/edgeStyles/arrows.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/edgeStyles/colors.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/edgeStyles/colors.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/edgeStyles/dashes.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/edgeStyles/dashes.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/edgeStyles/smooth.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/edgeStyles/smooth.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/edgeStyles/smoothWorldCup.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/edgeStyles/smoothWorldCup.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/events/interactionEvents.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/events/interactionEvents.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/events/physicsEvents.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/events/physicsEvents.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/events/renderEvents.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/events/renderEvents.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleApplications/lesMiserables.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleApplications/lesMiserables.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleApplications/loadingBar.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleApplications/loadingBar.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleApplications/neighbourhoodHighlight.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleApplications/neighbourhoodHighlight.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleApplications/nodeLegend.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleApplications/nodeLegend.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleApplications/worldCupPerformance.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleApplications/worldCupPerformance.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/exampleUtil.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/exampleUtil.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/1.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/1.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/10.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/10.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/11.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/11.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/12.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/12.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/13.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/13.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/14.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/14.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/2.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/2.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/3.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/3.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/4.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/4.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/5.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/5.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/6.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/6.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/7.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/7.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/8.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/8.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/indonesia/9.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/indonesia/9.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-Fax-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-Fax-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-Laptop-1-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-Laptop-1-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-Mobile-Phone-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/Hardware-Mobile-Phone-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-My-Computer-3-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-My-Computer-3-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-02-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-02-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-04-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-04-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-05-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-My-PDA-05-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-My-Phone-Picture-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-My-Phone-Picture-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Hardware-Printer-Blue-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-Printer-Blue-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Misc-Scanner-default-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Misc-Scanner-default-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Network-Drive-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Network-Drive-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Network-Internet-Connection-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Network-Internet-Connection-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/Network-Pipe-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Network-Pipe-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/System-Firewall-2-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/System-Firewall-2-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/System-Globe-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/System-Globe-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/refresh-cl/license.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/license.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Document-icon24.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Document-icon24.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Document-icon32.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Document-icon32.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Document-icon48.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Document-icon48.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Email-icon24.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Email-icon24.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Email-icon32.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Email-icon32.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Email-icon48.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Email-icon48.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Folder-icon24.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Folder-icon24.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Folder-icon32.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Folder-icon32.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Folder-icon48.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Folder-icon48.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Folder-icon64.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Folder-icon64.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Smiley-Angry-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Smiley-Angry-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/Smiley-Grin-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/Smiley-Grin-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Administrator-Blue-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Administrator-Blue-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Administrator-Green-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Administrator-Green-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Blue-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Blue-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Green-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Green-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Red-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Coat-Red-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Executive-Green-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Executive-Green-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Preppy-Blue-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Preppy-Blue-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/User-Preppy-Red-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/User-Preppy-Red-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/img/soft-scraps-icons/license.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/soft-scraps-icons/license.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/labels/labelAlignment.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/labels/labelAlignment.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/labels/labelBackground.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/labels/labelBackground.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/labels/labelColorAndSize.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/labels/labelColorAndSize.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/labels/labelStroke.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/labels/labelStroke.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/labels/multilineText.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/labels/multilineText.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/layout/hierarchicalLayout.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/layout/hierarchicalLayout.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/layout/hierarchicalLayoutMethods.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/layout/hierarchicalLayoutMethods.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/layout/hierarchicalLayoutUserdefined.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/layout/hierarchicalLayoutUserdefined.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/layout/randomSeed.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/layout/randomSeed.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/HTMLInNodes.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/HTMLInNodes.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/circularImages.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/circularImages.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/colors.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/colors.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/customGroups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/customGroups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/groups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/groups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/icons.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/icons.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/images.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/images.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/shadows.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/shadows.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/nodeStyles/shapes.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/nodeStyles/shapes.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/animationShowcase.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/animationShowcase.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/clustering.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/clustering.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/clusteringByZoom.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/clusteringByZoom.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/configuration.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/configuration.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/manipulation.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/manipulation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/navigation.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/navigation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/other/performance.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/other/performance.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/network/physics/physicsConfiguration.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/physics/physicsConfiguration.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/basicUsage.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/basicUsage.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/dataHandling/dataSerialization.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/dataHandling/dataSerialization.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/dataHandling/loadExternalData.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/dataHandling/loadExternalData.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/editing/customSnappingOfItems.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/editing/customSnappingOfItems.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/editing/editingItems.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/editing/editingItems.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/editing/editingItemsCallbacks.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/editing/editingItemsCallbacks.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/editing/updateDataOnEvent.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/editing/updateDataOnEvent.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/groups/groups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/groups/groups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/groups/groupsOrdering.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/groups/groupsOrdering.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/groups/subgroups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/groups/subgroups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/animateWindow.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/animateWindow.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/clickToUse.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/clickToUse.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/eventListeners.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/eventListeners.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/limitMoveAndZoom.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/limitMoveAndZoom.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/navigationMenu.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/navigationMenu.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/interaction/setSelection.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/interaction/setSelection.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/backgroundAreas.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/backgroundAreas.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/backgroundAreasWithGroups.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/backgroundAreasWithGroups.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/htmlContents.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/htmlContents.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/itemOrdering.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/itemOrdering.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/pointItems.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/pointItems.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/items/rangeOverflowItem.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/items/rangeOverflowItem.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/customTimeBars.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/customTimeBars.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/dataAttributes.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/dataAttributes.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/dataAttributesAll.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/dataAttributesAll.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/groupsPerformance.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/groupsPerformance.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/hidingPeriods.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/hidingPeriods.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/localization.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/localization.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/performance.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/performance.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/requirejs/requirejs_example.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/requirejs/requirejs_example.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/requirejs/scripts/main.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/requirejs/scripts/main.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/other/requirejs/scripts/require.js" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/other/requirejs/scripts/require.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/data/basic.json" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/data/basic.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/data/wk2014.json" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/data/wk2014.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/Hardware-Mobile-Phone-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/network/img/refresh-cl/Hardware-Mobile-Phone-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/attachment-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/attachment-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/blog-post-edit-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/blog-post-edit-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/comments-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/comments-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/community-users-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/community-users-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/license.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/license.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/license_aesthetica-2.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/license_aesthetica-2.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/license_refresh-cl.txt" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/license_refresh-cl.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/mail-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/mail-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/notes-edit-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/notes-edit-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/product-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/product-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/resources/img/truck-icon.png" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/resources/img/truck-icon.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/styling/axisOrientation.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/styling/axisOrientation.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/styling/customCss.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/styling/customCss.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/styling/gridStyling.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/styling/gridStyling.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/styling/itemClassNames.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/styling/itemClassNames.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/examples/timeline/styling/itemTemplates.html" afterPath="$PROJECT_DIR$/ui/js/vis/examples/timeline/styling/itemTemplates.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/gulpfile.js" afterPath="$PROJECT_DIR$/ui/js/vis/gulpfile.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/index.js" afterPath="$PROJECT_DIR$/ui/js/vis/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/js/vis/package.json" afterPath="$PROJECT_DIR$/ui/js/vis/package.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/package.json" afterPath="$PROJECT_DIR$/ui/package.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-animate.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-animate.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-aria.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-aria.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-material.min.css" afterPath="$PROJECT_DIR$/ui/vendor/angular-material.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-material.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-material.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-messages.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-messages.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-nvd3.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-nvd3.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-route.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-route.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-spinner.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-spinner.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular-vis.js" afterPath="$PROJECT_DIR$/ui/vendor/angular-vis.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/angular.min.js" afterPath="$PROJECT_DIR$/ui/vendor/angular.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/bootstrap.min.css" afterPath="$PROJECT_DIR$/ui/vendor/bootstrap.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/bootstrap.min.js" afterPath="$PROJECT_DIR$/ui/vendor/bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/d3.min.js" afterPath="$PROJECT_DIR$/ui/vendor/d3.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/hammer.min.js" afterPath="$PROJECT_DIR$/ui/vendor/hammer.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/jquery-2.2.0.min.js" afterPath="$PROJECT_DIR$/ui/vendor/jquery-2.2.0.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/jquery-ui.min.css" afterPath="$PROJECT_DIR$/ui/vendor/jquery-ui.min.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/jquery-ui.min.js" afterPath="$PROJECT_DIR$/ui/vendor/jquery-ui.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/normalize.css" afterPath="$PROJECT_DIR$/ui/vendor/normalize.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/nv.d3.css" afterPath="$PROJECT_DIR$/ui/vendor/nv.d3.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/nv.d3.min.deprecated-warns-are-delited.js" afterPath="$PROJECT_DIR$/ui/vendor/nv.d3.min.deprecated-warns-are-delited.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/spin.min.js" afterPath="$PROJECT_DIR$/ui/vendor/spin.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/ui-bootstrap-tpls.min.js" afterPath="$PROJECT_DIR$/ui/vendor/ui-bootstrap-tpls.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/ui-bootstrap.min.js" afterPath="$PROJECT_DIR$/ui/vendor/ui-bootstrap.min.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/vis.min.buttons-path-changed.css" afterPath="$PROJECT_DIR$/ui/vendor/vis.min.buttons-path-changed.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/resources/vendor/vis.min.js" afterPath="$PROJECT_DIR$/ui/js/vis/dist/vis.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-marathon/build.gradle" afterPath="$PROJECT_DIR$/../ambari-view-marathon/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew" afterPath="$PROJECT_DIR$/gradlew" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-marathon/marathon.iml" afterPath="$PROJECT_DIR$/../ambari-view-marathon/marathon.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-marathon/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ambari-view-marathon/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -511,8 +93,8 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3768309">
-              <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.88988763">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -934,10 +516,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1366" />
-    <option name="y" value="3" />
-    <option name="width" value="1920" />
-    <option name="height" value="1077" />
+    <option name="x" value="49" />
+    <option name="y" value="18" />
+    <option name="width" value="1317" />
+    <option name="height" value="750" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -962,8 +544,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1058,41 +639,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="metrics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ambari-view-mesos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="metrics" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ambari-view-mesos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="build" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="node" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1812,7 +1362,8 @@
       <workItem from="1453283697782" duration="49000" />
       <workItem from="1453902312636" duration="1512000" />
       <workItem from="1454598988708" duration="5418000" />
-      <workItem from="1455278469342" duration="2684000" />
+      <workItem from="1455278469342" duration="3340000" />
+      <workItem from="1455531297684" duration="69000" />
     </task>
     <task id="LOCAL-00001" summary="debug for executor metrics added">
       <created>1448289689155</created>
@@ -2027,16 +1578,16 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="268648000" />
+    <option name="totallyTimeSpent" value="269373000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1366" y="3" width="1920" height="1077" extended-state="6" />
+    <frame x="49" y="18" width="1317" height="750" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19481865" sideWeight="0.49812534" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28528073" sideWeight="0.49812534" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2050,9 +1601,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16134185" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23764706" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35987592" sideWeight="0.49812534" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25948405" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2116,6 +1667,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/apache/ambari/view/proxy/ProxyService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2232,7 +1791,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2240,7 +1798,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="34" column="17637" selection-start-line="34" selection-start-column="17626" selection-end-line="34" selection-end-column="17637" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2248,7 +1805,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2263,7 +1819,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2279,7 +1834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32231405">
           <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2287,28 +1841,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="903.7037">
           <caret line="25002" column="24" selection-start-line="25002" selection-start-column="14" selection-end-line="25002" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ui/public/js/templates.js.map">
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ui/public/js/templates.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.75206614">
           <caret line="72" column="16" selection-start-line="72" selection-start-column="16" selection-end-line="72" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2316,7 +1865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2324,7 +1872,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2332,7 +1879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47639486">
           <caret line="31" column="71" selection-start-line="31" selection-start-column="71" selection-end-line="31" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2347,7 +1893,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25896415">
           <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2355,7 +1900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.25895315">
           <caret line="476" column="14" selection-start-line="477" selection-start-column="9" selection-end-line="477" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2363,7 +1907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5458167">
           <caret line="78" column="0" selection-start-line="76" selection-start-column="19" selection-end-line="80" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2371,7 +1914,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.32320443">
           <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2379,14 +1921,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19174434">
           <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3768309">
-          <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.88988763">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
