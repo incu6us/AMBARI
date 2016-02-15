@@ -1,3 +1,9 @@
 build
 .gradle
 npm-debug.log
+ui/public
+src/main/resources/css
+src/main/resources/icons
+src/main/resources/img
+src/main/resources/js
+src/main/resources/index.html
