@@ -21,7 +21,7 @@ targetCompatibility = 1.7
 
 // set build number (for Jenkins)
 def buildNumber = System.properties['buildNumber']
-if (buildNumber.toString().length() > 0){
+if (!buildNumber.toString().equals("null")){
     setVersion(version+"-"+buildNumber)
 }
 
