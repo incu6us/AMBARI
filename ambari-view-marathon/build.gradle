@@ -14,12 +14,18 @@ buildscript {
 }
 
 apply plugin: 'com.moowork.node'
+//apply from: 'lib/extProgram.properties'
 apply plugin: 'java'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-def brunchPath = './ui/node_modules/.bin/brunch'
+def separator = '/'
+if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    separator = '\\'
+}
+
+def brunchPath = '.'+separator+'ui'+separator+'node_modules'+separator+'.bin'+separator+'brunch'
 
 node {
     // Version of node to use.
@@ -36,10 +42,10 @@ node {
     download = true
 
     // Set the work directory for unpacking node
-    workDir = file("${project.buildDir}/node")
+    workDir = file("${project.buildDir}"+separator+"node")
 
     // Set the work directory where node_modules should be located
-    nodeModulesDir = file("${project.projectDir}/ui/node_modules")
+    nodeModulesDir = file("${project.projectDir}"+separator+"ui"+separator+"node_modules")
 }
 
 
@@ -47,19 +53,19 @@ task compileUi(type: NodeTask) {
     script = file(brunchPath)
     args = ['b', './ui/']
     copy{
-        from("${project.projectDir}/ui/public/")
-        into("${project.projectDir}/src/main/resources/")
+        from("${project.projectDir}"+separator+"ui"+separator+"public"+separator)
+        into("${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator)
     }
 }
 
 task cleanResources(type: Delete){
-    delete "${project.projectDir}/ui/public"
+    delete "${project.projectDir}\"+separator+\"ui\"+separator+\"public"
 
-    delete "${project.projectDir}/src/main/resources/css"
-    delete "${project.projectDir}/src/main/resources/icons"
-    delete "${project.projectDir}/src/main/resources/img"
-    delete "${project.projectDir}/src/main/resources/js"
-    delete "${project.projectDir}/src/main/resources/index.html"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"css"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"icons"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"img"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"js"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"index.html"
 }
 
 
@@ -87,7 +93,7 @@ task fatJar(type: Jar, dependsOn: ['npmInstall', 'compileUi', 'cleanResources'])
 
 task startUi(type: NodeTask) {
     script = file(brunchPath)
-    args = ['w', '--server', './ui/']
+    args = ['w', '--server', '.'+separator+'ui'+separator]
 }
 
 repositories {
