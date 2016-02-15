@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ecfc970-c1ec-4011-aabf-12fde192c729" name="Default" comment="GET method fixed">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-mesos/build.gradle" afterPath="$PROJECT_DIR$/../ambari-view-mesos/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ambari-view-mesos/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../ambari-view-mesos/.idea/workspace.xml" />
     </list>
     <ignored path="metrics.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1357,7 +1358,7 @@
     </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1455542816730" />
+    <option name="lastUpdateTimestamp" value="1455543875506" />
     <option name="externalProjectsViewState">
       <projects_view />
     </option>
@@ -1406,7 +1407,7 @@
       <workItem from="1455280540369" duration="7160000" />
       <workItem from="1455289652763" duration="1516000" />
       <workItem from="1455530422341" duration="1554000" />
-      <workItem from="1455533899723" duration="5202000" />
+      <workItem from="1455533899723" duration="6257000" />
     </task>
     <task id="LOCAL-00001" summary="debug for executor metrics added">
       <created>1448289689155</created>
@@ -1591,11 +1592,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="233388000" />
+    <option name="totallyTimeSpent" value="234443000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="3" width="1920" height="1077" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
