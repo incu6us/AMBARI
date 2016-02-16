@@ -19,6 +19,12 @@ apply plugin: 'java'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+// set build number (for Jenkins)
+def buildNumber = System.properties['buildNumber']
+if (!buildNumber.toString().equals("null")){
+    setVersion(version+"-"+buildNumber)
+}
+
 def separator = '/'
 if (System.properties['os.name'].toLowerCase().contains('windows')) {
     separator = '\\'
