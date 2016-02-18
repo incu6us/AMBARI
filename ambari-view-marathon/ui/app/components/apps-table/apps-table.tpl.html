@@ -1,22 +1,22 @@
 <div class="apps-table" flex layout="row">
-    <!-- TABLE -->
-        <table>
-            <tr>
-                <th> ID </th>
-                <th> Memory (MB) </th>
-                <th> CPUs </th>
-                <th> Tasks / Instances </th>
-                <th> Disk </th>
-            </tr>
-            <tr ng-repeat="app in appsTable.appsList" ng-click="appsTable.showAppInfo(app)">
-                <td class="border-left"> {{app.id}} </td>
-                <td> {{app.mem}} </td>
-                <td> {{app.cpus}} </td>
-                <td> {{app.tasksRunning}} / {{app.instances}} </td>
-                <td class="border-right"> {{app.disk}} </td>
-            </tr>
-<!--             <tr ng-click="appsTable.showAppInfo(app)">
+  <!-- TABLE -->
+  <table>
+    <tr>
+      <th> ID </th>
+      <th> Memory (MB) </th>
+      <th> CPUs </th>
+      <th> Tasks / Instances </th>
+      <th> Disk </th>
+    </tr>
+    <tr ng-repeat="app in appsTable.appsList" ng-click="appsTable.showAppInfo(app)">
+      <td class="border-left"> {{app.id}} </td>
+      <td> {{app.mem}} </td>
+      <td> {{app.cpus}} </td>
+      <td> {{app.tasksRunning}} / {{app.instances}} </td>
+      <td class="border-right"> {{app.disk}} </td>
+    </tr>
+    <!--             <tr ng-click="appsTable.showAppInfo(app)">
                 <td>bla</td>
-            </tr>  -->      
-        </table>
+            </tr>  -->
+  </table>
 </div>

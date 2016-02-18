@@ -1,32 +1,32 @@
 <div class="apps-deployments" flex layout="row">
-    <table>
-        <tr>
-            <th> ID </th>
-            <th> Affected Apps </th>
-            <th> Action </th>
-            <th> Progress </th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
-            <td class="border-left"> {{deploy.id}} </td>
-            <td>
-                <span class="link" ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)">
-                    {{affApp}} <br>
-                </span>
-            </td>
-            <td>
-                <span ng-repeat="currAction in deploy.currentActions"> 
-                    {{currAction.action}} <br>
-                </span>
-            </td>
-            <td> {{deploy.currentStep}}/{{deploy.totalSteps}} </td>
-            <td class="border-right">
-                <md-button ng-click="appsDeploys.stopDeploy($event, deploy.id)" class="md-raised">Stop</md-button>
-                <md-button ng-click="appsDeploys.rollbackDeploy($event, deploy.id)" style="margin-right:0;" class="md-raised md-warn">RollBack</md-button>
-            </td>
-        </tr>
-        <tr flex ng-hide="appsDeploys.deployList.length">
-            <td colspan="5" style="text-align: center;">No deployments in progress.</td>
-        </tr>
-    </table>
+  <table>
+    <tr>
+      <th> ID </th>
+      <th> Affected Apps </th>
+      <th> Action </th>
+      <th> Progress </th>
+      <th></th>
+    </tr>
+    <tr ng-repeat="deploy in appsDeploys.deployList" ng-hide="!appsDeploys.deployList.length">
+      <td class="border-left"> {{deploy.id}} </td>
+      <td>
+        <span class="link" ng-repeat="affApp in deploy.affectedApps" ng-click="appsDeploys.showAppInfo(affApp)">
+          {{affApp}} <br>
+        </span>
+      </td>
+      <td>
+        <span ng-repeat="currAction in deploy.currentActions">
+          {{currAction.action}} <br>
+        </span>
+      </td>
+      <td> {{deploy.currentStep}}/{{deploy.totalSteps}} </td>
+      <td class="border-right">
+        <md-button ng-click="appsDeploys.stopDeploy($event, deploy.id)" class="md-raised">Stop</md-button>
+        <md-button ng-click="appsDeploys.rollbackDeploy($event, deploy.id)" style="margin-right:0;" class="md-raised md-warn">RollBack</md-button>
+      </td>
+    </tr>
+    <tr flex ng-hide="appsDeploys.deployList.length">
+      <td colspan="5" style="text-align: center;">No deployments in progress.</td>
+    </tr>
+  </table>
 </div>

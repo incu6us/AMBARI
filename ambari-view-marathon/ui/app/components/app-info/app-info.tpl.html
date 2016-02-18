@@ -1,9 +1,9 @@
 <div flex>
 	<md-content layout-padding>
 		<span class="link" ng-click="appInfo.goToAllApps()"> Apps </span>
-		<span class="arrow"> > </span>	
+		<span class="arrow"> > </span>
 		<span class="current"> {{appInfo.appID}} </span>
-	</md-content>			
+	</md-content>
 
 	<div>
 		<div layout="row">
@@ -15,7 +15,7 @@
 			</md-button>
 
 			<!-- fill up the space between left and right area -->
-   			<span flex></span>
+			<span flex></span>
 
 			<md-button class="md-accent md-hue-1 md-raised" ng-show="!!appInfo.tasksToKill.ids.length" ng-click="appInfo.killTasks(false)">
 				Kill
@@ -30,22 +30,22 @@
 				Destroy App
 			</md-button>
 		</div>
-		
-		<md-tabs md-dynamic-height="true" class="app-tabs">			
+
+		<md-tabs md-dynamic-height="true" class="app-tabs">
 			<md-tab label="Tasks">
 				<md-content layout-padding>
 					<table-tasks></table-tasks>
-			  	</md-content>
-		  	</md-tab>
-		  	<md-tab label="Configuration">
-		  		<md-content layout-padding>
+				</md-content>
+			</md-tab>
+			<md-tab label="Configuration">
+				<md-content layout-padding>
 					<table-config></table-config>
 				</md-content>
 			</md-tab>
 			<md-tab label="Debug">
 				<md-content layout-padding>
 					<table-debug></table-debug>
-				</md-content>		
+				</md-content>
 			</md-tab>
 		</md-tabs>
 	</div>

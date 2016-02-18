@@ -1,13 +1,13 @@
 <div flex>
 	<md-content layout-padding>
 		<span class="link" ng-click="taskInfo.goToAllApps()"> Apps </span>
-		<span> > </span>	
+		<span> > </span>
 		<span class="link" ng-click="taskInfo.goToApp()"> {{taskInfo.appID}} </span>
 		<span> > </span>
 		<span> {{taskInfo.taskID}} </span>
-	</md-content>	
+	</md-content>
 
-	<div class="task-info" layout="row"  layout-align="start start">
+	<div class="task-info" layout="row" layout-align="start start">
 		<fieldset class="standard">
 			<legend> Task Details </legend>
 			<table>
@@ -17,7 +17,7 @@
 				</tr>
 				<tr>
 					<td> Ports </td>
-					<td> 
+					<td>
 						<span ng-repeat="port in taskInfo.taskData.ports">
 							{{port}}
 						</span>
@@ -25,9 +25,9 @@
 				</tr>
 				<tr>
 					<td> Status </td>
-					<td> 
+					<td>
 						<span ng-show="taskInfo.taskData.startedAt">Started</span>
-			        </td>
+					</td>
 				</tr>
 				<tr>
 					<td> Staged at </td>
@@ -41,7 +41,7 @@
 					<td> Version </td>
 					<td> {{taskInfo.taskData.version | date:'yyyy-MM-dd HH:mm:ss'}}</td>
 				</tr>
-		<!-- 		<tr>
+				<!-- 		<tr>
 					<td> Health </td>
 					<td> ??? </td>
 				</tr>

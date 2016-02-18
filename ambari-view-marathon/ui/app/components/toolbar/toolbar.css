@@ -1,38 +1,32 @@
 .logo-mantl {
-	height: 100%;
-	margin-right: 10px;
+  height: 100%;
+  margin-right: 10px;
 }
-
 .logo-mantl img {
-	margin-top: 6px;
-	margin-left: 1px;
-	height: 63%;
+  margin-top: 6px;
+  margin-left: 1px;
+  height: 63%;
 }
-
 .logo-name {
-	font-size: 15px;
-	font-weight: 600;
-	margin-bottom: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
 }
-
 md-toolbar {
-	min-height: 51px;
-	height: 51px;
+  min-height: 51px;
+  height: 51px;
 }
-
 .md-toolbar-tools {
-	min-height: 51px;
-	height: 51px;
+  min-height: 51px;
+  height: 51px;
 }
-
 .container {
-	max-width: 1220px;
-	margin-left: auto;
-	margin-right: auto;
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 .shadow {
-	-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
-  	-moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
-  	box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.5);
 }

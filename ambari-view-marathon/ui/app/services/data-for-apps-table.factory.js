@@ -1,35 +1,35 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-  	angular
-	    .module('MarathonApp')
-	    .factory('DataForAppsTableFactory', DataForAppsTableFactory);
+  angular
+    .module('MarathonApp')
+    .factory('DataForAppsTableFactory', DataForAppsTableFactory);
 
-        DataForAppsTableFactory.$inject = ['$http'];
+  DataForAppsTableFactory.$inject = ['$http'];
 
-        function DataForAppsTableFactory ($http) {
-            return {
-                get: get
-            };
+  function DataForAppsTableFactory($http) {
+    return {
+      get: get
+    };
 
-            ///////////////////
-            // /api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps
+    ///////////////////
+    // /api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps
 
-            // for Brunch server
-            // http://nikke1.github.io/hard-data/dataforapps.json
-            function get (hostName) {
-                return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps')
-                    .then(successDataForAppsTable, errorDataForAppsTable);
+    // for Brunch server
+    // http://nikke1.github.io/hard-data/dataforapps.json
+    function get(hostName) {
+      return $http.get('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://' + hostName + ':8080/v2/apps')
+        .then(successDataForAppsTable, errorDataForAppsTable);
 
-                function successDataForAppsTable(response) {
-                    return response.data.apps;
-                }
+      function successDataForAppsTable(response) {
+        return response.data.apps;
+      }
 
-                function errorDataForAppsTable (err) {
-                    console.log(err);
-                }
-  	        }
+      function errorDataForAppsTable(err) {
+        console.log(err);
+      }
+    }
 
- 		}
-     		
+  }
+
 }());

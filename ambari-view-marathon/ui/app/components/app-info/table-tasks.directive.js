@@ -1,15 +1,15 @@
-(function () {
- 	'use strict';
+(function() {
+  'use strict';
 
-	angular
-		.module('MarathonApp')
-		.directive('tableTasks', tableTasks);
+  angular
+    .module('MarathonApp')
+    .directive('tableTasks', tableTasks);
 
-		function tableTasks() {
-			return {
-				restrict: 'E',
-				templateUrl: 'app/components/app-info/table-tasks.tpl.html'
-			};
-		}
-		
+  function tableTasks() {
+    return {
+      restrict: 'E',
+      templateUrl: 'app/components/app-info/table-tasks.tpl.html'
+    };
+  }
+
 }());
