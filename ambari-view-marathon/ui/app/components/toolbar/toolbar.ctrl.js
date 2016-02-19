@@ -3,13 +3,12 @@
     .module('MarathonApp')
     .controller('ToolbarCtrl', ToolbarCtrl);
 
-  ToolbarCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia'];
+  ToolbarCtrl.$inject = ['$mdDialog', '$mdMedia'];
 
-  function ToolbarCtrl($scope, $mdDialog, $mdMedia) {
+  function ToolbarCtrl($mdDialog, $mdMedia) {
     var vm = this;
     vm.status = '  ';
 
-    vm.goToAllApps = goToAllApps;
     vm.newAppModal = newAppModal;
 
     ///////////////
@@ -23,11 +22,6 @@
         targetEvent: ev,
         clickOutsideToClose: true
       });
-    }
-
-    function goToAllApps() {
-      $timeout.cancel(promise);
-      $location.path('#/apps/');
     }
 
   }
