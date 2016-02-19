@@ -29,6 +29,6 @@
       $timeout.cancel(promise);
       $location.path('#/apps/');
     }
-		
+
   }
 }());

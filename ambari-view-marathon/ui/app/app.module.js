@@ -8,7 +8,8 @@
     .module('MarathonApp', [
       'ngMaterial',
       'ngRoute',
-      'templates'
+      'templates',
+      'ngMock'
     ]);
 
 }());
