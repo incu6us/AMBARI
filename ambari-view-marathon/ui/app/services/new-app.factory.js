@@ -24,11 +24,12 @@
         .then(successDataNewApp, errorDataNewApp);
 
       function successDataNewApp(response) {
+        console.log(response);
         return response;
       }
 
       function errorDataNewApp(err) {
-        console.log(err);
+        console.error(err);
       }
     }
   }

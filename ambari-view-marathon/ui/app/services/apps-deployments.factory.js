@@ -41,11 +41,12 @@
         .then(successDataForAppsTable, errorDataForAppsTable);
 
       function successDataForAppsTable(response) {
+        console.log(response);
         return response;
       }
 
       function errorDataForAppsTable(err) {
-        console.log(err);
+        console.error(err);
       }
     }
 
@@ -61,11 +62,12 @@
         .then(successDataForAppsTable, errorDataForAppsTable);
 
       function successDataForAppsTable(response) {
+        console.log(response);
         return response;
       }
 
       function errorDataForAppsTable(err) {
-        console.log(err);
+        console.error(err);
       }
     }
   }
