@@ -30,7 +30,7 @@ if (System.properties['os.name'].toLowerCase().contains('windows')) {
     separator = '\\'
 }
 
-def brunchPath = '.'+separator+'ui'+separator+'node_modules'+separator+'.bin'+separator+'brunch'
+def brunchPath = '.'+separator+'ui'+separator+'node_modules'+separator+'brunch'+separator+'bin'+separator+'brunch'
 
 node {
     // Version of node to use.
