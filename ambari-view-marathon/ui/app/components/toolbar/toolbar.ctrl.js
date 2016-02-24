@@ -1,35 +1,28 @@
-(function () {
-	angular
-		.module('MarathonApp')
-		.controller('ToolbarCtrl', ToolbarCtrl);
+(function() {
+  angular
+    .module('MarathonApp')
+    .controller('ToolbarCtrl', ToolbarCtrl);
 
-		ToolbarCtrl.$inject = ['$scope', '$mdDialog', '$mdMedia'];
+  ToolbarCtrl.$inject = ['$mdDialog', '$mdMedia'];
 
-		function ToolbarCtrl ($scope, $mdDialog, $mdMedia) {
-		var vm = this;
-		    vm.status = '  ';
+  function ToolbarCtrl($mdDialog, $mdMedia) {
+    var vm = this;
+    vm.status = '  ';
 
-		    vm.goToAllApps = goToAllApps;
-		    vm.newAppModal = newAppModal;
+    vm.newAppModal = newAppModal;
 
-		    ///////////////
+    ///////////////
 
-		    function newAppModal (ev) {
-		        $mdDialog.show({
-		            templateUrl: 'app/components/new-app-modal/new-app-modal.tpl.html',
-		            controller: 'NewAppCtrl',
-		            controllerAs: 'newapp',
-		            parent: angular.element(document.querySelector('#content')),
-		            targetEvent: ev,
-		            clickOutsideToClose:true
-		        });
-		    }
+    function newAppModal(ev) {
+      $mdDialog.show({
+        templateUrl: 'app/components/new-app-modal/new-app-modal.tpl.html',
+        controller: 'NewAppCtrl',
+        controllerAs: 'newapp',
+        parent: angular.element(document.querySelector('#content')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
 
-		    function goToAllApps () {
-		    	$timeout.cancel(promise);
-		    	$location.path('#/apps/');
-		    }
-
-
-		}
+  }
 }());

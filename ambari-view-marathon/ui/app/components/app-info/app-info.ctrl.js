@@ -1,164 +1,164 @@
-(function () {
-  	'use strict';
+(function() {
+  'use strict';
 
-    angular
-    	.module('MarathonApp')
-    	.controller('AppInfoCtrl', AppInfoCtrl); 
-	        
-    	AppInfoCtrl.$inject = [ 
-    		'$location', 
-    		'$routeParams',
-    		'$mdDialog',
-    		'$timeout',
-    		'$scope',
-    		'DataForAppInfoFactory', 
-    		'HostNameFactory',
-    		'KillTasksFactory'
-    	];
-	    
-    	function AppInfoCtrl ($location, $routeParams, $mdDialog, $timeout, $scope, DataForAppInfoFactory, HostNameFactory, KillTasksFactory) {
-    		$scope.$on('$locationChangeStart', function(){
-			    $timeout.cancel(promise);
-			});
+  angular
+    .module('MarathonApp')
+    .controller('AppInfoCtrl', AppInfoCtrl);
 
-	        var vm = this;
+  AppInfoCtrl.$inject = [
+    '$location',
+    '$routeParams',
+    '$mdDialog',
+    '$timeout',
+    '$scope',
+    'DataForAppInfoFactory',
+    'HostNameFactory',
+    'KillTasksFactory'
+  ];
 
-	        var promise;
-	        
-	        vm.appID = decodeURIComponent($routeParams.id);
+  function AppInfoCtrl($location, $routeParams, $mdDialog, $timeout, $scope, DataForAppInfoFactory, HostNameFactory, KillTasksFactory) {
+    $scope.$on('$locationChangeStart', function() {
+      $timeout.cancel(promise);
+    });
 
-	        vm.hostName = '';
-	        vm.appData = {};
+    var vm = this;
 
-			vm.tasksToKill = {
-			    ids: []
-			};
-			vm.checkedTasks = {};
+    var promise;
 
-			vm.checkTask = checkTask;
-			vm.checkAllTasks = checkAllTasks;
-			vm.checkAllTaskBool = false;
+    vm.appID = decodeURIComponent($routeParams.id);
 
-	        vm.suspendApp = suspendApp;
-	        vm.scaleApp = scaleApp;
-	        vm.restartApp = restartApp;
-	        vm.destroyApp = destroyApp;
-	        vm.killTasks = killTasks;
+    vm.hostName = '';
+    vm.appData = {};
 
-	        HostNameFactory.get()
-        		.then( function(response) {
-        			vm.hostName = response;
-        			getAppInfo();
-        		});
-			// getAppInfo();
-			// for Brunch server
+    vm.tasksToKill = {
+      ids: []
+    };
+    vm.checkedTasks = {};
 
-			vm.showTaskInfo = showTaskInfo;
-			vm.goToAllApps = goToAllApps;
-	        
-		    ///////////////////
+    vm.checkTask = checkTask;
+    vm.checkAllTasks = checkAllTasks;
+    vm.checkAllTaskBool = false;
 
-		    function showTaskInfo (taskId) {
-		    	$location.path($location.path() + '/' + taskId);
-		    }
+    vm.suspendApp = suspendApp;
+    vm.scaleApp = scaleApp;
+    vm.restartApp = restartApp;
+    vm.destroyApp = destroyApp;
+    vm.killTasks = killTasks;
 
-		    function goToAllApps () {
-		    	$location.path('#/apps/');
-		    }
+    HostNameFactory.get()
+      .then(function(response) {
+        vm.hostName = response;
+        getAppInfo();
+      });
+    // getAppInfo();
+    // for Brunch server
 
-	        function getAppInfo () {
-	            DataForAppInfoFactory.get(vm.hostName, vm.appID)
-	            	.then( function(response) {
-		                vm.appData = response.app;
-		                promise = $timeout(getAppInfo, 10*1000);
-		            });	
-	        }
+    vm.showTaskInfo = showTaskInfo;
+    vm.goToAllApps = goToAllApps;
 
-	        function suspendApp (ev) {
-		        $mdDialog.show({
-		            templateUrl: 'app/components/suspend-app-modal/suspend-app-modal.tpl.html',
-		            controller: 'SuspendAppCtrl',
-		            controllerAs: 'suspendApp',
-		            parent: angular.element(document.querySelector('#content')),
-		            targetEvent: ev,
-		            clickOutsideToClose:true
-		        });
-	    	}
+    ///////////////////
 
-	    	function scaleApp (ev) {
-		        $mdDialog.show({
-		            templateUrl: 'app/components/scale-app-modal/scale-app-modal.tpl.html',
-		            controller: 'ScaleAppCtrl',
-		            controllerAs: 'scaleApp',
-		            parent: angular.element(document.querySelector('#content')),
-		            targetEvent: ev,
-		            clickOutsideToClose:true
-		        });
-	    	}
+    function showTaskInfo(taskId) {
+      $location.path($location.path() + '/' + taskId);
+    }
 
-	    	function restartApp (ev) {
-		        $mdDialog.show({
-		            templateUrl: 'app/components/restart-app-modal/restart-app-modal.tpl.html',
-		            controller: 'RestartAppCtrl',
-		            controllerAs: 'restartApp',
-		            parent: angular.element(document.querySelector('#content')),
-		            targetEvent: ev,
-		            clickOutsideToClose:true
-		        });
-	    	}
+    function goToAllApps() {
+      $location.path('#/apps/');
+    }
 
-	    	function destroyApp (ev) {
-		        $mdDialog.show({
-		            templateUrl: 'app/components/destroy-app-modal/destroy-app-modal.tpl.html',
-		            controller: 'DestroyAppCtrl',
-		            controllerAs: 'destroyApp',
-		            parent: angular.element(document.querySelector('#content')),
-		            targetEvent: ev,
-		            clickOutsideToClose:true
-		        });
-	    	}
+    function getAppInfo() {
+      DataForAppInfoFactory.get(vm.hostName, vm.appID)
+        .then(function(response) {
+          vm.appData = response.app;
+          promise = $timeout(getAppInfo, 10 * 1000);
+        });
+    }
 
-	    	function killTasks (shouldScale) {
-	    		HostNameFactory.get()
-                    .then( function(response) {
-                        vm.hostName = response;
-                        KillTasksFactory.post(vm.hostName, vm.tasksToKill, shouldScale)
-                            .then( function(response) {
-                            	getAppInfo();
-                            	vm.checkAllTaskBool = false;
-                            	vm.checkedTasks = {};
-                            	vm.tasksToKill.ids = [];
-                            });
-                    });  
-	    	}
+    function suspendApp(ev) {
+      $mdDialog.show({
+        templateUrl: 'app/components/suspend-app-modal/suspend-app-modal.tpl.html',
+        controller: 'SuspendAppCtrl',
+        controllerAs: 'suspendApp',
+        parent: angular.element(document.querySelector('#content')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
 
-	    	function checkTask (taskId) {
-	    		var indexOfTask = vm.tasksToKill.ids.indexOf(taskId);
+    function scaleApp(ev) {
+      $mdDialog.show({
+        templateUrl: 'app/components/scale-app-modal/scale-app-modal.tpl.html',
+        controller: 'ScaleAppCtrl',
+        controllerAs: 'scaleApp',
+        parent: angular.element(document.querySelector('#content')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
 
-	    		if ( indexOfTask === -1 ) {
-	    			vm.tasksToKill.ids.push(taskId);
-	    		} else {
-	    			vm.tasksToKill.ids.splice(indexOfTask, 1);
-	    		}
-	    	}
+    function restartApp(ev) {
+      $mdDialog.show({
+        templateUrl: 'app/components/restart-app-modal/restart-app-modal.tpl.html',
+        controller: 'RestartAppCtrl',
+        controllerAs: 'restartApp',
+        parent: angular.element(document.querySelector('#content')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
 
-	    	function checkAllTasks () {
-				vm.tasksToKill.ids = [];
+    function destroyApp(ev) {
+      $mdDialog.show({
+        templateUrl: 'app/components/destroy-app-modal/destroy-app-modal.tpl.html',
+        controller: 'DestroyAppCtrl',
+        controllerAs: 'destroyApp',
+        parent: angular.element(document.querySelector('#content')),
+        targetEvent: ev,
+        clickOutsideToClose: true
+      });
+    }
 
-				if (vm.allCheckedState === true) {
-					vm.allCheckedState = false;
-					for (var i = 0; i < vm.appData.tasks.length; i++) {
-						var task1 = vm.appData.tasks[i];
-						vm.checkedTasks[task1.id] = false;
-					}
-				} else {
-					vm.allCheckedState = true;
-					for (var k = 0; k < vm.appData.tasks.length; k++) {
-						var task2 = vm.appData.tasks[k];
-						vm.checkedTasks[task2.id] = true;
-						vm.checkTask(task2.id);
-					}
-				}
-			}
-	    }
+    function killTasks(shouldScale) {
+      HostNameFactory.get()
+        .then(function(response) {
+          vm.hostName = response;
+          KillTasksFactory.post(vm.hostName, vm.tasksToKill, shouldScale)
+            .then(function(response) {
+              getAppInfo();
+              vm.checkAllTaskBool = false;
+              vm.checkedTasks = {};
+              vm.tasksToKill.ids = [];
+            });
+        });
+    }
+
+    function checkTask(taskId) {
+      var indexOfTask = vm.tasksToKill.ids.indexOf(taskId);
+
+      if (indexOfTask === -1) {
+        vm.tasksToKill.ids.push(taskId);
+      } else {
+        vm.tasksToKill.ids.splice(indexOfTask, 1);
+      }
+    }
+
+    function checkAllTasks() {
+      vm.tasksToKill.ids = [];
+
+      if (vm.allCheckedState === true) {
+        vm.allCheckedState = false;
+        for (var i = 0; i < vm.appData.tasks.length; i++) {
+          var task1 = vm.appData.tasks[i];
+          vm.checkedTasks[task1.id] = false;
+        }
+      } else {
+        vm.allCheckedState = true;
+        for (var k = 0; k < vm.appData.tasks.length; k++) {
+          var task2 = vm.appData.tasks[k];
+          vm.checkedTasks[task2.id] = true;
+          vm.checkTask(task2.id);
+        }
+      }
+    }
+  }
 }());

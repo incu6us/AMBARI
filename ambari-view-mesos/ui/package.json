@@ -18,5 +18,13 @@
     "css-brunch": ">= 1.0 < 1.9",
     "javascript-brunch": ">= 1.0 < 1.9",
     "uglify-js-brunch": ">= 1.0 < 1.9"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.21",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.2.2",
+    "karma-coverage": "^0.5.3",
+    "angular-mocks": "^1.5.0"
   }
 }
