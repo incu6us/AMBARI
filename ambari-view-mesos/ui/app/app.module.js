@@ -23,14 +23,13 @@
 
   angular
     .module('MesosMetricsApp', [
+      'ngMaterial',
       'nvd3',
       'angularSpinner',
       'ui.bootstrap',
       'ngVis',
-      'ngMaterial',
       'ngRoute',
-      'templates',
-      'ngMock'
+      'templates'
     ])
     .config(['usSpinnerConfigProvider', function(usSpinnerConfigProvider) {
       usSpinnerConfigProvider.setDefaults(spinOpts);
