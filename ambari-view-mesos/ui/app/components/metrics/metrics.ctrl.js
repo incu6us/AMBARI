@@ -1,15 +1,15 @@
 (function () {
 	'use strict';
-	
+
 	angular
 		.module('MesosMetricsApp')
 		.controller('MetricsCtrl', MetricsCtrl);
 
 		MetricsCtrl.$inject = [
-			'$scope', 
-			'$timeout', 
-			'$mdDialog', 
-			'$uibModal', 
+			'$scope',
+			'$timeout',
+			'$mdDialog',
+			'$uibModal',
 			'VisDataSet',
 			'ClusterNameFactory',
 			'MesosMasterFactory',
@@ -17,15 +17,12 @@
 			'MetricsForMasterFactory',
 			'MetricsForSlaveFactory',
 			'ActiveMasterStateFactory',
-			'ActiveMasterSlavesFactory', 
 			'FrameworksFactory',
-			'DirsFactory',
-			'DatasFactory',
 			'$http',
 			'$mdSidenav'
 		];
 
-		function MetricsCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
+		function MetricsCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, FrameworksFactory, $http, $mdSidenav) {
 			var VERSION = "0.1.0";
 			var DEBUG = false;
 
@@ -146,7 +143,7 @@
 		     */
 		    function getMesosMetrics () {
 		    	promise = $timeout(getMesosMetrics, 10*1000);
-		    	
+
 		        /*
 		         * Get clusterName from master
 		         */
@@ -212,10 +209,10 @@
 				                        if ($scope.activeMaster != null || $scope.activeMaster != undefined) {
 				                            if (slaveItems[i].HostRoles.host_name == $scope.activeMaster) {
 				                                tmpNodeArr.push({
-		                                        	id: 1, 
-		                                        	label: $scope.activeMaster, 
-		                                        	"size":4, 
-		                                        	"color":"#5cb85c", 
+		                                        	id: 1,
+		                                        	label: $scope.activeMaster,
+		                                        	"size":4,
+		                                        	"color":"#5cb85c",
 		                                        	"shape":"circle"
 		                                        });
 				                            } else if (slaveItems[i].HostRoles.host_name != $scope.activeMaster && slaveItems[i].HostRoles.host_name.indexOf("master") > -1) {
@@ -240,8 +237,8 @@
 
 				                        if(notUsedMasterHosts !== nodesIdCounter){
 				                            tmpEdgeArr.push({
-			                                	id: edgeIdCounter++, 
-			                                	from: 1, 
+			                                	id: edgeIdCounter++,
+			                                	from: 1,
 			                                	to: nodesIdCounter
 			                                });
 				                        }
@@ -302,12 +299,12 @@
 		        $scope.updatedMesosSlave = val;
 		    }
 
-		    // Get metrics for elected master host 
+		    // Get metrics for elected master host
 
 		    function getMetricsForMaster (clusterName, masterHost) {
 		    	// http://nikke1.github.io/hard-data/1snapshot.json
 		    	// /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot
-		    	
+
 		    	// !!! Tried to use MetricsForMasterFactory.get(VERSION, masterHost).then(...) but it fails.
 		        $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {cache: true})
 		            .success(function (data) {
@@ -482,7 +479,7 @@
 		                ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
 		                	.then(function (values) {
 			                    var allData = values.data;
-			                    
+
 			                    angular.forEach(allData.slaves, function (value, key) {
 			                        if (value.hostname == hostname) {
 			                            //slave(1)@10.0.5.202:5051
@@ -492,8 +489,8 @@
 			                            // console.log("stateUrl -> " + stateUrl);
 			                            //$scope.detailsForTask = true;
 			                            //$scope.taskLoading = true;
-			                           
-			                            FrameworksFactory.get(VERSION, stateUrl)	
+
+			                            FrameworksFactory.get(VERSION, stateUrl)
 				                           	.then(function (frameworkValues) {
 				                                angular.forEach(frameworkValues.data.frameworks, function (framework, keyFrameworks) {
 				                                    angular.forEach(framework.executors, function (executor, keyExecutor) {
@@ -538,7 +535,7 @@
 			                            // console.log("stateUrl -> " + stateUrl);
 			                            //$scope.detailsForTask = true;
 			                            //$scope.taskLoading = true;
-			                            
+
 			                            FrameworksFactory.get(VERSION, stateUrl)
 				                            .then(function (frameworkValues) {
 				                                angular.forEach(frameworkValues.data.frameworks, function (framework, keyFrameworks) {

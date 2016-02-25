@@ -1,31 +1,28 @@
 (function () {
 	'use strict';
-	
+
 	angular
 		.module('MesosMetricsApp')
 		.controller('FrameworksCtrl', FrameworksCtrl);
 
 		FrameworksCtrl.$inject = [
-			'$scope', 
-			'$timeout', 
-			'$mdDialog', 
-			'$uibModal', 
+			'$scope',
+			'$timeout',
+			'$mdDialog',
+			'$uibModal',
 			'VisDataSet',
 			'ClusterNameFactory',
 			'MesosMasterFactory',
-			'MesosSlaveFactory',
 			'MetricsForMasterFactory',
-			'MetricsForSlaveFactory',
 			'ActiveMasterStateFactory',
-			'ActiveMasterSlavesFactory', 
+			'ActiveMasterSlavesFactory',
 			'FrameworksFactory',
 			'DirsFactory',
 			'DatasFactory',
-			'$http',
-			'$mdSidenav'
+			'$http'
 		];
 
-		function FrameworksCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http, $mdSidenav) {
+		function FrameworksCtrl ($scope, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MetricsForMasterFactory, ActiveMasterStateFactory, ActiveMasterSlavesFactory, FrameworksFactory, DirsFactory, DatasFactory, $http) {
 			var VERSION = "0.1.0";
 
 			$scope.$on('$locationChangeStart', function(){
@@ -84,7 +81,7 @@
 				                    $scope.getActiveMaster($scope.clusterName, masterItems[i].HostRoles.host_name);
 				                }
 
-				                
+
 				            });
 				    });
 			}
@@ -115,7 +112,7 @@
 
 		            ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
 		            	.then(function (values) {
-		            		
+
 			                for (var frameworksInt = 0; frameworksInt < values.data.frameworks.length; frameworksInt++) {
 			                    $scope.frameworks = values.data.frameworks;
 			                    $scope.completedFrameworks = values.data.completed_frameworks;
@@ -145,7 +142,7 @@
 		    // Get details from master about slaves
 		    function getSlaves () {
 		        if ($scope.frameworkTasksSlaves === undefined) {
-		            
+
 		        	ActiveMasterSlavesFactory.get(VERSION, $scope.activeMaster)
 			            .then(function (vals) {
 			                $scope.frameworkTasksSlaves = vals.data;
@@ -166,7 +163,7 @@
 
 		                $scope.detailsForTask = true;
 		                $scope.taskLoading = true;
-		                
+
 						FrameworksFactory.get(VERSION, stateUrl)
 			                .then(function (values) {
 			                    angular.forEach(values.data.frameworks, function (v, k) {
