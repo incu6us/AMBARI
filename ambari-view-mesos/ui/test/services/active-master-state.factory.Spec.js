@@ -1,29 +1,25 @@
-describe('ActiveMasterSlavesFactory', function() {
-    var ActiveMasterSlavesFactory, httpBackend;
+describe('ActiveMasterStateFactory', function() {
+  var ActiveMasterStateFactory, httpBackend;
 
-    beforeEach(function(){
-        module('MesosMetricsApp')
+  beforeEach(module('MesosMetricsApp'));
 
-        httpBackend = $injector.get('$httpBackend');
-        ActiveMasterSlavesFactory = $injector.get('ActiveMasterSlavesFactory');
-        spyOn(consol, 'log');
-    });
+  beforeEach(inject(function($injector) {
+    httpBackend = $injector.get('$httpBackend');
+    ActiveMasterStateFactory = $injector.get('ActiveMasterStateFactory');
+  }));
 
-    //beforeEach(inject(function($inject){
-    //
-    //}));
+  it('on get() get information about state of master', function() {
+    httpBackend.expectGET('/api/v1/views/MESOS/versions/0.1.0/instances/mesos/resources/proxy/json?url=http://testMaster:5050/master/state.json')
+      .respond({'masterInfo':[]});
 
-    it('on get() list running deployments', function() {
-        httpBackend.expectGET('/api/v1/views/MARATHON/versions/0.1.0/instances/marathon/resources/proxy/json?url=http://testHost:8080/v2/deployments')
-            .respond({'deployments':[]});
+    var VERSION = '0.1.0';
+    var activeMaster = 'testMaster';
 
-        var hostName = 'testHost';
+    ActiveMasterStateFactory.get(VERSION, activeMaster)
+      .then(function(response) {
+        expect(response.data).toEqual({'masterInfo':[]});
+      });
 
-        ActiveMasterSlavesFactory.get(hostName)
-            .then(function(response) {
-                expect(response.data).toEqual({'deployments':[]});
-            });
-
-        httpBackend.flush();
-    });
+    httpBackend.flush();
+  });
 });
