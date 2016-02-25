@@ -1,22 +1,21 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    angular
-        .module('MesosMetricsApp')
-        .config(themeConfig);
+  angular
+    .module('MesosMetricsApp')
+    .config(themeConfig);
 
-        themeConfig.$inject = ['$mdThemingProvider'];
+  themeConfig.$inject = ['$mdThemingProvider'];
 
-        function themeConfig ($mdThemingProvider) {
-
-            $mdThemingProvider.theme('default')
-                .primaryPalette('brown', {
-                    'default': '900'
-                })
-                .accentPalette('orange')
-                .warnPalette('red')
-                .backgroundPalette('brown', {
-                    'default': '50'
-                });
-        };
+  function themeConfig($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('brown', {
+        'default': '900'
+      })
+      .accentPalette('orange')
+      .warnPalette('red')
+      .backgroundPalette('brown', {
+        'default': '50'
+      });
+  }
 }());

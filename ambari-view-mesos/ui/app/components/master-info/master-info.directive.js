@@ -1,15 +1,15 @@
-(function () {
- 	'use strict';
+(function() {
+  'use strict';
 
-	angular
-		.module('MesosMetricsApp')
-		.directive('masterInfo', masterInfo);
+  angular
+    .module('MesosMetricsApp')
+    .directive('masterInfo', masterInfo);
 
-		function masterInfo() {
-			return {
-				restrict: 'E',
-				templateUrl: 'app/components/master-info/master-info.tpl.html'
-			};
-		}
-		
+  function masterInfo() {
+    return {
+      restrict: 'E',
+      templateUrl: 'app/components/master-info/master-info.tpl.html'
+    };
+  }
+
 }());

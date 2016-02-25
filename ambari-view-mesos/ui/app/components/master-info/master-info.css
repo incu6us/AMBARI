@@ -1,14 +1,20 @@
 .data-container {
-	border: solid 1px #ccc; 
-	padding: 10px;
-	margin: 5px;
-	/*text-align: center;*/
+  border: solid 1px #ccc;
+  padding: 10px;
+  margin: 5px;
+  /*text-align: center;*/
 }
-
 .square-blue {
-	color: #337ab7; background: #337ab7; display: inline-block;width:10px; height: 10px;
+  color: #337ab7;
+  background: #337ab7;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
 }
-
 .square-green {
-	color: #5cb85c; background: #5cb85c; display: inline-block;width:10px; height: 10px;
+  color: #5cb85c;
+  background: #5cb85c;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
 }

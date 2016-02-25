@@ -1,34 +1,34 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    angular
-        .module('MesosMetricsApp')
-        .factory('MesosMasterFactory', MesosMasterFactory);
+  angular
+    .module('MesosMetricsApp')
+    .factory('MesosMasterFactory', MesosMasterFactory);
 
-        MesosMasterFactory.$inject = ['$http'];
+  MesosMasterFactory.$inject = ['$http'];
 
-        function MesosMasterFactory ($http) {
-            return {
-                get: get
-            };
+  function MesosMasterFactory($http) {
+    return {
+      get: get
+    };
 
-            ///////////////////
+    ///////////////////
 
-            // Brunch http://nikke1.github.io/hard-data/mesos-master.json
-            // /api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER
+    // Brunch http://nikke1.github.io/hard-data/mesos-master.json
+    // /api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER
 
-            function get (clusterName) {
-                return $http.get('/api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER')
-                    .then(successClusterName, errorClusterName);
+    function get(clusterName) {
+      return $http.get('/api/v1/clusters/' + clusterName + '/services/MESOS/components/MESOS_MASTER')
+        .then(successClusterName, errorClusterName);
 
-                function successClusterName(response) {
-                    return response;
-                }
+      function successClusterName(response) {
+        return response;
+      }
 
-                function errorClusterName (err) {
-                    console.log(err);
-                }
-            }
-        }
+      function errorClusterName(err) {
+        console.log(err);
+      }
+    }
+  }
 
 }());

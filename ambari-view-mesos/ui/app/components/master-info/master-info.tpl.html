@@ -6,8 +6,8 @@
 
 
 <div layout="column" flex>
-    <div class="data-container" flex>
-        <span>
+  <div class="data-container" flex>
+    <span>
             <label class="label label-primary">
                 CPU
             </label>
@@ -17,9 +17,9 @@
                     config="d3Config">
             </nvd3>
         </span>
-    </div>
-    <div class="data-container" flex>
-        <span>
+  </div>
+  <div class="data-container" flex>
+    <span>
             <label class="label label-primary">
                 Disk
             </label>
@@ -29,9 +29,9 @@
                    config="d3Config">
             </nvd3>
         </span>
-    </div>
-    <div class="data-container" flex>
-        <span>
+  </div>
+  <div class="data-container" flex>
+    <span>
             <label class="label label-primary">
                 Memory
             </label>
@@ -41,66 +41,69 @@
                     config="d3Config">
             </nvd3>
         </span>
-    </div>
+  </div>
 
-    <div class="data-container" layout="column" flex>
-        <div layout-align="start center" flex>
-            <label class="label label-default">
-                Master hosts:
-            </label>
-        </div>
-        <div layout="column" layout-align="center center" flex>
-            <div ng-repeat="master in masterList">
-                <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">
+  <div class="data-container" layout="column" flex>
+    <div layout-align="start center" flex>
+      <label class="label label-default">
+        Master hosts:
+      </label>
+    </div>
+    <div layout="column" layout-align="center center" flex>
+      <div ng-repeat="master in masterList">
+        <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">
                     {{master}}
                 </span>
-            </div>
-        </div>
-        <div layout="column" layout-align="end start" flex>
-            <div>
-                <span class="square-blue"></span>
-                <span> - standby master </span>
-            </div>
-            <div>
-                <span class="square-green"></span>
-                <span> - leading master</span>
-            </div>
-        </div>
+      </div>
     </div>
+    <div layout="column" layout-align="end start" flex>
+      <div>
+        <span class="square-blue"></span>
+        <span> - standby master </span>
+      </div>
+      <div>
+        <span class="square-green"></span>
+        <span> - leading master</span>
+      </div>
+    </div>
+  </div>
 
-    <div flex class="data-container">
+  <div flex class="data-container">
+    <label class="label label-default">
+      Summary:
+    </label>
+    <br>
+    <div style="text-align: center">
+      <div>
         <label class="label label-default">
-            Summary:
+          CPUs:
         </label>
         <br>
-        <div style="text-align: center">
-            <div>
-                <label class="label label-default">
-                    CPUs:
-                </label><br>
-                <span ng-repeat="cpu in masterDataCpuAbsolute">
+        <span ng-repeat="cpu in masterDataCpuAbsolute">
                     <b>{{cpu.name}}:</b>{{cpu.size}}&nbsp;
                 </span>
-            </div>
-            <hr>
-            <div>
-                <label class="label label-default">
-                    Memory(Gb):
-                </label><br>
-                <span ng-repeat="mem in masterDataMemAbsolute">
+      </div>
+      <hr>
+      <div>
+        <label class="label label-default">
+          Memory(Gb):
+        </label>
+        <br>
+        <span ng-repeat="mem in masterDataMemAbsolute">
                     <b>{{mem.name}}:</b>{{mem.size}}&nbsp;
                 </span>
-            </div>
-            <hr>
-            <div>
-                <label class="label label-default">
-                    Disk(Gb):
-                </label><br>
-                <span ng-repeat="disk in masterDataDiskAbsolute">
+      </div>
+      <hr>
+      <div>
+        <label class="label label-default">
+          Disk(Gb):
+        </label>
+        <br>
+        <span ng-repeat="disk in masterDataDiskAbsolute">
                     <b>{{disk.name}}:</b>{{disk.size}}&nbsp;
                 </span>
-            </div>
-        </div>
+      </div>
     </div>
-     
+  </div>
+
 </div>

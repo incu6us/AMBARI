@@ -1,201 +1,193 @@
-
 <div data-ng-init="getMesosMastersForFrameworks()" class="container-my" ng-controller="FrameworksCtrl" layout="row" flex>
-    <div ng-show="!detailsForSandbox && !detailsForExecutors" flex>
-        <md-button class="btn btn-default"
-                   ng-click="getFrameworks()">
-            <span class="glyphicon glyphicon-refresh"></span>
-            <md-tooltip>Refresh data</md-tooltip>
-        </md-button>
+  <div ng-show="!detailsForSandbox && !detailsForExecutors" flex>
+    <md-button class="btn btn-default" ng-click="getFrameworks()">
+      <span class="glyphicon glyphicon-refresh"></span>
+      <md-tooltip>Refresh data</md-tooltip>
+    </md-button>
 
-        <h3 style="margin-left: 20px;">Active Frameworks</h3>
+    <h3 style="margin-left: 20px;">Active Frameworks</h3>
 
-        <div style="border-top: solid 1px #ccc; border-bottom: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
-            <table class="table table-striped">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Hostname</th>
-                <th>User</th>
-                <th>Active Tasks</th>
-                <th>CPUs</th>
-                <th>Memory</th>
-                <tr ng-repeat="framework in frameworks">
-                    <td>
-                        <span class="link" ng-click="getFrameworkTasks(framework.id)">
+    <div style="border-top: solid 1px #ccc; border-bottom: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
+      <table class="table table-striped">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Hostname</th>
+        <th>User</th>
+        <th>Active Tasks</th>
+        <th>CPUs</th>
+        <th>Memory</th>
+        <tr ng-repeat="framework in frameworks">
+          <td>
+            <span class="link" ng-click="getFrameworkTasks(framework.id)">
                             {{(framework.id | truncateMesosID) || framework.name}}
                             <md-tooltip>
                                 {{framework.id}}
                             </md-tooltip>
                         </span>
-                    </td>
-                    <td>{{framework.name}}</td>
-                    <td>{{framework.hostname}}</td>
-                    <td>{{framework.user}}</td>
-                    <td>{{framework.tasks.length}}</td>
-                    <td>{{framework.resources.cpus | toFixed}}</td>
-                    <td>{{framework.resources.mem | toGb}} Gb</td>
-                </tr>
-            </table>
-        </div>
-
-        <p></p>
-        <br>
-
-        <div>
-            <h3 style="margin-left: 20px;">Completed Frameworks</h3>
-
-            <div style="border-top: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xs-4"><b>Name</b></div>
-                        <div class="col-xs-4"><b>Hostname</b></div>
-                    </div>
-                    <div class="row" ng-repeat="framework in completedFrameworks">
-                        <div class="col-xs-4">{{framework.name}}</div>
-                        <div class="col-xs-4">{{framework.hostname}}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+          </td>
+          <td>{{framework.name}}</td>
+          <td>{{framework.hostname}}</td>
+          <td>{{framework.user}}</td>
+          <td>{{framework.tasks.length}}</td>
+          <td>{{framework.resources.cpus | toFixed}}</td>
+          <td>{{framework.resources.mem | toGb}} Gb</td>
+        </tr>
+      </table>
     </div>
 
-    <!-- Executors for frameworks -->
-    <div ng-show="detailsForExecutors" flex>
+    <p></p>
+    <br>
 
-        <div ng-show="activeMaster != null" flex>
+    <div>
+      <h3 style="margin-left: 20px;">Completed Frameworks</h3>
 
-            <!-- Draw task list -->
-            <!--<div class="panel-body" ng-if="frameworkTasks.length != 0 && !detailsForTask">-->
+      <div style="border-top: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-4"><b>Name</b></div>
+            <div class="col-xs-4"><b>Hostname</b></div>
+          </div>
+          <div class="row" ng-repeat="framework in completedFrameworks">
+            <div class="col-xs-4">{{framework.name}}</div>
+            <div class="col-xs-4">{{framework.hostname}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <div ng-hide="detailsForTask">
+  <!-- Executors for frameworks -->
+  <div ng-show="detailsForExecutors" flex>
 
-                <md-button class="btn btn-default glyphicon glyphicon-hand-left" ng-show="!detailsForSandbox"
-                           ng-click="setDetailsForSandbox(false); setDetailsForExecutors(false)">
-                    <md-tooltip>Back</md-tooltip>
-                </md-button>
+    <div ng-show="activeMaster != null" flex>
 
-                <h3 style="margin-left: 20px;">Executors</h3>
+      <!-- Draw task list -->
+      <!--<div class="panel-body" ng-if="frameworkTasks.length != 0 && !detailsForTask">-->
 
-                <p></p>
+      <div ng-hide="detailsForTask">
 
-                <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;"
-                     ng-show="!detailsForSandbox">
+        <md-button class="btn btn-default glyphicon glyphicon-hand-left" ng-show="!detailsForSandbox" ng-click="setDetailsForSandbox(false); setDetailsForExecutors(false)">
+          <md-tooltip>Back</md-tooltip>
+        </md-button>
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-4"><b>Id</b></div>
-                            <div class="col-xs-2"><b>Name</b></div>
-                            <div class="col-xs-2"><b>State</b></div>
-                            <div class="col-xs-2"><b>Sandbox</b></div>
-                        </div>
-                        <div class="row" ng-repeat="executor in executorsInFrameworks">
-                            <!--http://128.107.32.157:5050/#/slaves/20151120-161109-3338993674-5050-1785-S11/frameworks/20151120-161109-3338993674-5050-1785-0000/executors/cassandra.cassandra-mesos.node.3.executor-->
-                            <div class="col-xs-4">
-                                <span class="link" ng-click="getExecutor(executor.slave_id, executor.framework_id, executor.id)">
+        <h3 style="margin-left: 20px;">Executors</h3>
+
+        <p></p>
+
+        <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%;" ng-show="!detailsForSandbox">
+
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-4"><b>Id</b></div>
+              <div class="col-xs-2"><b>Name</b></div>
+              <div class="col-xs-2"><b>State</b></div>
+              <div class="col-xs-2"><b>Sandbox</b></div>
+            </div>
+            <div class="row" ng-repeat="executor in executorsInFrameworks">
+              <!--http://128.107.32.157:5050/#/slaves/20151120-161109-3338993674-5050-1785-S11/frameworks/20151120-161109-3338993674-5050-1785-0000/executors/cassandra.cassandra-mesos.node.3.executor-->
+              <div class="col-xs-4">
+                <span class="link" ng-click="getExecutor(executor.slave_id, executor.framework_id, executor.id)">
                                     {{executor.id}}
                                     <md-tooltip>Task info</md-tooltip>
                                 </span>
-                            </div>
-                            <div class="col-xs-2">{{executor.name}}</div>
-                            <div class="col-xs-2">{{executor.state}}</div>
-                            <div class="col-xs-2">
-                                <md-button class="md-raised"
-                                           ng-click="getSandbox(executor.slave_id, executor.framework_id, executor.id)">
-                                    Sandbox
-                                    <md-tooltip>To Sandbox</md-tooltip>
-                                </md-button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- running tasks-->
-            <div ng-if="detailsForTask">
-
-                <md-button class="btn btn-default glyphicon glyphicon-hand-left"
-                           ng-click="setDetailsForTask(false)">
-                    <md-tooltip>To Executors</md-tooltip>
+              </div>
+              <div class="col-xs-2">{{executor.name}}</div>
+              <div class="col-xs-2">{{executor.state}}</div>
+              <div class="col-xs-2">
+                <md-button class="md-raised" ng-click="getSandbox(executor.slave_id, executor.framework_id, executor.id)">
+                  Sandbox
+                  <md-tooltip>To Sandbox</md-tooltip>
                 </md-button>
-
-                <h3 style="margin-left: 20px;">Running tasks</h3>
-
-                <p></p>
-
-                <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">
-                    <table class="table table-striped">
-                        <th>Name</th>
-                        <th>State</th>
-                        <th>CPUs(allocated)</th>
-                        <th>Disk(allocated)</th>
-                        <th>Mem(allocated)</th>
-                        <tr ng-repeat="task in tasks" ng-if="tasks.length != 0 && !taskLoading">
-                            <td>{{task.name}}</td>
-                            <td>{{task.state}}</td>
-                            <td>{{task.resources.cpus | toFixed}}</td>
-                            <td>{{task.resources.disk | toGb}} Gb</td>
-                            <td>{{task.resources.mem | toGb}} Gb</td>
-                        </tr>
-                    </table>
-                    <div class="container">
-                        <div class="row" ng-if="tasks.length == 0 && !taskLoading">
-                            <div class="col-xs-6">No running tasks found</div>
-                        </div>
-                        <div class="row" ng-if="tasks.length == 0 && taskLoading">
-                            <div class="col-xs-6">Loading data...</div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- running tasks-->
+      <div ng-if="detailsForTask">
+
+        <md-button class="btn btn-default glyphicon glyphicon-hand-left" ng-click="setDetailsForTask(false)">
+          <md-tooltip>To Executors</md-tooltip>
+        </md-button>
+
+        <h3 style="margin-left: 20px;">Running tasks</h3>
+
+        <p></p>
+
+        <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">
+          <table class="table table-striped">
+            <th>Name</th>
+            <th>State</th>
+            <th>CPUs(allocated)</th>
+            <th>Disk(allocated)</th>
+            <th>Mem(allocated)</th>
+            <tr ng-repeat="task in tasks" ng-if="tasks.length != 0 && !taskLoading">
+              <td>{{task.name}}</td>
+              <td>{{task.state}}</td>
+              <td>{{task.resources.cpus | toFixed}}</td>
+              <td>{{task.resources.disk | toGb}} Gb</td>
+              <td>{{task.resources.mem | toGb}} Gb</td>
+            </tr>
+          </table>
+          <div class="container">
+            <div class="row" ng-if="tasks.length == 0 && !taskLoading">
+              <div class="col-xs-6">No running tasks found</div>
+            </div>
+            <div class="row" ng-if="tasks.length == 0 && taskLoading">
+              <div class="col-xs-6">Loading data...</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
-            <!-- Sandbox -->
-            <div ng-if="detailsForSandbox">
-                <!--<div>-->
+      <!-- Sandbox -->
+      <div ng-if="detailsForSandbox">
+        <!--<div>-->
 
-                <!-- Sandbox -->
-                <md-button class="btn btn-default glyphicon glyphicon-hand-left"
-                           ng-click="setDetailsForSandbox(false)">
-                    <md-tooltip>To Executors</md-tooltip>
-                </md-button>
+        <!-- Sandbox -->
+        <md-button class="btn btn-default glyphicon glyphicon-hand-left" ng-click="setDetailsForSandbox(false)">
+          <md-tooltip>To Executors</md-tooltip>
+        </md-button>
 
-                <h3 style="margin-left: 20px;">Files</h3>
+        <h3 style="margin-left: 20px;">Files</h3>
 
-                <p></p>
+        <p></p>
 
-                <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">
-                    <table class="table table-striped" ng-if="directories.length != 0">
-                        <th>Mode</th>
-                        <th>UID</th>
-                        <th>GID</th>
-                        <th>Size</th>
-                        <th>Date</th>
-                        <th></th>
-                        <tr ng-repeat="dir in directories | orderBy: ['-mode','path']">
-                            <td>{{dir.mode}}</td>
-                            <td>{{dir.uid}}</td>
-                            <td>{{dir.gid}}</td>
-                            <td>{{dir.size}}</td>
-                            <td><span ng-if="dir.path != '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
-                            <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open">
+        <div style="border: solid 1px #ccc; border-radius: 0px; padding: 10px; margin-right: 10px; width: 100%">
+          <table class="table table-striped" ng-if="directories.length != 0">
+            <th>Mode</th>
+            <th>UID</th>
+            <th>GID</th>
+            <th>Size</th>
+            <th>Date</th>
+            <th></th>
+            <tr ng-repeat="dir in directories | orderBy: ['-mode','path']">
+              <td>{{dir.mode}}</td>
+              <td>{{dir.uid}}</td>
+              <td>{{dir.gid}}</td>
+              <td>{{dir.size}}</td>
+              <td><span ng-if="dir.path != '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
+              <td><i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open">
                                 <md-tooltip>Directory</md-tooltip>
                             </i>
-                                <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file">
+                <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file">
                                     <md-tooltip>File</md-tooltip>
                                 </i>
-                                <span class="link" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</span>
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="container" ng-if="directories.length == 0">
-                        <div class="row">
-                            <div class="col-xs-4">No files</div>
-                        </div>
-                    </div>
-                    <span ng-if="loading" us-spinner></span>
-                </div>
+                <span class="link" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</span>
+              </td>
+            </tr>
+          </table>
+          <div class="container" ng-if="directories.length == 0">
+            <div class="row">
+              <div class="col-xs-4">No files</div>
             </div>
+          </div>
+          <span ng-if="loading" us-spinner></span>
         </div>
+      </div>
     </div>
+  </div>
 
 </div>
-

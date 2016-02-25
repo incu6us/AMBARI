@@ -1,32 +1,32 @@
-(function () {
-    'use strict';
+(function() {
+  'use strict';
 
-    angular
-        .module('MesosMetricsApp')
-        .factory('DatasFactory', DatasFactory);
+  angular
+    .module('MesosMetricsApp')
+    .factory('DatasFactory', DatasFactory);
 
-        DatasFactory.$inject = ['$http'];
+  DatasFactory.$inject = ['$http'];
 
-        function DatasFactory ($http) {
-            return {
-                get: get
-            };
+  function DatasFactory($http) {
+    return {
+      get: get
+    };
 
-            ///////////////////
+    ///////////////////
 
-	        // executorUrl + executorLastDir
+    // executorUrl + executorLastDir
 
-            function get (executorUrl, executorLastDir) {
-                return $http.get(executorUrl + executorLastDir)
-                    .then(successClusterName, errorClusterName);
+    function get(executorUrl, executorLastDir) {
+      return $http.get(executorUrl + executorLastDir)
+        .then(successClusterName, errorClusterName);
 
-                function successClusterName(response) {
-                    return response;
-                }
+      function successClusterName(response) {
+        return response;
+      }
 
-                function errorClusterName (err) {
-                    console.log(err);
-                }
-            }
-        }
+      function errorClusterName(err) {
+        console.log(err);
+      }
+    }
+  }
 }());

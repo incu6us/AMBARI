@@ -1,13 +1,13 @@
-(function () {
-	'use strict';
-	
-	angular
-		.module('MesosMetricsApp')
-		.filter('toGb', toGb);
+(function() {
+  'use strict';
 
-		function toGb () {
-		    return function (input) {
-		        return (input / 1024).toFixed(2);
-		    };
-		}
+  angular
+    .module('MesosMetricsApp')
+    .filter('toGb', toGb);
+
+  function toGb() {
+    return function(input) {
+      return (input / 1024).toFixed(2);
+    };
+  }
 }());

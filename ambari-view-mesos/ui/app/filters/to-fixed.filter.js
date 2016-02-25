@@ -1,13 +1,13 @@
-(function () {
-	'use strict';
+(function() {
+  'use strict';
 
-	angular
-		.module('MesosMetricsApp')
-		.filter('toFixed', toFixed);
+  angular
+    .module('MesosMetricsApp')
+    .filter('toFixed', toFixed);
 
-		function toFixed () {
-		    return function (input) {
-		        return input.toFixed(2);
-		    };
-		}
+  function toFixed() {
+    return function(input) {
+      return input.toFixed(2);
+    };
+  }
 }());
