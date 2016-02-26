@@ -6,6 +6,11 @@ exports.config =
   modules:
     definition: false
     wrapper: false
+  paths:
+    watched: [
+      'app',
+      'vendor'
+    ]
   files:
     javascripts:
       joinTo:
