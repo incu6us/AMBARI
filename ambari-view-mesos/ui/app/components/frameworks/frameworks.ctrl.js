@@ -227,7 +227,7 @@
                         $scope.executorDir = v1.directory;
                         $scope.executorLastDir = $scope.executorDir;
                         try {
-                          DirsFactory.get($scope.executorUrl + $scope.executorDir)
+                          DirsFactory.get($scope.executorUrl, $scope.executorDir)
                             .then(function(val) {
 
                               if (val.data.array !== undefined) {
@@ -275,7 +275,7 @@
       // Go ot the directory
       else {
         try {
-          DatasFactory.get($scope.executorUrl + $scope.executorLastDir)
+          DatasFactory.get($scope.executorUrl, $scope.executorLastDir)
             .then(function(val) {
               $scope.directories = val.datas.data.array;
               if ($scope.executorDir != $scope.executorLastDir) {
