@@ -1,92 +1,104 @@
-<md-content ng-controller="MetricsCtrl" data-ng-init="getMesosMetrics()" layout="column" style="height:100%;width:100%;">
+<md-content ng-controller="MetricsCtrl" layout="column" style="height:100%;width:100%;">
+  {{slaveDataCpu}}
+  <div class="show-master-btn">
+    <md-button class="md-accent md-hue-2 md-raised" ng-click="toggleRightToolbar()">
+      Show Master Info
+    </md-button>
+  </div>
 
-	<div class="show-master-btn">
-		<md-button class="md-accent md-hue-2 md-raised" ng-click="toggleRight()">
-			Show Master Info
-		</md-button>
-	</div>
+  <md-sidenav class="md-sidenav-right" md-component-id="right">
+    <md-content>
+      <master-info></master-info>
+    </md-content>
+  </md-sidenav>
 
-	<md-sidenav class="md-sidenav-right" md-component-id="right">
-		<md-content>
-			<master-info></master-info>
-		</md-content>
-	</md-sidenav>
+  <div ng-show="activeMaster == null" layout="row" layout-align="center center" flex>
+    <h2>Loading data...</h2>
+  </div>
 
-	<div ng-show="activeMaster == null" layout="row" layout-align="center center" flex>
-		<h2>Loading data...</h2>
-	</div>
+  <div ng-show="activeMaster != null && nodes.length == 0" layout="row" layout-align="center center" flex>
+    <h2>Drawing...</h2>
+  </div>
 
-	<div ng-show="activeMaster != null && nodes.length == 0" layout="row" layout-align="center center" flex>
-		<h2>Drawing...</h2>
-	</div>
+  <div ng-show="activeMaster != null && nodes.length > 0" style="height:100%;">
+    <vis-network data="network_data" options="options" events="events" ></vis-network>
+  </div>
 
-	<div ng-show="activeMaster != null && nodes.length > 0" style="height:100%;">
-		<vis-network data="network_data" options="options" events="events"></vis-network>
-	</div>
-
-	<md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" ng-show="slaveData.length > 0" ng-repeat="slave in slaveData | orderBy: 'id'" md-whiteframe="3">
-		<div layout="column" flex="20" layout-align="center center">
-			<div class="label label-primary label-load">
-				CPU: {{slave.metrics['slave/cpus_used']}}/{{slave.metrics['slave/cpus_total']}}
-			</div>
-			<div ng-repeat="cpu in slaveDataCpu | orderBy: 'id' " flex>
-				<div ng-if="cpu.id == slave.id" layout-align="center center" flex>
-					<nvd3 options="optionsSlave" data="cpu.metrics"></nvd3>
-				</div>
-			</div>
-		</div>
-		<div layout="column" flex="20" layout-align="center center">
-			<div class="label label-primary label-load">
-				Memory: {{slave.metrics['slave/mem_used'] | toGb}}/{{slave.metrics['slave/mem_total'] | toGb}} Gb
-			</div>
-			<div ng-repeat="mem in slaveDataMem | orderBy: 'id' " flex>
-				<div ng-if="mem.id == slave.id" layout-align="center center" flex>
-					<span>
-                        <nvd3 options="optionsSlave" data="mem.metrics"></nvd3>
-                    </span>
-				</div>
-			</div>
-		</div>
-		<div layout="column" flex="20" layout-align="center center">
-			<div class="label label-primary label-load">
-				Disk: {{slave.metrics['slave/disk_used'] | toGb}}/{{slave.metrics['slave/disk_total'] | toGb}} Gb
-			</div>
-			<div ng-repeat="disk in slaveDataDisk | orderBy: 'id' " flex>
-				<div ng-if="disk.id == slave.id" layout-align="center center" flex>
-					<nvd3 options="optionsSlave" data="disk.metrics"></nvd3>
-				</div>
-			</div>
-		</div>
-		<div layout="column" flex="40" layout-align="center start">
-			<ul class="list-unstyled">
-				<li>
-					Executors registering: {{ slave.metrics['slave/executors_registering']}}
-				</li>
-				<li>
-					Executors running:
-					<span class="link" ng-click="showMetricExecutorsRunning(slave.id)">
-                        {{ slave.metrics['slave/executors_running']}}
-                    <md-tooltip md-direction="right" md-autohide="true">
-                        Show details about executors
-                    </md-tooltip>
-                    </span>
-				</li>
-				<li style="cursor: pointer;" class="agentExecutors" id="agentExecutors-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)">
-				</li>
-				<li>Executors terminated: {{ slave.metrics['slave/executors_terminated']}}</li>
-				<li>Executors terminating: {{ slave.metrics['slave/executors_terminating']}}</li>
-				<li>
-					Frameworks active:
-					<span class="link" ng-click="showMetricFrameworksRunning(slave.id)">
-                        {{ slave.metrics['slave/frameworks_active']}}
-                        <md-tooltip md-direction="right" md-autohide="true">
-                            Show details about frameworks
-                        </md-tooltip>
-                    </span>
-				</li>
-				<li style="cursor: pointer;" class="agentFrameworks" id="agentFrameworks-{{slave.id}}" ng-hide="updatedMesosSlave" ng-click="setUpdatedMesosSlave(true)"></li>
-			</ul>
-		</div>
-	</md-whiteframe>
+  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-show="true">
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        CPU: {{slaveDataCpu[0].size}} / {{slaveDataCpu[1].size}}
+        <!-- CPU: {{slaveDataCpu[0].size}} / {{slaveDataCpu[1].size + slaveDataCpu[0].size}} -->
+      </div>
+      <nvd3 options="optionsSlaveCpu" data="slaveDataCpu"></nvd3>
+    </div>
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        Memory: {{slaveDataMem[0].size | toGb}} / {{slaveDataMem[1].size | toGb}} Gb
+      </div>
+      <nvd3 options="optionsSlaveMem" data="slaveDataMem"></nvd3>
+    </div>
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        Disk: {{slaveDataDisk[0].size | toGb}} / {{slaveDataDisk[1].size | toGb}} Gb
+      </div>
+      <nvd3 options="optionsSlaveDisk" data="slaveDataDisk"></nvd3>
+    </div>
+    <div layout="column" flex="40" layout-align="center start">
+      <ul class="list-unstyled">
+        <li>
+          Executors registering:
+          {{ slaveData['slave/executors_registering']}}
+        </li>
+        <li>
+          Executors running:
+          <span class="link" ng-click="showExecutorsRunning(slaveData.id)">
+            {{ slaveData['slave/executors_running']}}
+            <md-tooltip md-direction="right" md-autohide="true">
+              Show details about executors
+            </md-tooltip>
+          </span>
+        </li>
+        <li style="cursor: pointer;" class="agentExecutors" ng-show="executorsRunning">
+          <div style="border: solid 1px #ccc; padding: 5px;">
+            <div style="text-align: right;">
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="executorsRunning = null"></i>
+            </div>
+            <div ng-repeat="executor in executorsRunning">
+              <span>Name: {{executor.name}}</span><br>
+              <span>CPU: {{executor.cpu}}</span><br>
+              <span>Memory: {{executor.mem}}</span><br>
+              <span>Disk: {{executor.disk}}</span><br>
+            </div>
+          </div>
+        </li>
+        <li>Executors terminated:
+          {{ slaveData['slave/executors_terminated']}}</li>
+        <li>Executors terminating:
+          {{ slaveData['slave/executors_terminating']}}</li>
+        <li>
+          Frameworks active:
+          <span class="link" ng-click="showMetricFrameworksRunning(slaveData.id)">
+            {{ slaveData['slave/frameworks_active']}}
+            <md-tooltip md-direction="right" md-autohide="true">
+              Show details about frameworks
+            </md-tooltip>
+          </span>
+        </li>
+        <li style="cursor: pointer;" class="agentFrameworks" ng-show="frameworksActive">
+          <div style="border: solid 1px #ccc; padding: 5px;">
+            <div style="text-align: right;">
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="frameworksActive = null"></i>
+            </div>
+            <div ng-repeat="framework in frameworksActive">
+              <span>Name: {{framework.name}}</span><br>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </md-whiteframe>
+  <canvas id="canPrep" width="280" height="280" style="display: none;"></canvas>
+  <div id="chartNodeUsage" style="display: none;"></div>
 
 </md-content>

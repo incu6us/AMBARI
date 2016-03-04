@@ -4,43 +4,30 @@
     </h2>
 </md-toolbar> -->
 
-
 <div layout="column" flex>
   <div class="data-container" flex>
     <span>
-            <label class="label label-primary">
-                CPU
-            </label>
-            <nvd3 options="optionsMaster"
-                    data="masterDataCpu"
-                    class="with-3d-shadow with-transitions"
-                    config="d3Config">
-            </nvd3>
-        </span>
+      <label class="label label-primary">
+        CPU
+      </label>
+      <nvd3 options="optionsMasterCpu" data="masterDataCpu" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+    </span>
   </div>
   <div class="data-container" flex>
     <span>
-            <label class="label label-primary">
-                Disk
-            </label>
-            <nvd3 options="optionsMaster"
-                   data="masterDataDisk"
-                   class="with-3d-shadow with-transitions"
-                   config="d3Config">
-            </nvd3>
-        </span>
+      <label class="label label-primary">
+        Memory
+      </label>
+      <nvd3 options="optionsMasterMem" data="masterDataMem" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+    </span>
   </div>
   <div class="data-container" flex>
     <span>
-            <label class="label label-primary">
-                Memory
-            </label>
-            <nvd3 options="optionsMaster"
-                    data="masterDataMem"
-                    class="with-3d-shadow with-transitions"
-                    config="d3Config">
-            </nvd3>
-        </span>
+      <label class="label label-primary">
+        Disk
+      </label>
+      <nvd3 options="optionsMasterDisk" data="masterDataDisk" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+    </span>
   </div>
 
   <div class="data-container" layout="column" flex>
@@ -52,18 +39,21 @@
     <div layout="column" layout-align="center center" flex>
       <div ng-repeat="master in masterList">
         <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">
-                    {{master}}
-                </span>
+          {{master}}
+        </span>
       </div>
     </div>
     <div layout="column" layout-align="end start" flex>
       <div>
         <span class="square-blue"></span>
-        <span> - standby master </span>
+        <span>
+          - standby master
+        </span>
       </div>
       <div>
         <span class="square-green"></span>
-        <span> - leading master</span>
+        <span>
+          - leading master</span>
       </div>
     </div>
   </div>
@@ -80,8 +70,8 @@
         </label>
         <br>
         <span ng-repeat="cpu in masterDataCpuAbsolute">
-                    <b>{{cpu.name}}:</b>{{cpu.size}}&nbsp;
-                </span>
+          <b>{{cpu.name}}:</b>{{cpu.size}}&nbsp;
+        </span>
       </div>
       <hr>
       <div>
@@ -90,8 +80,8 @@
         </label>
         <br>
         <span ng-repeat="mem in masterDataMemAbsolute">
-                    <b>{{mem.name}}:</b>{{mem.size}}&nbsp;
-                </span>
+          <b>{{mem.name}}:</b>{{mem.size}}&nbsp;
+        </span>
       </div>
       <hr>
       <div>
@@ -100,8 +90,8 @@
         </label>
         <br>
         <span ng-repeat="disk in masterDataDiskAbsolute">
-                    <b>{{disk.name}}:</b>{{disk.size}}&nbsp;
-                </span>
+          <b>{{disk.name}}:</b>{{disk.size}}&nbsp;
+        </span>
       </div>
     </div>
   </div>

@@ -30,3 +30,14 @@ md-toolbar {
   margin-left: auto;
   margin-right: auto;
 }
+.a-clear {
+    text-decoration: none;
+}
+.a-clear:hover {
+    text-decoration: none;
+    color: rgb(239, 235, 233);
+}
+.a-clear:focus {
+    text-decoration: none;
+    color: rgb(239, 235, 233);
+}

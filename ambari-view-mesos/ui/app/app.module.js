@@ -56,8 +56,4 @@
         "</md-dialog>\n");
     }]);
 
-  // app.config(['usSpinnerConfigProvider', function (usSpinnerConfigProvider) {
-  //     usSpinnerConfigProvider.setDefaults(spinOpts);
-  // }]);
-
 }());
