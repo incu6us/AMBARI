@@ -6,13 +6,14 @@
     .controller('MetricsCtrl', MetricsCtrl);
 
   MetricsCtrl.$inject = [
-    'visualisationConfigs',
     '$scope',
     '$q',
+    '$interval',
     '$timeout',
     '$mdDialog',
-    '$uibModal',
+    '$mdSidenav',
     'VisDataSet',
+    'visualisationConfigs',
     'ClusterNameFactory',
     'MesosMasterFactory',
     'MesosSlaveFactory',
@@ -20,25 +21,29 @@
     'MetricsForSlaveFactory',
     'ActiveMasterStateFactory',
     'FrameworksFactory',
-    '$http',
-    '$mdSidenav'
+
   ];
 
-  function MetricsCtrl(visualisationConfigs, $scope, $q, $timeout, $mdDialog, $uibModal, VisDataSet, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, FrameworksFactory, $http, $mdSidenav) {
+  function MetricsCtrl($scope, $q, $interval, $timeout, $mdDialog, $mdSidenav, VisDataSet, visualisationConfigs, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, FrameworksFactory) {
     //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // 1. MetricsCtrl is parent $scope for vis-network directive. So $scope.infoPanel === true/false not work correct. Why it became 'false' when hover on 'close' Executors running? I dont know.
-    // 2. $scope.allSlaves created, BUT $scope problem ^ appeard
-    // 3. rename drawPieChartForSlave to getMasters
     // 4. Finish drawing on nodes (merging with kubernetis)
-    $scope.allMasters = [];
-    $scope.allSlaves = [];
+    // 5. refactor $scope.masterData[...] like $scope.slaveData = {}
+    // 6. I think allSlave contains Masters, so check it, and if(true) rename to 'allHosts'
 
     var VERSION = "0.1.0";
     var DEBUG = false;
 
+    // PROBLEM MetricsCtrl is parent $scope for vis-network directive. So $scope.infoPanel === true/false not work correct, because of different scopes.
+    // SOLUTION: $interval solves it ^, but don't know how.
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // try use $scope.$digest(); or $watch;
+    var intervalPromise =  $interval(function() {
+    }, 1*1000);
+
     $scope.$on('$locationChangeStart', function() {
       console.log('canceled');
       $timeout.cancel(promise);
+      $interval.cancel(intervalPromise);
     });
     var promise;
 
@@ -47,7 +52,10 @@
     $scope.clusterName = '';
     $scope.activeMaster = '';
 
+    $scope.allSlaves = [];
+
     $scope.executorsRunning = null;
+    $scope.frameworksActive = null;
 
     // Network data to draw
     $scope.nodes = [];
@@ -71,10 +79,12 @@
     $scope.masterDataDisk = [];
     $scope.masterDataDiskAbsolute = [];
     // pieCharts metrics for Slave
-    $scope.slaveData = [];
-    $scope.slaveDataCpu = [];
-    $scope.slaveDataMem = [];
-    $scope.slaveDataDisk = [];
+    $scope.slaveData = {
+      general: [],
+      cpu: { used: null, free: null, total: null },
+      mem: { used: null, free: null, total: null },
+      disk: { used: null, free: null, total: null }
+    };
     // pieCharts configs
     $scope.optionsMasterCpu = visualisationConfigs().pieChartOptionsMasterCpu;
     $scope.optionsMasterMem = visualisationConfigs().pieChartOptionsMasterMem;
@@ -83,72 +93,64 @@
     $scope.optionsSlaveMem = visualisationConfigs().pieChartOptionsSlaveMem;
     $scope.optionsSlaveDisk = visualisationConfigs().pieChartOptionsSlaveDisk;
 
-    ClusterNameFactory.get()
-      .then(function(response) {
-        $scope.clusterName = response.data.items[0].Clusters.cluster_name;
-      })
-      .then(function() {
-        return MesosMasterFactory.get($scope.clusterName);
-      })
-      .then(function(mesosMasterData) {
-        var masterItems = mesosMasterData.data.host_components;
-        var promises = [];
-
-        for (var i = 0; i < masterItems.length; i++) {
-          promises.push(drawPieChartForMaster(masterItems[i].HostRoles.host_name));
-        }
-
-        return $q.all(promises);
-      })
-      .then(function() {
-        return MesosSlaveFactory.get($scope.clusterName);
-      })
-      .then(function(mesosSlaveData) {
-        var slaveItems = mesosSlaveData.data.host_components;
-        var promises = [];
-
-        for (var k = 0; k < slaveItems.length; k++) {
-          promises.push(drawPieChartForSlave(slaveItems[k].HostRoles.host_name));
-        }
-
-        return $q.all(promises);
-      })
-      .then(function() {
-        drawNetwork($scope.allSlaves);
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+    runApp();
 
     ///////////////////////
-
-    $scope.frameworksActive = [{
-      name: 'mesos'
-    }];
-    $scope.executorsRunning = [{
-      name: 'lol'
-    }];
 
     // On Network event
     $scope.events.click = onNetworkClick;
     $scope.events.hoverNode = showServiceNodes;
-
     // On InfoPanel click
     $scope.showExecutorsRunning = showExecutorsRunning;
     $scope.showFrameworksActive = showFrameworksActive;
-
-    // Toggle right Toolbar
-    $scope.toggleRightToolbar = toggleRightToolbar;
+    // Show right Toolbar
+    $scope.showRightToolbar = showRightToolbar;
 
     //////////////////////
 
-    function drawPieChartForMaster(masterHost) {
+    function runApp() {
+      ClusterNameFactory.get()
+        .then(function(response) {
+          $scope.clusterName = response.data.items[0].Clusters.cluster_name;
+        })
+        .then(function() {
+          return MesosMasterFactory.get($scope.clusterName);
+        })
+        .then(function(mesosMasterData) {
+          var masterItems = mesosMasterData.data.host_components;
+          var promises = [];
+          for (var i = 0; i < masterItems.length; i++) {
+            promises.push(getMetricsForMasterSidebar(masterItems[i].HostRoles.host_name));
+          }
+          return $q.all(promises);
+        })
+        .then(function() {
+          return MesosSlaveFactory.get($scope.clusterName);
+        })
+        .then(function(mesosSlaveData) {
+          var slaveItems = mesosSlaveData.data.host_components;
+          var promises = [];
+          for (var k = 0; k < slaveItems.length; k++) {
+            promises.push(getMetricsForHostsInfoPanel(slaveItems[k].HostRoles.host_name));
+          }
+          return $q.all(promises);
+        })
+        .then(function() {
+          drawNetwork($scope.allSlaves);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+
+    function getMetricsForMasterSidebar(masterHost) {
       return MetricsForMasterFactory.get(VERSION, masterHost)
         .then(function(response) {
           var items = response.data;
 
-          // if(items["master/elected"] === 1.0) {
-          if (masterHost.indexOf('02') > -1) {
+          if(items["master/elected"] === 1.0) {
+          // if (masterHost.indexOf('02') > -1) {
             $scope.activeMaster = masterHost;
 
             // Get CPU
@@ -223,47 +225,59 @@
         });
     }
 
-    function drawPieChartForSlave(slaveHost) {
+    function getMetricsForHostsInfoPanel(slaveHost) {
       return MetricsForSlaveFactory.get(VERSION, slaveHost)
         .then(function(response) {
           var items = response.data;
 
-          var slaveData = items;
-          var slaveDataId = slaveHost;
+          var slaveSumData = {};
 
-          var slaveDataCpu = [{
-              name: "Used",
-              size: items["slave/cpus_used"]
-            }, {
-              name: "Free",
-              size: items["slave/cpus_total"] - items["slave/cpus_used"]
+          slaveSumData.id = slaveHost;
+          slaveSumData.general = items;
+
+          slaveSumData.cpu = {
+            used: {
+              name: 'Used',
+              size: items['slave/cpus_used']
+            },
+            free: {
+              name: 'Free',
+              size: items['slave/cpus_total'] - items['slave/cpus_used']
+            },
+            total: {
+              name: 'Total',
+              size: items['slave/cpus_total']
             }
-          ];
+          };
 
-          var slaveDataMem = [{
-              name: "Used",
-              size: (items["slave/mem_used"] / 1024).toFixed(2)
-            }, {
-              name: "Free",
-              size: ((items["slave/mem_total"] - items["slave/mem_used"]) / 1024).toFixed(2)
+          slaveSumData.mem = {
+            used: {
+              name: 'Used',
+              size: (items['slave/mem_used'] / 1024).toFixed(2)
+            },
+            free: {
+              name: 'Free',
+              size: ((items['slave/mem_total'] - items['slave/mem_used']) / 1024).toFixed(2)
+            },
+            total: {
+              name: 'Total',
+              size: (items['slave/mem_total'] / 1024).toFixed(2)
             }
-          ];
+          };
 
-          var slaveDataDisk = [{
-              name: "Used",
-              size: (items["slave/disk_used"] / 1024).toFixed(2)
-            }, {
-              name: "Free",
-              size: ((items["slave/disk_total"] - items["slave/disk_used"]) / 1024).toFixed(2)
+          slaveSumData.disk = {
+            used: {
+              name: 'Used',
+              size: (items['slave/disk_used'] / 1024).toFixed(2)
+            },
+            free: {
+              name: 'Free',
+              size: ((items['slave/disk_total'] - items['slave/disk_used']) / 1024).toFixed(2)
+            },
+            total: {
+              name: 'Total',
+              size: (items['slave/disk_total'] / 1024).toFixed(2)
             }
-          ];
-
-          var slaveSumData = {
-            id: slaveDataId,
-            slaveData: slaveData,
-            slaveDataCpu: slaveDataCpu,
-            slaveDataMem: slaveDataMem,
-            slaveDataDisk: slaveDataDisk
           };
 
           $scope.allSlaves.push(slaveSumData);
@@ -336,12 +350,21 @@
     function onNetworkClick(data) {
       var nodeId = data.nodes[0];
 
-      if (nodeId === 10000) {
-        generateCpuChart();
-      } else if (nodeId === 10001 || nodeId === 10002 || nodeId === 10003) {
-        console.log('raw');
-      } else {
-        showInfoPanel(data);
+      switch (nodeId) {
+        case 10000:
+          generateChart('cpu');
+          break;
+        case 10001:
+          generateChart('mem');
+          break;
+        case 10002:
+          generateChart('disk');
+          break;
+        case 10003:
+          generateAllChart();
+          break;
+        default:
+          showInfoPanel(data);
       }
     }
 
@@ -356,15 +379,13 @@
 
       angular.forEach($scope.nodes, function(value, key) {
         if (data.nodes[0] === value.id) {
-          // drawPieChartForSlave(value.label);
           for (var i = 0; i < $scope.allSlaves.length; i++){
-
             if($scope.allSlaves[i].id === value.label) {
-              $scope.slaveData = $scope.allSlaves[i].slaveData;
-              $scope.slaveDataCpu = $scope.allSlaves[i].slaveDataCpu;
-              console.log($scope.allSlaves[i].slaveDataCpu)
-              $scope.slaveDataMem = $scope.allSlaves[i].slaveDataMem;
-              $scope.slaveDataDisk = $scope.allSlaves[i].slaveDataDisk;
+              $scope.slaveData.id = $scope.allSlaves[i].id;
+              $scope.slaveData.general = $scope.allSlaves[i].general;
+              $scope.slaveData.cpu = $scope.allSlaves[i].cpu;
+              $scope.slaveData.mem = $scope.allSlaves[i].mem;
+              $scope.slaveData.disk = $scope.allSlaves[i].disk;
             }
           }
         }
@@ -414,6 +435,9 @@
       ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
         .then(function(response) {
           var allData = response.data;
+          // $scope.executorsRunning = [{
+          //   name: 'lol'
+          // }];
 
           angular.forEach(allData.slaves, function(value, key) {
             if (value.hostname === hostName) {
@@ -452,6 +476,9 @@
       ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
         .then(function(resource) {
           var allData = resource.data;
+          // $scope.frameworksActive = [{
+          //   name: 'mesos'
+          // }];
 
           angular.forEach(allData.slaves, function(value, key) {
             if (value.hostname === hostname) {
@@ -481,57 +508,172 @@
         });
     }
 
-    function toggleRightToolbar() {
+    function showRightToolbar() {
       $mdSidenav('right').toggle();
     }
 
 
-    function generateCpuChart() {
-      // angular.forEach($scope.nodes, function(value) {
-      //   if (value.label === $scope.activeMaster || value.group === 2) {
-      //     var hostName = value.label;
-      //
-      //     var canvas = document.getElementById("canPrep");
-      //     var ctx = canvas.getContext("2d");
-      //     var lastend = 0;
-      //     var colorCPU = ["#512DA8", "#A98CEF"];
-      //
-      //     var data = [];
-      //     var dataTotal = 100;
-      //
-      //     if (value.label === $scope.activeMaster){
-      //       data = [$scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size, 100 - ($scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size)];
-      //     } else {
-      //       drawPieChartForSlave(hostName);
-      //       $timeout(function() {
-      //         data = [$scope.slaveDataCpu[0].size / 100 * ($scope.slaveDataCpu[0].size + $scope.slaveDataCpu[1].size), 100 - ($scope.slaveDataCpu[0].size / 100 * ($scope.slaveDataCpu[0].size + $scope.slaveDataCpu[1].size))];
-      //       }, 2*1000);
-      //     }
-      //     console.log(data);
-      //
-      //     for (var i = 0; i < data.length; i++) {
-      //       ctx.fillStyle = colorCPU[i];
-      //       ctx.beginPath();
-      //       ctx.moveTo(canvas.width / 2, canvas.height / 2);
-      //       ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, lastend, lastend + (Math.PI * 2 * (data[i] / dataTotal)), false);
-      //       ctx.lineTo(canvas.width / 2, canvas.height / 2);
-      //       ctx.fill();
-      //       lastend += Math.PI * 2 * (data[i] / dataTotal);
-      //     }
-      //
-      //     var dataUrl = canvas.toDataURL();
-      //     var nodeId = value.id;
-      //
-      //     $scope.network_data.nodes.update([{
-      //       id: nodeId,
-      //       shape: 'circularImage',
-      //       label: '',
-      //       title: hostName,
-      //       image: dataUrl
-      //     }]);
-      //
-      //   }
-      // });
+    function generateChart(metric) {
+      angular.forEach($scope.nodes, function(value) {
+        if (value.label === $scope.activeMaster || value.group === 2) {
+          var hostName = value.label;
+
+          var canvas = document.getElementById("canPrep");
+          var ctx = canvas.getContext("2d");
+          var lastend = 0;
+
+          var data = [];
+          var dataTotal = 100;
+
+          var color = [];
+
+          switch (metric) {
+            case 'cpu':
+              color = ["#512DA8", "#A98CEF"];
+              if (value.label === $scope.activeMaster){
+                data = [$scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size, 100 - ($scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size)];
+              } else {
+                angular.forEach($scope.allSlave, function(slave) {
+                  console.log('value = ' + value.label + ', slave = ' + slave.id);
+                  if(value.label === slave.id) {
+                    data = [slave.cpu.used.size / 100 * slave.cpu.total.size, 100 - (slave.cpu.used.size / 100 * slave.cpu.total.size)];
+                  }
+                });
+              }
+              break;
+            case 'mem':
+              color = ["#9C27B0", "#E691F5"];
+              if (value.label === $scope.activeMaster){
+                data = [$scope.masterDataMemAbsolute[0].size / 100 * $scope.masterDataMemAbsolute[1].size, 100 - ($scope.masterDataMemAbsolute[0].size / 100 * $scope.masterDataMemAbsolute[1].size)];
+              } else {
+                angular.forEach($scope.allSlave, function(slave) {
+                  console.log('value = ' + value.label + ', slave = ' + slave.id);
+                  if(value.label === slave.id) {
+                    data = [slave.mem.used.size / 100 * slave.mem.total.size, 100 - (slave.mem.used.size / 100 * slave.mem.total.size)];
+                  }
+                });
+              }
+              break;
+            case 'disk':
+              color = ["#00BCD4", "#A8ECF5"];
+              if (value.label === $scope.activeMaster){
+                data = [$scope.masterDataDiskAbsolute[0].size / 100 * $scope.masterDataDiskAbsolute[1].size, 100 - ($scope.masterDataDiskAbsolute[0].size / 100 * $scope.masterDataDiskAbsolute[1].size)];
+              } else {
+                angular.forEach($scope.allSlave, function(slave) {
+                  console.log('value = ' + value.label + ', slave = ' + slave.id);
+                  if(value.label === slave.id) {
+                    data = [slave.disk.used.size / 100 * slave.disk.total.size, 100 - (slave.disk.used.size / 100 * slave.disk.total.size)];
+                  }
+                });
+              }
+              break;
+            default:
+              console.log('unknown "metric" parametr');
+          }
+
+          console.log(data);
+
+          for (var i = 0; i < data.length; i++) {
+            ctx.fillStyle = color[i];
+            ctx.beginPath();
+            ctx.moveTo(canvas.width / 2, canvas.height / 2);
+            ctx.arc(canvas.width / 2, canvas.height / 2, canvas.height / 2, lastend, lastend + (Math.PI * 2 * (data[i] / dataTotal)), false);
+            ctx.lineTo(canvas.width / 2, canvas.height / 2);
+            ctx.fill();
+            lastend += Math.PI * 2 * (data[i] / dataTotal);
+          }
+
+          var dataUrl = canvas.toDataURL();
+          var nodeId = value.id;
+
+          $scope.network_data.nodes.update([{
+            id: nodeId,
+            shape: 'circularImage',
+            label: '',
+            title: hostName,
+            image: dataUrl
+          }]);
+        }
+      });
+    }
+
+    function generateAllChart() {
+      angular.forEach($scope.nodes, function(value) {
+        if (value.label === $scope.activeMaster || value.group === 2) {
+          var hostName = value.label;
+
+          var graphSettings = {
+            series: [{
+              value: $scope.masterDataCpu[0].size,
+              color: {
+                solid: '#512DA8',
+                background: 'rgba(128, 128, 128, 0.81)'
+              },
+            }, {
+              value: $scope.masterDataMem[0].size,
+              color: {
+                solid: '#9C27B0',
+                background: 'rgba(128, 128, 128, 0.81)'
+              },
+            }, {
+              value: $scope.masterDataDisk[0].size,
+              color: {
+                solid: '#00BCD4',
+                background: 'rgba(128, 128, 128, 0.81)'
+              },
+            }],
+            shadow: {
+              width: 0
+            },
+            animation: {
+              duration: 1,
+              delay: 1
+            },
+            diameter: 50
+          };
+
+          document.getElementById('chartNodeUsage').innerHTML = '';
+          new RadialProgressChart("#chartNodeUsage", graphSettings);
+
+          $timeout(function() {
+            document.getElementById('canPrep').width = 400;
+            document.getElementById('canPrep').height = 400;
+
+            var nodeId = value.id;
+            var svgString = new XMLSerializer().serializeToString(document.getElementById('chartNodeUsage').querySelector('svg'));
+            var canvas = document.getElementById("canPrep");
+            var ctx = canvas.getContext("2d");
+            var DOMURL = self.URL || self.webkitURL || self;
+            var img = new Image();
+            var svg = new Blob([svgString], {
+              type: "image/svg+xml;charset=utf-8"
+            });
+            var url = DOMURL.createObjectURL(svg);
+            img.onload = function() {
+              ctx.fillStyle = '#B3CCDD';
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0);
+              var dataUrl = canvas.toDataURL();
+              $scope.network_data.nodes.update([{
+                id: nodeId,
+                shape: 'circularImage',
+                label: '',
+                title: hostName,
+                image: dataUrl
+              }]);
+              DOMURL.revokeObjectURL(dataUrl);
+            };
+            img.src = url;
+            // cpuClaster.push(cpuUsage);
+            // memCluster.push(memoryPercent);
+            // disk1Cluster.push(fsDockerUsagePercent);
+            // disk2Cluster.push(fsHddUsagePercent);
+            // if (disk2Cluster.length == clusterNodes.length) {
+            //   vm.getClusterResourceUsageAll(cpuClaster, memCluster, disk1Cluster, disk2Cluster);
+            // }
+          }, 300);
+        }
+      });
     }
   }
 }());

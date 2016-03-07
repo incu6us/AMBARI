@@ -1,7 +1,6 @@
 <md-content ng-controller="MetricsCtrl" layout="column" style="height:100%;width:100%;">
-  {{slaveDataCpu}}
   <div class="show-master-btn">
-    <md-button class="md-accent md-hue-2 md-raised" ng-click="toggleRightToolbar()">
+    <md-button class="md-accent md-hue-2 md-raised" ng-click="showRightToolbar()">
       Show Master Info
     </md-button>
   </div>
@@ -21,26 +20,25 @@
   </div>
 
   <div ng-show="activeMaster != null && nodes.length > 0" style="height:100%;">
-    <vis-network data="network_data" options="options" events="events" ></vis-network>
+    <vis-network data="network_data" options="options" events="events"></vis-network>
   </div>
 
-  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-show="true">
+  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-show="infoPanel">
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        CPU: {{slaveDataCpu[0].size}} / {{slaveDataCpu[1].size}}
-        <!-- CPU: {{slaveDataCpu[0].size}} / {{slaveDataCpu[1].size + slaveDataCpu[0].size}} -->
+        CPU: {{slaveData.cpu.used.size}} / {{{slaveData.cpu.total.size}}
       </div>
       <nvd3 options="optionsSlaveCpu" data="slaveDataCpu"></nvd3>
     </div>
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        Memory: {{slaveDataMem[0].size | toGb}} / {{slaveDataMem[1].size | toGb}} Gb
+        Memory: {{{slaveData.mem.used.size | toGb}} / {{{slaveData.mem.free.size | toGb}} Gb
       </div>
       <nvd3 options="optionsSlaveMem" data="slaveDataMem"></nvd3>
     </div>
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        Disk: {{slaveDataDisk[0].size | toGb}} / {{slaveDataDisk[1].size | toGb}} Gb
+        Disk: {{{slaveData.disk.used.size | toGb}} / {{slaveData.disk.free.size | toGb}} Gb
       </div>
       <nvd3 options="optionsSlaveDisk" data="slaveDataDisk"></nvd3>
     </div>
@@ -48,12 +46,12 @@
       <ul class="list-unstyled">
         <li>
           Executors registering:
-          {{ slaveData['slave/executors_registering']}}
+          {{ slaveData.general['slave/executors_registering']}}
         </li>
         <li>
           Executors running:
           <span class="link" ng-click="showExecutorsRunning(slaveData.id)">
-            {{ slaveData['slave/executors_running']}}
+            {{ slaveData.genetal['slave/executors_running']}}
             <md-tooltip md-direction="right" md-autohide="true">
               Show details about executors
             </md-tooltip>
@@ -73,13 +71,13 @@
           </div>
         </li>
         <li>Executors terminated:
-          {{ slaveData['slave/executors_terminated']}}</li>
+          {{ slaveData.general['slave/executors_terminated']}}</li>
         <li>Executors terminating:
-          {{ slaveData['slave/executors_terminating']}}</li>
+          {{ slaveData.general['slave/executors_terminating']}}</li>
         <li>
           Frameworks active:
-          <span class="link" ng-click="showMetricFrameworksRunning(slaveData.id)">
-            {{ slaveData['slave/frameworks_active']}}
+          <span class="link" ng-click="showFrameworksActive(slaveData.id)">
+            {{ slaveData.general['slave/frameworks_active']}}
             <md-tooltip md-direction="right" md-autohide="true">
               Show details about frameworks
             </md-tooltip>
