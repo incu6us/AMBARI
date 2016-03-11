@@ -17,9 +17,7 @@
     // /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/slaves', {cache: true}
 
     function get(VERSION, activeMaster) {
-      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/slaves', {
-          cache: true
-        })
+      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/slaves')
         .then(successClusterName, errorClusterName);
 
       function successClusterName(response) {

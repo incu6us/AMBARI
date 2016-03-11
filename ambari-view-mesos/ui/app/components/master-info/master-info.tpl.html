@@ -8,25 +8,25 @@
   <div class="data-container" flex>
     <span>
       <label class="label label-primary">
-        CPU
+        CPU: {{clusterData.cpu[0].size}} / {{parseFloat(clusterData.cpu[0].size) + parseFloat(clusterData.cpu[1].size) | number:2}}
       </label>
-      <nvd3 options="optionsMasterCpu" data="masterDataCpu" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+      <nvd3 options="optionsClusterCpu" data="clusterData.cpu" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
     </span>
   </div>
   <div class="data-container" flex>
     <span>
       <label class="label label-primary">
-        Memory
+        Memory: {{clusterData.mem[0].size}} / {{parseFloat(clusterData.mem[0].size) + parseFloat(clusterData.mem[1].size) | number:2}} GB
       </label>
-      <nvd3 options="optionsMasterMem" data="masterDataMem" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+      <nvd3 options="optionsClusterMem" data="clusterData.mem" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
     </span>
   </div>
   <div class="data-container" flex>
     <span>
       <label class="label label-primary">
-        Disk
+        Disk: {{clusterData.disk[0].size}} / {{parseFloat(clusterData.disk[0].size) + parseFloat(clusterData.disk[1].size) | number:2}} Gb
       </label>
-      <nvd3 options="optionsMasterDisk" data="masterDataDisk" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
+      <nvd3 options="optionsClusterDisk" data="clusterData.disk" class="with-3d-shadow with-transitions" config="d3Config"></nvd3>
     </span>
   </div>
 
@@ -37,7 +37,7 @@
       </label>
     </div>
     <div layout="column" layout-align="center center" flex>
-      <div ng-repeat="master in masterList">
+      <div ng-repeat="master in mastersList">
         <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">
           {{master}}
         </span>
@@ -69,8 +69,8 @@
           CPUs:
         </label>
         <br>
-        <span ng-repeat="cpu in masterDataCpuAbsolute">
-          <b>{{cpu.name}}:</b>{{cpu.size}}&nbsp;
+        <span ng-repeat="cpu in clusterData.cpu">
+          <b>{{cpu.name}}:</b>{{cpu.size | number:2}}&nbsp;
         </span>
       </div>
       <hr>
@@ -79,8 +79,8 @@
           Memory(Gb):
         </label>
         <br>
-        <span ng-repeat="mem in masterDataMemAbsolute">
-          <b>{{mem.name}}:</b>{{mem.size}}&nbsp;
+        <span ng-repeat="mem in clusterData.mem">
+          <b>{{mem.name}}:</b>{{mem.size | number:2}}&nbsp;
         </span>
       </div>
       <hr>
@@ -89,8 +89,8 @@
           Disk(Gb):
         </label>
         <br>
-        <span ng-repeat="disk in masterDataDiskAbsolute">
-          <b>{{disk.name}}:</b>{{disk.size}}&nbsp;
+        <span ng-repeat="disk in clusterData.disk">
+          <b>{{disk.name}}:</b>{{disk.size | number:2}}&nbsp;
         </span>
       </div>
     </div>

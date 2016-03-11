@@ -10,26 +10,18 @@
     '$q',
     '$interval',
     '$timeout',
-    '$mdDialog',
     '$mdSidenav',
-    'VisDataSet',
     'visualisationConfigs',
     'ClusterNameFactory',
     'MesosMasterFactory',
     'MesosSlaveFactory',
     'MetricsForMasterFactory',
-    'MetricsForSlaveFactory',
+    'MetricsForAllHostsFactory',
     'ActiveMasterStateFactory',
-    'FrameworksFactory',
-
+    'FrameworksFactory'
   ];
 
-  function MetricsCtrl($scope, $q, $interval, $timeout, $mdDialog, $mdSidenav, VisDataSet, visualisationConfigs, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForSlaveFactory, ActiveMasterStateFactory, FrameworksFactory) {
-    //TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // 4. Finish drawing on nodes (merging with kubernetis)
-    // 5. refactor $scope.masterData[...] like $scope.slaveData = {}
-    // 6. I think allSlave contains Masters, so check it, and if(true) rename to 'allHosts'
-
+  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterNameFactory, MesosMasterFactory, MesosSlaveFactory, MetricsForMasterFactory, MetricsForAllHostsFactory, ActiveMasterStateFactory, FrameworksFactory) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -40,20 +32,21 @@
     var intervalPromise =  $interval(function() {
     }, 1*1000);
 
+    var promise;
     $scope.$on('$locationChangeStart', function() {
-      console.log('canceled');
       $timeout.cancel(promise);
       $interval.cancel(intervalPromise);
     });
-    var promise;
 
     $scope.infoPanel = false;
 
-    $scope.clusterName = '';
-    $scope.activeMaster = '';
+    $scope.clusterName = null;
+    $scope.activeMaster = null;
 
-    $scope.allSlaves = [];
+    $scope.mastersList = [];
+    $scope.allHostsList = [];
 
+    // Additional Info in HostInfoPanel
     $scope.executorsRunning = null;
     $scope.frameworksActive = null;
 
@@ -71,38 +64,47 @@
 
     // D3 Main config
     $scope.d3Config = visualisationConfigs().d3Config;
-    // pieCharts metrics for Master
-    $scope.masterDataCpu = [];
-    $scope.masterDataCpuAbsolute = [];
-    $scope.masterDataMem = [];
-    $scope.masterDataMemAbsolute = [];
-    $scope.masterDataDisk = [];
-    $scope.masterDataDiskAbsolute = [];
-    // pieCharts metrics for Slave
-    $scope.slaveData = {
+    // pieCharts metrics for Cluster
+    $scope.clusterData = {
+      cpu: [{}],
+      mem: [{}],
+      disk: [{}]
+    };
+    // Temp clusterData Storage - fixing bug when pieChart showed small: https://github.com/krispo/angular-nvd3/issues/85
+    var clusterDataTemp = {
+      cpu: null,
+      mem: null,
+      disk: null
+    };
+    // pieCharts metrics for Hosts
+    $scope.hostData = {
       general: [],
-      cpu: { used: null, free: null, total: null },
-      mem: { used: null, free: null, total: null },
-      disk: { used: null, free: null, total: null }
+      cpu: [{}],
+      mem: [{}],
+      disk: [{}]
     };
     // pieCharts configs
-    $scope.optionsMasterCpu = visualisationConfigs().pieChartOptionsMasterCpu;
-    $scope.optionsMasterMem = visualisationConfigs().pieChartOptionsMasterMem;
-    $scope.optionsMasterDisk = visualisationConfigs().pieChartOptionsMasterDisk;
-    $scope.optionsSlaveCpu = visualisationConfigs().pieChartOptionsSlaveCpu;
-    $scope.optionsSlaveMem = visualisationConfigs().pieChartOptionsSlaveMem;
-    $scope.optionsSlaveDisk = visualisationConfigs().pieChartOptionsSlaveDisk;
+    $scope.optionsClusterCpu = visualisationConfigs().pieChartOptionsClusterCpu;
+    $scope.optionsClusterMem = visualisationConfigs().pieChartOptionsClusterMem;
+    $scope.optionsClusterDisk = visualisationConfigs().pieChartOptionsClusterDisk;
+    $scope.optionsHostCpu = visualisationConfigs().pieChartOptionsHostCpu;
+    $scope.optionsHostMem = visualisationConfigs().pieChartOptionsHostMem;
+    $scope.optionsHostDisk = visualisationConfigs().pieChartOptionsHostDisk;
 
     runApp();
 
     ///////////////////////
 
+    $scope.parseFloat = parseFloat;
+
     // On Network event
     $scope.events.click = onNetworkClick;
     $scope.events.hoverNode = showServiceNodes;
+
     // On InfoPanel click
     $scope.showExecutorsRunning = showExecutorsRunning;
     $scope.showFrameworksActive = showFrameworksActive;
+
     // Show right Toolbar
     $scope.showRightToolbar = showRightToolbar;
 
@@ -119,8 +121,9 @@
         .then(function(mesosMasterData) {
           var masterItems = mesosMasterData.data.host_components;
           var promises = [];
+          $scope.mastersList = [];
           for (var i = 0; i < masterItems.length; i++) {
-            promises.push(getMetricsForMasterSidebar(masterItems[i].HostRoles.host_name));
+            promises.push(getMetricsForClusterInfoSidebar(masterItems[i].HostRoles.host_name));
           }
           return $q.all(promises);
         })
@@ -128,46 +131,37 @@
           return MesosSlaveFactory.get($scope.clusterName);
         })
         .then(function(mesosSlaveData) {
-          var slaveItems = mesosSlaveData.data.host_components;
+          var hostItems = mesosSlaveData.data.host_components;
           var promises = [];
-          for (var k = 0; k < slaveItems.length; k++) {
-            promises.push(getMetricsForHostsInfoPanel(slaveItems[k].HostRoles.host_name));
+          $scope.allHostsList = [];
+          for (var k = 0; k < hostItems.length; k++) {
+            promises.push(getMetricsForHostsInfoPanel(hostItems[k].HostRoles.host_name));
           }
           return $q.all(promises);
         })
         .then(function() {
-          drawNetwork($scope.allSlaves);
+          drawNetwork($scope.allHostsList);
         })
+        // Refresh data every 10 seconds. WARNING! Causes Network rerender
+        // .then(function() {
+        //   promise = $timeout(runApp, 10 * 1000);
+        // })
         .catch(function(err) {
           console.log(err);
         });
     }
 
 
-    function getMetricsForMasterSidebar(masterHost) {
+    function getMetricsForClusterInfoSidebar(masterHost) {
+      $scope.mastersList.push(masterHost);
       return MetricsForMasterFactory.get(VERSION, masterHost)
         .then(function(response) {
           var items = response.data;
 
           if(items["master/elected"] === 1.0) {
-          // if (masterHost.indexOf('02') > -1) {
             $scope.activeMaster = masterHost;
 
-            // Get CPU
-            var usedCpu = (items["master/cpus_percent"] * 100).toFixed(1);
-            var freeCpu = 100 - usedCpu;
-
-            $scope.masterDataCpu = [{
-              name: "Used(" + usedCpu + "%)",
-              size: usedCpu
-            }, {
-              name: "Free(" + freeCpu + "%)",
-              size: freeCpu
-            }];
-            $scope.masterDataCpuAbsolute = [{
-              name: "Total",
-              size: items["master/cpus_total"]
-            }, {
+            clusterDataTemp.cpu = [{
               name: "Used",
               size: items["master/cpus_used"]
             }, {
@@ -175,21 +169,7 @@
               size: items["master/cpus_total"] - items["master/cpus_used"]
             }];
 
-            // Get Memory
-            var usedMem = (items["master/mem_percent"] * 100).toFixed(1);
-            var freeMem = 100 - usedMem;
-
-            $scope.masterDataMem = [{
-              "name": "Used(" + usedMem + "%)",
-              "size": usedMem,
-            }, {
-              "name": "Free(" + (freeMem) + "%)",
-              "size": freeMem,
-            }];
-            $scope.masterDataMemAbsolute = [{
-              name: "Total",
-              size: (items["master/mem_total"] / 1024).toFixed(2)
-            }, {
+            clusterDataTemp.mem = [{
               name: "Used",
               size: (items["master/mem_used"] / 1024).toFixed(2)
             }, {
@@ -197,21 +177,7 @@
               size: ((items["master/mem_total"] - items["master/mem_used"]) / 1024).toFixed(2)
             }];
 
-            // Get Disk
-            var usedDisk = (items["master/disk_percent"] * 100).toFixed(1);
-            var freeDisk = 100 - usedDisk;
-
-            $scope.masterDataDisk = [{
-              "name": "Used(" + usedDisk + "%)",
-              "size": usedDisk,
-            }, {
-              "name": "Free(" + freeDisk + "%)",
-              "size": freeDisk,
-            }];
-            $scope.masterDataDiskAbsolute = [{
-              name: "Total",
-              size: (items["master/disk_total"] / 1024).toFixed(2)
-            }, {
+            clusterDataTemp.disk = [{
               name: "Used",
               size: (items["master/disk_used"] / 1024).toFixed(2)
             }, {
@@ -225,67 +191,55 @@
         });
     }
 
-    function getMetricsForHostsInfoPanel(slaveHost) {
-      return MetricsForSlaveFactory.get(VERSION, slaveHost)
+    function getMetricsForHostsInfoPanel(host) {
+      return MetricsForAllHostsFactory.get(VERSION, host)
         .then(function(response) {
           var items = response.data;
 
-          var slaveSumData = {};
+          var hostData = {};
 
-          slaveSumData.id = slaveHost;
-          slaveSumData.general = items;
+          hostData.id = host;
+          hostData.general = items;
 
-          slaveSumData.cpu = {
-            used: {
+          hostData.cpu = [
+            {
               name: 'Used',
               size: items['slave/cpus_used']
             },
-            free: {
+            {
               name: 'Free',
               size: items['slave/cpus_total'] - items['slave/cpus_used']
-            },
-            total: {
-              name: 'Total',
-              size: items['slave/cpus_total']
             }
-          };
+          ];
 
-          slaveSumData.mem = {
-            used: {
+          hostData.mem = [
+            {
               name: 'Used',
               size: (items['slave/mem_used'] / 1024).toFixed(2)
             },
-            free: {
+            {
               name: 'Free',
               size: ((items['slave/mem_total'] - items['slave/mem_used']) / 1024).toFixed(2)
-            },
-            total: {
-              name: 'Total',
-              size: (items['slave/mem_total'] / 1024).toFixed(2)
             }
-          };
+          ];
 
-          slaveSumData.disk = {
-            used: {
+          hostData.disk = [
+            {
               name: 'Used',
               size: (items['slave/disk_used'] / 1024).toFixed(2)
             },
-            free: {
+            {
               name: 'Free',
               size: ((items['slave/disk_total'] - items['slave/disk_used']) / 1024).toFixed(2)
-            },
-            total: {
-              name: 'Total',
-              size: (items['slave/disk_total'] / 1024).toFixed(2)
             }
-          };
+          ];
 
-          $scope.allSlaves.push(slaveSumData);
+          $scope.allHostsList.push(hostData);
         });
     }
 
 
-    function drawNetwork(slaveItems) {
+    function drawNetwork(hostItems) {
       var tmpNodeArr = [];
       var tmpEdgeArr = [];
 
@@ -294,16 +248,18 @@
 
       var notUsedMasterHost = 0;
 
-      for (var i = 0; i < slaveItems.length; i++) {
-        var itemHostName = slaveItems[i].id;
+      for (var i = 0; i < hostItems.length; i++) {
+        var itemHostName = hostItems[i].id;
 
         if (itemHostName === $scope.activeMaster) {
+          // Active Master
           var activeMasterNode = visualisationConfigs().networkNodeMaster;
           activeMasterNode.id = 1;
           activeMasterNode.label = $scope.activeMaster;
           tmpNodeArr.push(activeMasterNode);
 
         } else if (itemHostName !== $scope.activeMaster && itemHostName.indexOf("master") > -1) {
+          // Not Active Master
           var notActiveMasterNode = visualisationConfigs().networkNodeMaster;
           notActiveMasterNode.id = ++nodesIdCounter;
           notActiveMasterNode.label = itemHostName;
@@ -311,17 +267,16 @@
 
           notUsedMasterHost = nodesIdCounter;
         } else {
-          var slaveNode = visualisationConfigs().networkNodeSlave;
-          slaveNode.id = ++nodesIdCounter;
-          slaveNode.label = itemHostName;
-          tmpNodeArr.push(slaveNode);
-        }
+          // Slaves
+          var hostNode = visualisationConfigs().networkNodeSlave;
+          hostNode.id = ++nodesIdCounter;
+          hostNode.label = itemHostName;
+          tmpNodeArr.push(hostNode);
 
-        if (notUsedMasterHost !== nodesIdCounter) {
-          var slaveEdge = visualisationConfigs().networkEdgeSlave;
-          slaveEdge.id = edgeIdCounter++;
-          slaveEdge.to = nodesIdCounter;
-          tmpEdgeArr.push(slaveEdge);
+          var hostEdge = visualisationConfigs().networkEdgeSlave;
+          hostEdge.id = edgeIdCounter++;
+          hostEdge.to = nodesIdCounter;
+          tmpEdgeArr.push(hostEdge);
         }
       }
 
@@ -364,12 +319,24 @@
           generateAllChart();
           break;
         default:
-          showInfoPanel(data);
+          angular.forEach($scope.network_data.nodes, function(node) {
+            if(node.id !== 10000 && node.id !== 10001 && node.id !== 10002 && node.id !== 10003) {
+              if (node.title !== undefined) {
+                $scope.network_data.nodes.update([{
+                  id: node.id,
+                  shape: 'circle',
+                  label: node.title,
+                  title: undefined
+                }]);
+              }
+            }
+          });
+          showHostInfoPanel(data);
       }
     }
 
 
-    function showInfoPanel(data) {
+    function showHostInfoPanel(data) {
       if ($scope.infoPanel === false) {
         $scope.infoPanel = true;
       }
@@ -379,13 +346,13 @@
 
       angular.forEach($scope.nodes, function(value, key) {
         if (data.nodes[0] === value.id) {
-          for (var i = 0; i < $scope.allSlaves.length; i++){
-            if($scope.allSlaves[i].id === value.label) {
-              $scope.slaveData.id = $scope.allSlaves[i].id;
-              $scope.slaveData.general = $scope.allSlaves[i].general;
-              $scope.slaveData.cpu = $scope.allSlaves[i].cpu;
-              $scope.slaveData.mem = $scope.allSlaves[i].mem;
-              $scope.slaveData.disk = $scope.allSlaves[i].disk;
+          for (var i = 0; i < $scope.allHostsList.length; i++){
+            if($scope.allHostsList[i].id === value.label) {
+              $scope.hostData.id = $scope.allHostsList[i].id;
+              $scope.hostData.general = $scope.allHostsList[i].general;
+              $scope.hostData.cpu = $scope.allHostsList[i].cpu;
+              $scope.hostData.mem = $scope.allHostsList[i].mem;
+              $scope.hostData.disk = $scope.allHostsList[i].disk;
             }
           }
         }
@@ -435,9 +402,6 @@
       ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
         .then(function(response) {
           var allData = response.data;
-          // $scope.executorsRunning = [{
-          //   name: 'lol'
-          // }];
 
           angular.forEach(allData.slaves, function(value, key) {
             if (value.hostname === hostName) {
@@ -476,12 +440,9 @@
       ActiveMasterStateFactory.get(VERSION, $scope.activeMaster)
         .then(function(resource) {
           var allData = resource.data;
-          // $scope.frameworksActive = [{
-          //   name: 'mesos'
-          // }];
 
           angular.forEach(allData.slaves, function(value, key) {
-            if (value.hostname === hostname) {
+            if (value.hostname === hostName) {
               var prefix = value.pid.replace(new RegExp("(.*)@(.*)"), "$1");
               var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
               var stateUrl = "http://" + host + "/" + prefix + "/state.json";
@@ -510,6 +471,13 @@
 
     function showRightToolbar() {
       $mdSidenav('right').toggle();
+
+      // Reasigning need because of bug: https://github.com/krispo/angular-nvd3/issues/85
+      $timeout(function () {
+        $scope.clusterData.cpu = clusterDataTemp.cpu;
+        $scope.clusterData.mem = clusterDataTemp.mem;
+        $scope.clusterData.disk = clusterDataTemp.disk;
+      }, 500);
     }
 
 
@@ -527,53 +495,52 @@
 
           var color = [];
 
+          var used = null;
+          var free = null;
+          var total = null;
+
+          var i = null;
+          var length = null;
+
           switch (metric) {
             case 'cpu':
-              color = ["#512DA8", "#A98CEF"];
-              if (value.label === $scope.activeMaster){
-                data = [$scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size, 100 - ($scope.masterDataCpuAbsolute[0].size / 100 * $scope.masterDataCpuAbsolute[1].size)];
-              } else {
-                angular.forEach($scope.allSlave, function(slave) {
-                  console.log('value = ' + value.label + ', slave = ' + slave.id);
-                  if(value.label === slave.id) {
-                    data = [slave.cpu.used.size / 100 * slave.cpu.total.size, 100 - (slave.cpu.used.size / 100 * slave.cpu.total.size)];
-                  }
-                });
+              color = ["#A98CEF", "#512DA8"];
+              for (i = 0, length = $scope.allHostsList.length; i < length; i++) {
+                if(value.label === $scope.allHostsList[i].id) {
+                  used = parseFloat($scope.allHostsList[i].cpu[0].size);
+                  free = parseFloat($scope.allHostsList[i].cpu[1].size);
+                  total = used + free;
+                  data = [(free / total) * 100, 100 - (free / total) * 100];
+                }
               }
               break;
             case 'mem':
               color = ["#9C27B0", "#E691F5"];
-              if (value.label === $scope.activeMaster){
-                data = [$scope.masterDataMemAbsolute[0].size / 100 * $scope.masterDataMemAbsolute[1].size, 100 - ($scope.masterDataMemAbsolute[0].size / 100 * $scope.masterDataMemAbsolute[1].size)];
-              } else {
-                angular.forEach($scope.allSlave, function(slave) {
-                  console.log('value = ' + value.label + ', slave = ' + slave.id);
-                  if(value.label === slave.id) {
-                    data = [slave.mem.used.size / 100 * slave.mem.total.size, 100 - (slave.mem.used.size / 100 * slave.mem.total.size)];
-                  }
-                });
+              for (i = 0, length = $scope.allHostsList.length; i < length; i++) {
+                if(value.label === $scope.allHostsList[i].id) {
+                  used = parseFloat($scope.allHostsList[i].mem[0].size);
+                  free = parseFloat($scope.allHostsList[i].mem[1].size);
+                  total = used + free;
+                  data = [(free / total) * 100, 100 - (free / total) * 100];
+                }
               }
               break;
             case 'disk':
-              color = ["#00BCD4", "#A8ECF5"];
-              if (value.label === $scope.activeMaster){
-                data = [$scope.masterDataDiskAbsolute[0].size / 100 * $scope.masterDataDiskAbsolute[1].size, 100 - ($scope.masterDataDiskAbsolute[0].size / 100 * $scope.masterDataDiskAbsolute[1].size)];
-              } else {
-                angular.forEach($scope.allSlave, function(slave) {
-                  console.log('value = ' + value.label + ', slave = ' + slave.id);
-                  if(value.label === slave.id) {
-                    data = [slave.disk.used.size / 100 * slave.disk.total.size, 100 - (slave.disk.used.size / 100 * slave.disk.total.size)];
-                  }
-                });
+              color = ["#A8ECF5", "#00BCD4"];
+              for (i = 0, length = $scope.allHostsList.length; i < length; i++) {
+                if(value.label === $scope.allHostsList[i].id) {
+                  used = parseFloat($scope.allHostsList[i].disk[0].size);
+                  free = parseFloat($scope.allHostsList[i].disk[1].size);
+                  total = used + free;
+                  data = [(free / total) * 100, 100 - (free / total) * 100];
+                }
               }
               break;
             default:
               console.log('unknown "metric" parametr');
           }
 
-          console.log(data);
-
-          for (var i = 0; i < data.length; i++) {
+          for (i = 0; i < data.length; i++) {
             ctx.fillStyle = color[i];
             ctx.beginPath();
             ctx.moveTo(canvas.width / 2, canvas.height / 2);
@@ -598,82 +565,95 @@
     }
 
     function generateAllChart() {
+      document.getElementById('chartNodeUsage').innerHTML = '';
+      var k = 0;
       angular.forEach($scope.nodes, function(value) {
         if (value.label === $scope.activeMaster || value.group === 2) {
-          var hostName = value.label;
-
-          var graphSettings = {
-            series: [{
-              value: $scope.masterDataCpu[0].size,
-              color: {
-                solid: '#512DA8',
-                background: 'rgba(128, 128, 128, 0.81)'
-              },
-            }, {
-              value: $scope.masterDataMem[0].size,
-              color: {
-                solid: '#9C27B0',
-                background: 'rgba(128, 128, 128, 0.81)'
-              },
-            }, {
-              value: $scope.masterDataDisk[0].size,
-              color: {
-                solid: '#00BCD4',
-                background: 'rgba(128, 128, 128, 0.81)'
-              },
-            }],
-            shadow: {
-              width: 0
-            },
-            animation: {
-              duration: 1,
-              delay: 1
-            },
-            diameter: 50
-          };
-
-          document.getElementById('chartNodeUsage').innerHTML = '';
-          new RadialProgressChart("#chartNodeUsage", graphSettings);
-
-          $timeout(function() {
-            document.getElementById('canPrep').width = 400;
-            document.getElementById('canPrep').height = 400;
-
-            var nodeId = value.id;
-            var svgString = new XMLSerializer().serializeToString(document.getElementById('chartNodeUsage').querySelector('svg'));
-            var canvas = document.getElementById("canPrep");
-            var ctx = canvas.getContext("2d");
-            var DOMURL = self.URL || self.webkitURL || self;
-            var img = new Image();
-            var svg = new Blob([svgString], {
-              type: "image/svg+xml;charset=utf-8"
-            });
-            var url = DOMURL.createObjectURL(svg);
-            img.onload = function() {
-              ctx.fillStyle = '#B3CCDD';
-              ctx.fillRect(0, 0, canvas.width, canvas.height);
-              ctx.drawImage(img, 0, 0);
-              var dataUrl = canvas.toDataURL();
-              $scope.network_data.nodes.update([{
-                id: nodeId,
-                shape: 'circularImage',
-                label: '',
-                title: hostName,
-                image: dataUrl
-              }]);
-              DOMURL.revokeObjectURL(dataUrl);
-            };
-            img.src = url;
-            // cpuClaster.push(cpuUsage);
-            // memCluster.push(memoryPercent);
-            // disk1Cluster.push(fsDockerUsagePercent);
-            // disk2Cluster.push(fsHddUsagePercent);
-            // if (disk2Cluster.length == clusterNodes.length) {
-            //   vm.getClusterResourceUsageAll(cpuClaster, memCluster, disk1Cluster, disk2Cluster);
-            // }
-          }, 300);
+          // Creating scope for each circle
+          drawCircleChart(k, value);
+          k++;
         }
       });
+    }
+
+    function drawCircleChart(k, value) {
+      var hostName = value.label;
+
+      var graphSettings = {
+        series: [{
+          value: null,
+          color: {
+            solid: '#512DA8',
+            background: 'rgba(128, 128, 128, 0.81)'
+          },
+        }, {
+          value: null,
+          color: {
+            solid: '#9C27B0',
+            background: 'rgba(128, 128, 128, 0.81)'
+          },
+        }, {
+          value: null,
+          color: {
+            solid: '#00BCD4',
+            background: 'rgba(128, 128, 128, 0.81)'
+          },
+        }],
+        shadow: {
+          width: 0
+        },
+        animation: {
+          duration: 1,
+          delay: 1
+        },
+        diameter: 135
+      };
+
+      for (var i = 0, length = $scope.allHostsList.length; i < length; i++) {
+        if(value.label === $scope.allHostsList[i].id) {
+          graphSettings.series[0].value = parseFloat($scope.allHostsList[i].cpu[0].size) / (parseFloat($scope.allHostsList[i].cpu[0].size) + parseFloat($scope.allHostsList[i].cpu[1].size)) * 100;
+          graphSettings.series[1].value = parseFloat($scope.allHostsList[i].mem[0].size) / (parseFloat($scope.allHostsList[i].mem[0].size) + parseFloat($scope.allHostsList[i].mem[1].size)) * 100;
+          graphSettings.series[2].value = parseFloat($scope.allHostsList[i].disk[0].size) / (parseFloat($scope.allHostsList[i].disk[0].size) + parseFloat($scope.allHostsList[i].disk[1].size)) * 100;
+        }
+      }
+
+      var cont = document.createElement('div');
+      cont.setAttribute("id", "child" + k);
+      document.getElementById('chartNodeUsage').appendChild(cont);
+
+      new RadialProgressChart("#child" + k, graphSettings);
+
+      $timeout(function () {
+        document.getElementById('canPrep').width = 400;
+        document.getElementById('canPrep').height = 400;
+        var nodeId = value.id;
+        var svgString = new XMLSerializer().serializeToString(document.getElementById('child' + k).querySelector('svg'));
+        var canvas = document.getElementById("canPrep");
+        var ctx = canvas.getContext("2d");
+        var DOMURL = self.URL || self.webkitURL || self;
+        var img = new Image();
+        var svg = new Blob([svgString], {
+          type: "image/svg+xml;charset=utf-8"
+        });
+        var url = DOMURL.createObjectURL(svg);
+
+        img.onload = function() {
+          ctx.fillStyle = '#B3CCDD';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          var dataUrl = canvas.toDataURL();
+          $scope.network_data.nodes.update([{
+            id: nodeId,
+            shape: 'circularImage',
+            label: '',
+            title: hostName,
+            image: dataUrl
+          }]);
+          DOMURL.revokeObjectURL(dataUrl);
+        };
+
+        img.src = url;
+      }, 100);
     }
   }
 }());

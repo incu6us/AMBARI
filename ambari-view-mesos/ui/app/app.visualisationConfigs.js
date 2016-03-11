@@ -31,6 +31,7 @@
           y: function(d) {
             return d.size;
           },
+          showLegend: false,
           showLabels: false,
           transitionDuration: 500
         }
@@ -66,7 +67,7 @@
         label: '',
         borderWidth: 0,
         borderWidthSelected: 0,
-        shadow: true,
+        // shadow: true,
         font: {
           size: 11
         },
@@ -74,7 +75,7 @@
       };
       var networkEdgeConfig = {
         length: 150,
-        shadow: true,
+        // shadow: true,
         color: "#b3b3ff",
         id: 0,
         from: 1,
@@ -101,29 +102,29 @@
       };
 
       // Clone object without reference(!)
-      var pieChartOptionsMasterCpu = clone(pieChartOptionsNoColorMaster);
+      var pieChartOptionsClusterCpu = clone(pieChartOptionsNoColorMaster);
       // Add color
-      pieChartOptionsMasterCpu.chart.color = ["#512DA8", "#A98CEF"];
+      pieChartOptionsClusterCpu.chart.color = ["#512DA8", "#A98CEF"];
 
-      var pieChartOptionsMasterMem = clone(pieChartOptionsNoColorMaster);
-      pieChartOptionsMasterMem.chart.color = ["#9C27B0", "#E691F5"];
+      var pieChartOptionsClusterMem = clone(pieChartOptionsNoColorMaster);
+      pieChartOptionsClusterMem.chart.color = ["#9C27B0", "#E691F5"];
 
-      var pieChartOptionsMasterDisk = clone(pieChartOptionsNoColorMaster);
-      pieChartOptionsMasterDisk.chart.color = ["#00BCD4", "#A8ECF5"];
+      var pieChartOptionsClusterDisk = clone(pieChartOptionsNoColorMaster);
+      pieChartOptionsClusterDisk.chart.color = ["#00BCD4", "#A8ECF5"];
 
-      var pieChartOptionsSlaveCpu = clone(pieChartOptionsNoColorSlave);
-      pieChartOptionsSlaveCpu.chart.color = ["#512DA8", "#A98CEF"];
+      var pieChartOptionsHostCpu = clone(pieChartOptionsNoColorSlave);
+      pieChartOptionsHostCpu.chart.color = ["#512DA8", "#A98CEF"];
 
-      var pieChartOptionsSlaveMem = clone(pieChartOptionsNoColorSlave);
-      pieChartOptionsSlaveMem.chart.color = ["#9C27B0", "#E691F5"];
+      var pieChartOptionsHostMem = clone(pieChartOptionsNoColorSlave);
+      pieChartOptionsHostMem.chart.color = ["#9C27B0", "#E691F5"];
 
-      var pieChartOptionsSlaveDisk = clone(pieChartOptionsNoColorSlave);
-      pieChartOptionsSlaveDisk.chart.color = ["#00BCD4", "#A8ECF5"];
+      var pieChartOptionsHostDisk = clone(pieChartOptionsNoColorSlave);
+      pieChartOptionsHostDisk.chart.color = ["#00BCD4", "#A8ECF5"];
 
 
       var networkNodeMaster = clone(networkNodeConfig);
       networkNodeMaster.color = "#87b6de";
-      networkNodeMaster.font = {size: 9};
+      // networkNodeMaster.font = {size: 9};
 
       var networkNodeSlave = clone(networkNodeConfig);
       networkNodeSlave.color = "#b3b3ff";
@@ -137,7 +138,7 @@
         borderWidthSelected: 0,
         label: "CPU",
         shape: "dot",
-        shadow: true,
+        // shadow: true,
         color: {
           background: "#5cb85c",
           hover: "#512DA8"
@@ -154,7 +155,7 @@
         borderWidthSelected: 0,
         label: "Memory",
         shape: "dot",
-        shadow: true,
+        // shadow: true,
         color: {
           background: "#5cb85c",
           hover: "#9C27B0"
@@ -171,7 +172,7 @@
         borderWidthSelected: 0,
         label: "Disk",
         shape: "dot",
-        shadow: true,
+        // shadow: true,
         color: {
           background: "#5cb85c",
           hover: "#00BCD4"
@@ -188,7 +189,7 @@
         borderWidthSelected: 0,
         label: "All",
         shape: "dot",
-        shadow: true,
+        // shadow: true,
         color: {
           background: "#5cb85c",
           hover: "#304FFE"
@@ -230,12 +231,12 @@
         options: options,
         d3Config: d3Config,
 
-        pieChartOptionsMasterCpu: pieChartOptionsMasterCpu,
-        pieChartOptionsMasterMem: pieChartOptionsMasterMem,
-        pieChartOptionsMasterDisk: pieChartOptionsMasterDisk,
-        pieChartOptionsSlaveCpu: pieChartOptionsSlaveCpu,
-        pieChartOptionsSlaveMem: pieChartOptionsSlaveMem,
-        pieChartOptionsSlaveDisk: pieChartOptionsSlaveDisk,
+        pieChartOptionsClusterCpu: pieChartOptionsClusterCpu,
+        pieChartOptionsClusterMem: pieChartOptionsClusterMem,
+        pieChartOptionsClusterDisk: pieChartOptionsClusterDisk,
+        pieChartOptionsHostCpu: pieChartOptionsHostCpu,
+        pieChartOptionsHostMem: pieChartOptionsHostMem,
+        pieChartOptionsHostDisk: pieChartOptionsHostDisk,
 
         networkNodeMaster: networkNodeMaster,
 

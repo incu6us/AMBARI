@@ -18,7 +18,9 @@
     // /api/v1/clusters
 
     function get() {
-      return $http.get('/api/v1/clusters')
+      return $http.get('/api/v1/clusters', {
+          cache: true
+        })
         .then(successClusterName, errorClusterName);
 
       function successClusterName(response) {

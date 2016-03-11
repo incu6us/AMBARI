@@ -1,7 +1,7 @@
 <md-content ng-controller="MetricsCtrl" layout="column" style="height:100%;width:100%;">
   <div class="show-master-btn">
     <md-button class="md-accent md-hue-2 md-raised" ng-click="showRightToolbar()">
-      Show Master Info
+      Show Cluster Info
     </md-button>
   </div>
 
@@ -11,47 +11,47 @@
     </md-content>
   </md-sidenav>
 
-  <div ng-show="activeMaster == null" layout="row" layout-align="center center" flex>
+  <div ng-show="activeMaster === null" layout="row" layout-align="center center" flex>
     <h2>Loading data...</h2>
   </div>
 
-  <div ng-show="activeMaster != null && nodes.length == 0" layout="row" layout-align="center center" flex>
+  <div ng-show="activeMaster !== null && nodes.length === 0" layout="row" layout-align="center center" flex>
     <h2>Drawing...</h2>
   </div>
 
-  <div ng-show="activeMaster != null && nodes.length > 0" style="height:100%;">
+  <div ng-show="activeMaster !== null && nodes.length > 0" style="height:100%;">
     <vis-network data="network_data" options="options" events="events"></vis-network>
   </div>
 
-  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-show="infoPanel">
+  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-if="infoPanel">
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        CPU: {{slaveData.cpu.used.size}} / {{{slaveData.cpu.total.size}}
+        CPU: {{hostData.cpu[0].size}} / {{parseFloat(hostData.cpu[0].size) + parseFloat(hostData.cpu[1].size) | number:2}}
       </div>
-      <nvd3 options="optionsSlaveCpu" data="slaveDataCpu"></nvd3>
+      <nvd3 options="optionsHostCpu" data="hostData.cpu"></nvd3>
     </div>
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        Memory: {{{slaveData.mem.used.size | toGb}} / {{{slaveData.mem.free.size | toGb}} Gb
+        Memory: {{hostData.mem[0].size}} / {{parseFloat(hostData.mem[0].size) + parseFloat(hostData.mem[1].size) | number:2}} Gb
       </div>
-      <nvd3 options="optionsSlaveMem" data="slaveDataMem"></nvd3>
+      <nvd3 options="optionsHostMem" data="hostData.mem"></nvd3>
     </div>
     <div layout="column" flex="20" layout-align="center center">
       <div class="label label-primary label-load">
-        Disk: {{{slaveData.disk.used.size | toGb}} / {{slaveData.disk.free.size | toGb}} Gb
+        Disk: {{hostData.disk[0].size}} / {{parseFloat(hostData.disk[0].size) + parseFloat(hostData.disk[1].size) | number:2}} Gb
       </div>
-      <nvd3 options="optionsSlaveDisk" data="slaveDataDisk"></nvd3>
+      <nvd3 options="optionsHostDisk" data="hostData.disk"></nvd3>
     </div>
     <div layout="column" flex="40" layout-align="center start">
       <ul class="list-unstyled">
         <li>
           Executors registering:
-          {{ slaveData.general['slave/executors_registering']}}
+          {{ hostData.general['slave/executors_registering']}}
         </li>
         <li>
           Executors running:
-          <span class="link" ng-click="showExecutorsRunning(slaveData.id)">
-            {{ slaveData.genetal['slave/executors_running']}}
+          <span class="link" ng-click="showExecutorsRunning(hostData.id)">
+            {{ hostData.general['slave/executors_running']}}
             <md-tooltip md-direction="right" md-autohide="true">
               Show details about executors
             </md-tooltip>
@@ -71,13 +71,13 @@
           </div>
         </li>
         <li>Executors terminated:
-          {{ slaveData.general['slave/executors_terminated']}}</li>
+          {{ hostData.general['slave/executors_terminated']}}</li>
         <li>Executors terminating:
-          {{ slaveData.general['slave/executors_terminating']}}</li>
+          {{ hostData.general['slave/executors_terminating']}}</li>
         <li>
           Frameworks active:
-          <span class="link" ng-click="showFrameworksActive(slaveData.id)">
-            {{ slaveData.general['slave/frameworks_active']}}
+          <span class="link" ng-click="showFrameworksActive(hostData.id)">
+            {{ hostData.general['slave/frameworks_active']}}
             <md-tooltip md-direction="right" md-autohide="true">
               Show details about frameworks
             </md-tooltip>

@@ -22,9 +22,7 @@
 
 
     function get(VERSION, masterHost) {
-      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot', {
-          cache: true
-        })
+      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + masterHost + ':5050/metrics/snapshot')
         .then(successClusterName, errorClusterName);
 
       function successClusterName(response) {
