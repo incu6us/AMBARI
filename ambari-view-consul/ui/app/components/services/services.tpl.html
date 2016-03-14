@@ -1,0 +1,27 @@
+<div layout="row">
+  <div>
+    <div class="services-tools-container" layout="row">
+      <md-input-container md-no-float class="md-block">
+        <input placeholder="Filter by name">
+      </md-input-container>
+
+      <md-input-container>
+        <md-select placeholder="State" ng-model="statusesFilter">
+          <md-option ng-repeat="status in statusesFilterList">
+            {{status}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <div layout="row" layout-align="center center">
+        <md-button class="md-accent md-hue-1 md-raised">
+          Restart App
+        </md-button>
+      </div>
+    </div>
+    {{datacentersList}}
+  </div>
+
+  <div>
+  </div>
+</div>
