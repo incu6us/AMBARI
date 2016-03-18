@@ -1,0 +1,14 @@
+<view>
+<name>CONSUL</name>
+<label>Consul</label>
+<version>0.1.0</version>
+    <resource>
+        <name>proxy</name>
+        <service-class>org.apache.ambari.view.proxy.ProxyService</service-class>
+    </resource>
+    <instance>
+        <name>consul</name>
+        <description>consul</description>
+        <visible>false</visible>
+    </instance>
+</view>

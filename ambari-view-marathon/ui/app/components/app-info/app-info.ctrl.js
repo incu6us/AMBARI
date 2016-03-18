@@ -76,7 +76,7 @@
 
     function suspendApp(ev) {
       $mdDialog.show({
-        templateUrl: 'app/components/suspend-app-modal/suspend-app-modal.tpl.html',
+        templateUrl: 'app/components/modals/suspend-app-modal/suspend-app-modal.tpl.html',
         controller: 'SuspendAppCtrl',
         controllerAs: 'suspendApp',
         parent: angular.element(document.querySelector('#content')),
@@ -87,7 +87,7 @@
 
     function scaleApp(ev) {
       $mdDialog.show({
-        templateUrl: 'app/components/scale-app-modal/scale-app-modal.tpl.html',
+        templateUrl: 'app/components/modals/scale-app-modal/scale-app-modal.tpl.html',
         controller: 'ScaleAppCtrl',
         controllerAs: 'scaleApp',
         parent: angular.element(document.querySelector('#content')),
@@ -98,7 +98,7 @@
 
     function restartApp(ev) {
       $mdDialog.show({
-        templateUrl: 'app/components/restart-app-modal/restart-app-modal.tpl.html',
+        templateUrl: 'app/components/modals/restart-app-modal/restart-app-modal.tpl.html',
         controller: 'RestartAppCtrl',
         controllerAs: 'restartApp',
         parent: angular.element(document.querySelector('#content')),
@@ -109,7 +109,7 @@
 
     function destroyApp(ev) {
       $mdDialog.show({
-        templateUrl: 'app/components/destroy-app-modal/destroy-app-modal.tpl.html',
+        templateUrl: 'app/components/modals/destroy-app-modal/destroy-app-modal.tpl.html',
         controller: 'DestroyAppCtrl',
         controllerAs: 'destroyApp',
         parent: angular.element(document.querySelector('#content')),

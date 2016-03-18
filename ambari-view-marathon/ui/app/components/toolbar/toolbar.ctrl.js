@@ -15,7 +15,7 @@
 
     function newAppModal(ev) {
       $mdDialog.show({
-        templateUrl: 'app/components/new-app-modal/new-app-modal.tpl.html',
+        templateUrl: 'app/components/modals/new-app-modal/new-app-modal.tpl.html',
         controller: 'NewAppCtrl',
         controllerAs: 'newapp',
         parent: angular.element(document.querySelector('#content')),

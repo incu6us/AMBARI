@@ -51,7 +51,7 @@
     function stopDeploy(ev, deployId) {
       vm.deployId = deployId;
       $mdDialog.show({
-        templateUrl: 'app/components/apps-deployments-stop/apps-deployments-stop.tpl.html',
+        templateUrl: 'app/components/modals/deployments-stop-modal/deployments-stop-modal.tpl.html',
         controller: 'StopAppDeployCtrl',
         controllerAs: 'stopAppDeploy',
         parent: angular.element(document.querySelector('#content')),
@@ -81,7 +81,7 @@
     function rollbackDeploy(ev, deployId) {
       vm.deployId = deployId;
       $mdDialog.show({
-        templateUrl: 'app/components/apps-deployments-rollback/apps-deployments-rollback.tpl.html',
+        templateUrl: 'app/components/modals/deployments-rollback-modal/deployments-rollback-modal.tpl.html',
         controller: 'RollbackAppDeployCtrl',
         controllerAs: 'rollbackAppDeploy',
         parent: angular.element(document.querySelector('#content')),
