@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MesosMarathonApp">
+
+<head>
+  <!-- <base href="/"> -->
+  <meta charset="UTF-8">
+
+  <title>MesosMarathon Pangea</title>
+  <link rel="shortcut icon" href="img/logo_mantl.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="css/vendor.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body layout="column">
+  <md-toolbar>
+    <toolbar class="shadow"></toolbar>
+  </md-toolbar>
+
+  <md-content layout="row" flex>
+    <div class="container" layout="column" flex ng-view></div>
+  </md-content>
+
+  <script type="text/javascript" src="js/vendor.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/templates.js"></script>
+</body>
+
+</html>

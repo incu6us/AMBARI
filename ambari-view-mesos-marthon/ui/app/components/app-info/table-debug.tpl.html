@@ -1,0 +1,85 @@
+<div class="table-debug">
+	<fieldset class="standard">
+		<legend> Last Changes </legend>
+		<table>
+			<tr>
+				<td> Last Scaling </td>
+				<td> {{appData.versionInfo.lastScalingAt}} </td>
+			</tr>
+			<tr>
+				<td> Last Configuration </td>
+				<td> {{appData.versionInfo.lastConfigChangeAt}} </td>
+			</tr>
+		</table>
+	</fieldset>
+
+	<fieldset class="standard">
+		<legend> Last Task Failure </legend>
+		<table>
+			<tr>
+				<td> Task id </td>
+				<td> {{appData.lastTaskFailure.taskId}} </td>
+			</tr>
+			<tr>
+				<td> State </td>
+				<td> {{appData.lastTaskFailure.state}} </td>
+			</tr>
+			<tr>
+				<td> Message </td>
+				<td> {{appData.lastTaskFailure.message}} </td>
+			</tr>
+			<tr>
+				<td> Host </td>
+				<td> {{appData.lastTaskFailure.host}} </td>
+			</tr>
+			<tr>
+				<td> Timestamp </td>
+				<td> {{appData.lastTaskFailure.timestamp}} </td>
+			</tr>
+			<tr>
+				<td> Version </td>
+				<td> {{appData.lastTaskFailure.version}} </td>
+			</tr>
+			<!-- 		<tr>
+				<td> Mesos Details </td>
+				<td> ??? </td>
+			</tr> -->
+		</table>
+	</fieldset>
+
+	<fieldset class="standard">
+		<legend> Tasks Total Summery </legend>
+		<span> Tasks Status </span>
+		<table>
+			<tr>
+				<td> Running </td>
+				<td> {{appData.taskStats.totalSummary.stats.counts.running}}</td>
+			</tr>
+			<tr>
+				<td> Healthy </td>
+				<td> {{appData.taskStats.totalSummary.stats.counts.healthy}} </td>
+			</tr>
+			<tr>
+				<td> Unhealthy </td>
+				<td> {{appData.taskStats.totalSummary.stats.counts.unhealthy}} </td>
+			</tr>
+			<tr>
+				<td> Staged </td>
+				<td> {{appData.taskStats.totalSummary.stats.counts.staged}} </td>
+			</tr>
+		</table>
+
+		<span> Tasks Lifetime </span>
+		<table>
+			<tr>
+				<td> Average </td>
+				<td> {{appData.taskStats.totalSummary.stats.lifeTime.averageSeconds}} s</td>
+			</tr>
+
+			<tr>
+				<td> Median </td>
+				<td> {{appData.taskStats.totalSummary.stats.lifeTime.medianSeconds}} s</td>
+			</tr>
+		</table>
+	</fieldset>
+</div>

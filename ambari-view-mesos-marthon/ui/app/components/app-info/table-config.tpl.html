@@ -1,0 +1,122 @@
+<div class="table-config">
+  <fieldset class="standard">
+    <legend> Current Version - {{appData.version | date:'yyyy-MM-dd HH:mm:ss'}} </legend>
+    <table>
+      <tr>
+        <td> Command </td>
+        <td> {{appData.cmd || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Constraints </td>
+        <td>
+          <span ng-show="!!appData.constraints.length">
+            			<span ng-repeat="constraint in appData.constraints">
+            				{{constraint}} <br>
+            			</span>
+          </span>
+          <span ng-show="!!!appData.constraints.length">
+            			Unspecified
+            		</span>
+        </td>
+      </tr>
+      <tr>
+        <td> Container </td>
+        <td>
+          <pre ng-show="appData.container">
+                		{{appData.container | json:4 || "Unspecified"}}
+                	</pre>
+          <span ng-show="!appData.container">
+                		Unspecified
+                	</span>
+        </td>
+      </tr>
+      <tr>
+        <td> CPUs </td>
+        <td> {{appData.cpus || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Environment </td>
+        <td>
+          <span ng-show="appData.env">
+    					<span ng-repeat="(envOption, value) in appData.env">
+                    		{{envOption}}={{value}} <br>
+                    	</span>
+          </span>
+          <span ng-show="!!appData.env">
+                		Unspecified
+                	</span>
+        </td>
+      </tr>
+      <tr>
+        <td> Executor </td>
+        <td> {{appData.executor || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Health Checks </td>
+        <td>
+          <pre ng-show="appData.healthChecks[0]">
+                		{{appData.healthChecks[0] | json:4 || "Unspecified"}}
+                	</pre>
+          <span ng-show="!appData.healthChecks[0]">
+                		Unspecified
+                	</span>
+        </td>
+      </tr>
+      <tr>
+        <td> Instances </td>
+        <td> {{appData.instances || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Memory </td>
+        <td> {{appData.mem || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Disk Space </td>
+        <td> {{appData.disk || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Ports </td>
+        <td>
+          <span ng-show="!!appData.ports.length">
+    					<span ng-repeat="port in appData.ports">
+    						{{port}} <br>
+    					</span>
+          </span>
+          <span ng-show="!!!appData.ports.length">
+            			Unspecified
+            		</span>
+        </td>
+      </tr>
+      <tr>
+        <td> Backoff Factor </td>
+        <td> {{appData.backoffFactor || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> Backoff </td>
+        <td> {{appData.backoffSeconds || "Unspecified"}} </td>
+      </tr>
+
+      <tr>
+        <td> Max Launch Delay </td>
+        <td> {{appData.maxLaunchDelaySeconds || "Unspecified"}} </td>
+      </tr>
+      <tr>
+        <td> URIs </td>
+        <td>
+          <span ng-show="!!appData.uris.length">
+                    	<span ng-repeat="uri in appData.uris">
+                    		{{uri}} <br>
+                    	</span>
+          </span>
+          <span ng-show="!!!appData.uris.length">
+                		Unspecified
+                	</span>
+        </td>
+      </tr>
+      <tr>
+        <td> Version </td>
+        <td> {{appData.version || "Unspecified"}} </td>
+      </tr>
+    </table>
+  </fieldset>
+</div>
