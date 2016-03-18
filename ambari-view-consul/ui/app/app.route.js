@@ -21,6 +21,11 @@
         controller: 'ServicesCtrl',
         controllerAs: 'ctrl'
       })
+      .when('/nodes', {
+        templateUrl: 'app/components/nodes/nodes.tpl.html',
+        controller: 'NodesCtrl',
+        controllerAs: 'ctrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

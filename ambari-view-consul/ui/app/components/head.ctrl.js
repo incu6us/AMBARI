@@ -7,7 +7,8 @@
 
   function HeadCtrl($scope, Datacenters) {
 
-    $scope.datacentersList = [];
+    $scope.datacentersArr = [];
+    $scope.datacenterSelected = null;
 
     runApp();
 
@@ -16,7 +17,9 @@
     function runApp() {
       Datacenters.get()
         .then(function(response) {
-          $scope.datacentersList = response;
+          $scope.datacentersArr = response.data.array;
+          $scope.datacenterSelected = $scope.datacentersArr[0];
+          // $scope.datacenterSelected = 'lol';
         })
         .catch(function(err) {
           console.log(err);

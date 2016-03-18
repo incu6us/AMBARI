@@ -15,7 +15,7 @@
     ///////////////////
 
     function get() {
-      return $http.get('/v1/catalog/datacenters')
+      return $http.get('/api/v1/views/CONSUL/versions/0.1.0/instances/consul/resources/proxy/json?url=http://localhost:8500/v1/catalog/datacenters')
         .then(function(response) {
           return response;
         })

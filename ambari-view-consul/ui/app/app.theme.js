@@ -17,8 +17,8 @@
         'hue-1': '400'
       })
       .warnPalette('red')
-      .backgroundPalette('brown', {
-        'default': '50'
+      .backgroundPalette('grey', {
+        'default': '200'
       });
   }
 
