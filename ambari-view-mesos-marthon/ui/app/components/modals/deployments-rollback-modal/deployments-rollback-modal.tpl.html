@@ -1,0 +1,14 @@
+<md-dialog>
+  <md-content layout="column" layout-padding layout-align="center center">
+    <p> Destroy deployment?
+    <br> Destroying this deployment will create and start a new deployment to revert the affected app to its previous version. </p>
+    <div>
+      <md-button class="md-primary md-raised" ng-click="cancelDestory()">
+        Cancel
+      </md-button>
+      <md-button class="md-primary md-raised" ng-click="submitDestory()">
+        Ok
+      </md-button>
+    </div>
+  </md-content>
+</md-dialog>

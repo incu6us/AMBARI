@@ -181,6 +181,57 @@
   height: 5px;
 }
 
+.task-info {
+  margin-top: 10px;
+}
+.task-info td {
+  border-spacing: 0px;
+  height: 30px;
+  padding: 0 3px 0 3px;
+}
+.task-info td:first-child {
+  text-align: right;
+  font-weight: bold;
+}
+.task-info td:last-child {
+  text-align: left;
+}
+.task-info fieldset {
+  margin-bottom: 30px;
+}
+
+.apps-deployments {
+  width: 100%;
+}
+.apps-deployments table {
+  width: 100%;
+}
+.apps-deployments th {
+  border-spacing: 0px;
+  height: 30px;
+  padding: 5px;
+}
+.apps-deployments td {
+  border-spacing: 0px;
+  height: 30px;
+  padding: 5px;
+}
+.apps-deployments th:not(:first-child) {
+  text-align: right;
+}
+.apps-deployments th:first-child {
+  text-align: left;
+}
+.apps-deployments td:not(:first-child) {
+  text-align: right;
+}
+.apps-deployments table {
+  width: 100%;
+}
+.apps-deployments p {
+  height: 5px;
+}
+
 .container {
   max-width: 1190px;
   margin-left: auto;
@@ -193,8 +244,66 @@ md-content .container {
   background-color: #ffffff;
 }
 
-.services-tools-container {
-  height: 70px;
+md-input-container {
+  margin: 0;
+  height: 40px;
+}
+
+.data-container {
+  border: solid 1px #ccc;
+  padding: 10px;
+  margin: 5px;
+  /*text-align: center;*/
+}
+.square-blue {
+  color: #337ab7;
+  background: #337ab7;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+.square-green {
+  color: #5cb85c;
+  background: #5cb85c;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+md-sidenav, md-sidenav.md-locked-open, md-sidenav.md-closed.md-locked-open-add-active {
+  min-width: 200px !important;
+  width: 400px !important;
+  max-width: 400px !important;
+}
+.slave-data-container {
+  position: absolute;
+  padding: 10px;
+  background: #fff;
+  opacity: 0.7;
+  width: 750px;
+  min-height: 180px;
+  right: 60px;
+  bottom: 60px;
+}
+.link {
+  cursor: pointer;
+  color: blue;
+}
+.link:hover {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+}
+.vis-navigation .vis-button {
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1), 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.show-master-btn {
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 /* Logo */

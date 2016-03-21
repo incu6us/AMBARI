@@ -5,9 +5,9 @@
     .module('MesosMarathonApp')
     .factory('HostName', HostNameFactory);
 
-  HostNameFactory.$inject = ['$http'];
+  HostNameFactory.$inject = ['$http', 'ClusterName'];
 
-  function HostNameFactory($http) {
+  function HostNameFactory($http, ClusterName) {
     return {
       get: get
     };
@@ -15,10 +15,7 @@
     ///////////////////
 
     function get() {
-      return $http.get('/api/v1/clusters')
-        .then(function(response) {
-          return response.data.items[0].Clusters.cluster_name;
-        })
+      return ClusterName.get()
         .then(function(clusterName) {
           return $http.get('/api/v1/clusters/' + clusterName + '/components/MARATHON');
         })

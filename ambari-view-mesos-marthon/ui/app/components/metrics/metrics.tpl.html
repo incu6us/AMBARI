@@ -1,0 +1,102 @@
+<md-content ng-controller="MetricsCtrl" layout="column" style="height:100%;width:100%;">
+  <div class="show-master-btn">
+    <md-button class="md-accent md-hue-2 md-raised" ng-click="showRightToolbar()">
+      Show Active Master Info
+    </md-button>
+  </div>
+
+  <md-sidenav class="md-sidenav-right" md-component-id="right">
+    <md-content>
+      <master-info></master-info>
+    </md-content>
+  </md-sidenav>
+
+  <div ng-show="activeMaster === null" layout="row" layout-align="center center" flex>
+    <h2>Loading data...</h2>
+  </div>
+
+  <div ng-show="activeMaster !== null && nodes.length === 0" layout="row" layout-align="center center" flex>
+    <h2>Drawing...</h2>
+  </div>
+
+  <div ng-show="activeMaster !== null && nodes.length > 0" style="height:100%;">
+    <vis-network data="network_data" options="options" events="events"></vis-network>
+  </div>
+
+  <md-whiteframe class="md-whiteframe-5dp slave-data-container" layout="row" md-whiteframe="3" ng-if="infoPanel">
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        CPU: {{hostData.cpu[0].size}} / {{parseFloat(hostData.cpu[0].size) + parseFloat(hostData.cpu[1].size) | number:2}}
+      </div>
+      <nvd3 options="optionsHostCpu" data="hostData.cpu"></nvd3>
+    </div>
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        Memory: {{hostData.mem[0].size}} / {{parseFloat(hostData.mem[0].size) + parseFloat(hostData.mem[1].size) | number:2}} Gb
+      </div>
+      <nvd3 options="optionsHostMem" data="hostData.mem"></nvd3>
+    </div>
+    <div layout="column" flex="20" layout-align="center center">
+      <div class="label label-primary label-load">
+        Disk: {{hostData.disk[0].size}} / {{parseFloat(hostData.disk[0].size) + parseFloat(hostData.disk[1].size) | number:2}} Gb
+      </div>
+      <nvd3 options="optionsHostDisk" data="hostData.disk"></nvd3>
+    </div>
+    <div layout="column" flex="40" layout-align="center start">
+      <ul class="list-unstyled">
+        <li>
+          Executors registering:
+          {{ hostData.general['slave/executors_registering']}}
+        </li>
+        <li>
+          Executors running:
+          <span class="link" ng-click="showExecutorsRunning(hostData.id)">
+            {{ hostData.general['slave/executors_running']}}
+            <md-tooltip md-direction="right" md-autohide="true">
+              Show details about executors
+            </md-tooltip>
+          </span>
+        </li>
+        <li style="cursor: pointer;" class="agentExecutors" ng-show="executorsRunning">
+          <div style="border: solid 1px #ccc; padding: 5px;">
+            <div style="text-align: right;">
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="executorsRunning = null"></i>
+            </div>
+            <div ng-repeat="executor in executorsRunning">
+              <span>Name: {{executor.name}}</span><br>
+              <span>CPU: {{executor.cpu}}</span><br>
+              <span>Memory: {{executor.mem}}</span><br>
+              <span>Disk: {{executor.disk}}</span><br>
+            </div>
+          </div>
+        </li>
+        <li>Executors terminated:
+          {{ hostData.general['slave/executors_terminated']}}</li>
+        <li>Executors terminating:
+          {{ hostData.general['slave/executors_terminating']}}</li>
+        <li>
+          Frameworks active:
+          <span class="link" ng-click="showFrameworksActive(hostData.id)">
+            {{ hostData.general['slave/frameworks_active']}}
+            <md-tooltip md-direction="right" md-autohide="true">
+              Show details about frameworks
+            </md-tooltip>
+          </span>
+        </li>
+        <li style="cursor: pointer;" class="agentFrameworks" ng-show="frameworksActive">
+          <div style="border: solid 1px #ccc; padding: 5px;">
+            <div style="text-align: right;">
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="frameworksActive = null"></i>
+            </div>
+            <div ng-repeat="framework in frameworksActive">
+              <span>Name: {{framework.name}}</span><br>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </md-whiteframe>
+  <canvas id="canPrep" width="280" height="280" style="display: none;"></canvas>
+  <div id="chartNodeUsage" style="display: none;"></div>
+
+</md-content>

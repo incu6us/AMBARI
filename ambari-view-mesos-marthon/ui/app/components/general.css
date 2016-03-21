@@ -9,3 +9,8 @@ md-content .container {
 .white-card {
   background-color: #ffffff;
 }
+
+md-input-container {
+  margin: 0;
+  height: 40px;
+}

@@ -1,0 +1,52 @@
+<md-whiteframe class="md-whiteframe-6dp white-card" layout-padding>
+	<div layout-padding>
+		<span class="link" ng-click="goToAllApps()"> Apps </span>
+		<span class="arrow"> > </span>
+		<span class="current"> {{appID}} </span>
+	</div>
+
+	<div>
+		<div layout="row">
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="suspendApp()">
+				Suspend
+			</md-button>
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="scaleApp()">
+				Scale
+			</md-button>
+
+			<!-- fill up the space between left and right area -->
+			<span flex></span>
+
+			<md-button class="md-accent md-hue-1 md-raised" ng-show="!!tasksToKill.ids.length" ng-click="killTask(false)">
+				Kill
+			</md-button>
+			<md-button class="md-accent md-hue-1 md-raised" ng-show="!!tasksToKill.ids.length" ng-click="killTask(true)">
+				Kill & Scale
+			</md-button>
+			<md-button class="md-accent md-hue-1 md-raised" ng-click="restartApp()">
+				Restart App
+			</md-button>
+			<md-button class="md-warn md-hue-1 md-raised" ng-click="destroyApp()">
+				Destroy App
+			</md-button>
+		</div>
+
+		<md-tabs md-dynamic-height="true" class="app-tabs">
+			<md-tab label="Tasks">
+				<div layout-padding>
+					<table-tasks></table-tasks>
+				</div>
+			</md-tab>
+			<md-tab label="Configuration">
+				<div layout-padding>
+					<table-config></table-config>
+				</div>
+			</md-tab>
+			<md-tab label="Debug">
+				<div layout-padding>
+					<table-debug></table-debug>
+				</div>
+			</md-tab>
+		</md-tabs>
+	</div>
+<md-whiteframe>

@@ -1,0 +1,55 @@
+<md-whiteframe class="md-whiteframe-6dp white-card" layout-padding>
+	<div layout-padding>
+		<span class="link" ng-click="goToAllApps()"> Apps </span>
+		<span class="arrow"> > </span>
+		<span class="link" ng-click="goToApp()"> {{appID}} </span>
+		<span class="arrow"> > </span>
+		<span class="current"> {{taskID}} </span>
+	</div>
+
+	<div class="task-info" layout="row" layout-align="start start">
+		<fieldset class="standard">
+			<legend> Task Details </legend>
+			<table>
+				<tr>
+					<td> Host </td>
+					<td> {{taskData.host}}</td>
+				</tr>
+				<tr>
+					<td> Ports </td>
+					<td>
+						<span ng-repeat="port in taskData.ports">
+							{{port}}
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td> Status </td>
+					<td>
+						<span ng-show="taskData.startedAt">Started</span>
+					</td>
+				</tr>
+				<tr>
+					<td> Staged at </td>
+					<td> {{taskData.stagedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+				<tr>
+					<td> Started at </td>
+					<td> {{taskData.startedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+				<tr>
+					<td> Version </td>
+					<td> {{taskData.version | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+				</tr>
+				<!-- 		<tr>
+					<td> Health </td>
+					<td> ??? </td>
+				</tr>
+				<tr>
+					<td> Mesos details </td>
+					<td> link??? </td>
+				</tr> -->
+			</table>
+		</fieldset>
+	</div>
+</md-whiteframe>
