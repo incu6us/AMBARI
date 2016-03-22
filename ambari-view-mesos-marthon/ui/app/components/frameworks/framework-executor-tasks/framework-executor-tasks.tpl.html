@@ -1,0 +1,35 @@
+<md-whiteframe class="md-whiteframe-6dp frameworks">
+  <div class="toolbar-card" flex>
+    <h4 class="md-subhead"> Running Tasks </h4>
+  </div>
+  <md-content class="white-card" layout-padding>
+    <div layout-padding>
+      <span class="breadcrumb-link" ng-click="goToFrameworksTable()"> Frameworks </span>
+      <span class="breadcrumb-arrow"> > </span>
+      <span class="breadcrumb-link" ng-click="goToFrameworkExecutors()"> {{frameworkId}} </span>
+      <span class="breadcrumb-arrow"> > </span>
+      <span class="breadcrumb-current"> {{executorId}} </span>
+    </div>
+
+    <div class="table" layout="column">
+      <table>
+        <tr>
+          <th> ID </th>
+          <th> Name </th>
+          <th> State </th>
+          <th> Sandbox </th>
+        </tr>
+        <tr ng-repeat="task in tasks">
+          <td class="border-left"> {{task.id}} </td>
+          <td> {{task.name}} </td>
+          <td> {{framework.state}} </td>
+          <td class="border-right">
+            <md-button class="md-raised" ng-click="getSandbox(executor.slave_id, executor.framework_id, executor.id)">
+              Sandbox
+            </md-button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </md-content>
+</md-whiteframe>

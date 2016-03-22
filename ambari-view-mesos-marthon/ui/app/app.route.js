@@ -14,7 +14,7 @@
 
     $routeProvider
       .when('/', {
-        redirectTo: '/services'
+        redirectTo: '/mesos/metrics'
       })
       .when('/marathon/apps', {
         templateUrl: 'app/components/apps/apps-table/apps-table.tpl.html',
@@ -35,6 +35,18 @@
       .when('/mesos/metrics', {
         templateUrl: 'app/components/metrics/metrics.tpl.html',
         controller: 'MetricsCtrl'
+      })
+      .when('/mesos/frameworks', {
+        templateUrl: 'app/components/frameworks/frameworks-table/frameworks-table.tpl.html',
+        controller: 'FrameworksTableCtrl'
+      })
+      .when('/mesos/frameworks/:frameworkId', {
+        templateUrl: 'app/components/frameworks/framework-executors/framework-executors.tpl.html',
+        controller: 'FrameworkExecutorsCtrl'
+      })
+      .when('/mesos/frameworks/:frameworkId/:slaveId/:executorId', {
+        templateUrl: 'app/components/frameworks/framework-executor-tasks/framework-executor-tasks.tpl.html',
+        controller: 'FrameworkExecutorTasksCtrl'
       })
       .otherwise({
         redirectTo: '/'

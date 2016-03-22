@@ -15,11 +15,11 @@
     'ClusterName',
     'Components',
     'Metrics',
-    'ActiveMasterState',
+    'ActiveMasterData',
     'Frameworks'
   ];
 
-  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterState, Frameworks) {
+  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterData, Frameworks) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -388,7 +388,7 @@
     }
 
     function showExecutorsRunning(hostName) {
-      ActiveMasterState.get(VERSION, $scope.activeMaster)
+      ActiveMasterData.getState(VERSION, $scope.activeMaster)
         .then(function(response) {
           var allData = response.data;
 
@@ -426,7 +426,7 @@
     }
 
     function showFrameworksActive(hostName) {
-      ActiveMasterState.get(VERSION, $scope.activeMaster)
+      ActiveMasterData.getState(VERSION, $scope.activeMaster)
         .then(function(resource) {
           var allData = resource.data;
 

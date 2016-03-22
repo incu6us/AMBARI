@@ -1,3 +1,7 @@
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 .container {
   max-width: 1190px;
   margin-left: auto;
@@ -6,8 +10,79 @@
 md-content .container {
   padding-top: 15px;
 }
+/*Breadcrumb*/
+.breadcrumb-link {
+  color: #3E2723;
+  cursor: pointer;
+}
+.breadcrumb-link:hover {
+  color: #F57C00;
+  text-decoration: underline;
+}
+.breadcrumb-arrow {
+  color: #3E2723;
+}
+.breadcrumb-current {
+  color: #F57C00;
+}
+
+/*CARD*/
 .white-card {
   background-color: #ffffff;
+}
+.toolbar-card {
+  color: #777777;
+  padding: 4px 4px 4px 15px;
+  border-bottom: 1px solid #d4d4d4;
+}
+.toolbar-card .md-subhead {
+  margin: 4px;
+  font-size: 15px;
+}
+
+/*TABLE*/
+.table th {
+  border-spacing: 0px;
+  height: 30px;
+  padding: 5px;
+  min-width: 80px;
+}
+.table td {
+  border-spacing: 0px;
+  height: 30px;
+  padding: 5px;
+  min-width: 80px;
+}
+.table tr:hover td {
+  background-color: #FFE0B2;
+  cursor: pointer;
+}
+.table tr:hover td.border-left {
+  -moz-border-radius: 3px 0 0 3px;
+  -webkit-border-radius: 3px 0 0 3px;
+  -khtml-border-radius: 3px 0 0 3px;
+  border-radius: 3px 0 0 3px;
+}
+.table tr:hover td.border-right {
+  -moz-border-radius: 0 3px 3px 0;
+  -webkit-border-radius: 0 3px 3px 0;
+  -khtml-border-radius: 0 3px 3px 0;
+  border-radius: 0 3px 3px 0;
+}
+.table th {
+  text-align: left;
+}
+.table table {
+  width: 100%;
+}
+.table p {
+  height: 5px;
+}
+.table th md-checkbox {
+  margin-bottom: 0px;
+}
+.table .md-button {
+  margin: 0px;
 }
 
 md-input-container {
