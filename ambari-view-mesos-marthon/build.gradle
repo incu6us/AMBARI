@@ -1,0 +1,120 @@
+group 'org.apache.amabri.view'
+version '0.1.0'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "com.moowork.gradle:gradle-node-plugin:0.11"
+    }
+}
+
+apply plugin: 'com.moowork.node'
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+// set build number (for Jenkins)
+def buildNumber = System.properties['buildNumber']
+if (!buildNumber.toString().equals("null")){
+    setVersion(version+"-"+buildNumber)
+}
+
+def separator = '/'
+if (System.properties['os.name'].toLowerCase().contains('windows')) {
+    separator = '\\'
+}
+
+def brunchPath = '.'+separator+'ui'+separator+'node_modules'+separator+'brunch'+separator+'bin'+separator+'brunch'
+
+node {
+    // Version of node to use.
+    version = '4.3.0'
+
+    // Version of npm to use.
+    npmVersion = '2.14.18'
+
+    // Base URL for fetching node distributions (change if you have a mirror).
+    distBaseUrl = 'https://nodejs.org/dist'
+
+    // If true, it will download node using above parameters.
+    // If false, it will try to use globally installed node.
+    download = true
+
+    // Set the work directory for unpacking node
+    workDir = file("${project.buildDir}"+separator+"node")
+
+    // Set the work directory where node_modules should be located
+    nodeModulesDir = file("${project.projectDir}"+separator+"ui"+separator+"node_modules")
+}
+
+
+task compileUi(type: NodeTask) {
+    script = file(brunchPath)
+    args = ['b', './ui/']
+    copy{
+        from("${project.projectDir}"+separator+"ui"+separator+"public"+separator)
+        into("${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator)
+    }
+}
+
+task cleanResources(type: Delete){
+    delete "${project.projectDir}"+separator+"ui"+separator+"public"
+
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"css"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"icons"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"img"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"js"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"fonts"
+    delete "${project.projectDir}"+separator+"src"+separator+"main"+separator+"resources"+separator+"index.html"
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar, dependsOn: ['npmInstall', 'compileUi', 'cleanResources']) {
+
+    compileUi.mustRunAfter npmInstall
+
+    manifest {
+        attributes 'Implementation-Title': 'MesosMarathonMetrics with dependencies',
+                'Implementation-Version': version
+//                'Main-Class': 'com.cisco.Runner'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+
+    // clean
+    cleanResources
+}
+
+task startUi(type: NodeTask) {
+    script = file(brunchPath)
+    args = ['w', '--server', '.'+separator+'ui']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.apache.zookeeper', name:'zookeeper',  version:'3.4.6'
+    compile group: 'org.apache.ambari', name: 'ambari-views', version: '2.0.0.0'
+    compile group: 'com.sun.jersey', name: 'jersey-server', version: '1.8'
+    compile group: 'javax.servlet', name: 'servlet-api', version: '2.5'
+    compile group: 'javax.inject', name: 'javax.inject', version: '1'
+    compile group: 'com.google.code.gson', name: 'gson', version: '1.1'
+    compile group: 'commons-io', name: 'commons-io', version: '1.3.2'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.2.5'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.6'
+    compile group: 'com.sun.jersey', name: 'jersey-bundle', version: '1.18.1'
+    compile group: 'com.sun.jersey', name: 'jersey-server', version: '1.18.1'
+    compile group: 'com.sun.jersey', name: 'jersey-client', version: '1.18.1'
+    compile group: 'com.sun.jersey', name: 'jersey-json', version: '1.18.1'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}

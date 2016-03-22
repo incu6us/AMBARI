@@ -1,0 +1,14 @@
+<view>
+<name>MESOS</name>
+<label>Mesos</label>
+<version>0.1.0</version>
+    <resource>
+        <name>proxy</name>
+        <service-class>org.apache.ambari.view.proxy.ProxyService</service-class>
+    </resource>
+    <instance>
+        <name>mesos</name>
+        <description>mesos</description>
+        <visible>false</visible>
+    </instance>
+</view>
