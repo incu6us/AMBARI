@@ -26,7 +26,7 @@
 
     $routeProvider
       .when('/', {
-        redirectTo: '/services'
+        redirectTo: '/mesos/metrics'
       })
       .when('/marathon/apps', {
         templateUrl: 'app/components/apps/apps-table/apps-table.tpl.html',
@@ -47,6 +47,18 @@
       .when('/mesos/metrics', {
         templateUrl: 'app/components/metrics/metrics.tpl.html',
         controller: 'MetricsCtrl'
+      })
+      .when('/mesos/frameworks', {
+        templateUrl: 'app/components/frameworks/frameworks-table/frameworks-table.tpl.html',
+        controller: 'FrameworksTableCtrl'
+      })
+      .when('/mesos/frameworks/:frameworkId', {
+        templateUrl: 'app/components/frameworks/framework-executors/framework-executors.tpl.html',
+        controller: 'FrameworkExecutorsCtrl'
+      })
+      .when('/mesos/frameworks/:frameworkId/:slaveId/:executorId', {
+        templateUrl: 'app/components/frameworks/framework-executor-tasks/framework-executor-tasks.tpl.html',
+        controller: 'FrameworkExecutorTasksCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -756,6 +768,329 @@
 
   angular
     .module('MesosMarathonApp')
+    .controller('FrameworkExecutorTasksCtrl', FrameworkExecutorTasksCtrl);
+
+  FrameworkExecutorTasksCtrl.$inject = [
+    '$scope',
+    '$q',
+    '$timeout',
+    '$location',
+    '$routeParams',
+    'visualisationConfigs',
+    'ClusterName',
+    'ActiveMasterData',
+    'Frameworks'
+  ];
+
+  function FrameworkExecutorTasksCtrl($scope, $q, $timeout, $location, $routeParams, visualisationConfigs, ClusterName, ActiveMasterData, Frameworks) {
+    var VERSION = "0.1.0";
+    var DEBUG = false;
+
+    // @TODO think about place of SlaveID in 'route' and 'breadcrumb'. Maybe -> #/mesos/:slaveId/:frameworkId and #/mesos/:slaveId/:frameworkId/:executorId
+
+    // When we are on 'Frameworks Table' - we get info about Frameworks from ActiveMaster.
+    // When we are on 'Framework Executors' - we get info about Executors from ActiveMaster. BUT ActiveMaster do not containt(!) info abou tasks.
+    // So we get from Executor - ID of Slave(1), on which it runned.
+    // Then we get list of Slaves of ActiveMaster. Then we compair (1) with every SlaveID from List and found slave with our executor.
+    // Then we get info from that slave. This info containt Frameworks, Executors and Tasks(!) wich are runned on slave.
+
+    var promise;
+    $scope.$on('$locationChangeStart', function() {
+      $timeout.cancel(promise);
+    });
+
+    var activeMaster = null;
+
+    $scope.frameworkExecutorTasks = [];
+
+    $scope.frameworkId = decodeURIComponent($routeParams.frameworkId);
+    $scope.slaveId = decodeURIComponent($routeParams.slaveId);
+    $scope.executorId = decodeURIComponent($routeParams.executorId);
+
+    runApp();
+
+    ///////////////////////
+
+    $scope.goToFrameworksTable = goToFrameworksTable;
+    $scope.goToFrameworkExecutors = goToFrameworkExecutors;
+
+    //////////////////////
+
+    function goToFrameworksTable() {
+      $location.path('/mesos/frameworks/');
+    }
+
+    function goToFrameworkExecutors(executorId) {
+      $location.path('/mesos/frameworks/' + executorId);
+    }
+
+    function runApp() {
+      ClusterName.get()
+        // .then(function(response) {
+        //   return response.data.items[0].Clusters.cluster_name;
+        // })
+        // .then(function(clusterName) {
+        //   return Components.getMasters();
+        // })
+        // .then(function(mastersData) {
+        //   var masterItems = mastersData.data.host_components;
+        //   var promises = [];
+        //
+        //   for (var i = 0; i < masterItems.length; i++) {
+        //     promises.push(getActiveMaster(masterItems[i].HostRoles.host_name));
+        //   }
+        //   return $q.all(promises);
+        // })
+        .then(function() {
+          return ActiveMasterData.getSlaves(VERSION, activeMaster);
+        })
+        .then(function(response) {
+          return response.data.slaves;
+        })
+        .then(function(activeMasterSlaves) {
+          for (var i = 0; i < activeMasterSlaves.length; i++) {
+            if (activeMasterSlaves[i].id === $scope.slaveId) {
+              var prefix = activeMasterSlaves[i].pid.replace(new RegExp("(.*)@(.*)"), "$1");
+              var host = activeMasterSlaves[i].pid.replace(new RegExp("(.*)@(.*)"), "$2");
+              var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+              return Frameworks.get(VERSION, stateUrl);
+            }
+          }
+        })
+        .then(function(response) {
+          angular.forEach(response.data.frameworks, function(value, key) {
+            if (value.id === $scope.frameworkId) {
+              angular.forEach(value.executors, function(value1, key1) {
+                if (value1.id === $scope.executorId) {
+                  $scope.tasks = value1.tasks;
+                }
+              });
+            }
+          });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+    function getActiveMaster(masterHost) {
+      return Metrics.getForMaster(VERSION, masterHost)
+        .then(function(response) {
+          var items = response.data;
+
+          if(items["master/elected"] === 1.0) {
+            activeMaster = masterHost;
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+  }
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('MesosMarathonApp')
+    .controller('FrameworkExecutorsCtrl', FrameworkExecutorsCtrl);
+
+  FrameworkExecutorsCtrl.$inject = [
+    '$scope',
+    '$q',
+    '$timeout',
+    '$location',
+    '$routeParams',
+    'visualisationConfigs',
+    'ClusterName',
+    'ActiveMasterData'
+  ];
+
+  function FrameworkExecutorsCtrl($scope, $q, $timeout, $location, $routeParams, visualisationConfigs, ClusterName, ActiveMasterData) {
+    var VERSION = "0.1.0";
+    var DEBUG = false;
+
+    var promise;
+    $scope.$on('$locationChangeStart', function() {
+      $timeout.cancel(promise);
+    });
+
+    var activeMaster = null;
+
+    $scope.frameworksExecutors = [];
+
+    $scope.frameworkId = decodeURIComponent($routeParams.frameworkId);
+
+    runApp();
+
+    ///////////////////////
+
+    $scope.goToFrameworksTable = goToFrameworksTable;
+    $scope.goToExecutorTasks = goToExecutorTasks;
+    $scope.goToExecutorSandbox = goToExecutorSandbox;
+
+    //////////////////////
+
+    function goToFrameworksTable() {
+      $location.path('/mesos/frameworks/');
+    }
+
+    function goToExecutorTasks(slaveId, executorId) {
+      $location.path($location.path() + '/' + slaveId + '/' + executorId);
+    }
+
+    function goToExecutorSandbox() {
+      $location.path($location.path() + '/' + taskId);
+    }
+
+    function runApp() {
+      ClusterName.get()
+        // .then(function(response) {
+        //   return response.data.items[0].Clusters.cluster_name;
+        // })
+        // .then(function(clusterName) {
+        //   return Components.getMasters();
+        // })
+        // .then(function(mastersData) {
+        //   var masterItems = mastersData.data.host_components;
+        //   var promises = [];
+        //
+        //   for (var i = 0; i < masterItems.length; i++) {
+        //     promises.push(getActiveMaster(masterItems[i].HostRoles.host_name));
+        //   }
+        //   return $q.all(promises);
+        // })
+        .then(function() {
+          return ActiveMasterData.getState(VERSION, activeMaster);
+        })
+        .then(function(response) {
+          $scope.frameworks = response.data.frameworks;
+
+          angular.forEach($scope.frameworks, function(value, key) {
+            if (value.id == $scope.frameworkId) {
+              $scope.frameworksExecutors = value.executors;
+            }
+          });
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+    function getActiveMaster(masterHost) {
+      return Metrics.getForMaster(VERSION, masterHost)
+        .then(function(response) {
+          var items = response.data;
+
+          if(items["master/elected"] === 1.0) {
+            activeMaster = masterHost;
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+  }
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('MesosMarathonApp')
+    .controller('FrameworksTableCtrl', FrameworksTableCtrl);
+
+  FrameworksTableCtrl.$inject = [
+    '$scope',
+    '$q',
+    '$timeout',
+    '$location',
+    'visualisationConfigs',
+    'ClusterName',
+    'ActiveMasterData'
+  ];
+
+  function FrameworksTableCtrl($scope, $q, $timeout, $location, visualisationConfigs, ClusterName, ActiveMasterData) {
+    var VERSION = "0.1.0";
+    var DEBUG = false;
+
+    var promise;
+    $scope.$on('$locationChangeStart', function() {
+      $timeout.cancel(promise);
+    });
+
+    var activeMaster = null;
+
+    $scope.frameworksActive = null;
+    $scope.frameworksCompleted = null;
+    $scope.executorsInFrameworks = [];
+
+    runApp();
+
+    ///////////////////////
+
+    $scope.goToFrameworkExecutors = goToFrameworkExecutors;
+
+    //////////////////////
+
+    function goToFrameworkExecutors(frameworkId) {
+      $location.path('/mesos/frameworks/' + encodeURIComponent(frameworkId));
+    }
+
+    function runApp() {
+      ClusterName.get()
+        // .then(function(response) {
+        //   return response.data.items[0].Clusters.cluster_name;
+        // })
+        // .then(function(clusterName) {
+        //   return Components.getMasters();
+        // })
+        // .then(function(mastersData) {
+        //   var masterItems = mastersData.data.host_components;
+        //   var promises = [];
+        //
+        //   for (var i = 0; i < masterItems.length; i++) {
+        //     promises.push(getActiveMaster(masterItems[i].HostRoles.host_name));
+        //   }
+        //   return $q.all(promises);
+        // })
+        .then(function() {
+          return ActiveMasterData.getState(VERSION, activeMaster);
+        })
+        .then(function(response) {
+          $scope.frameworksActive = response.data.frameworks;
+          $scope.frameworksCompleted = response.data.completed_frameworks;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+    function getActiveMaster(masterHost) {
+      return Metrics.getForMaster(VERSION, masterHost)
+        .then(function(response) {
+          var items = response.data;
+
+          if(items["master/elected"] === 1.0) {
+            activeMaster = masterHost;
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+
+  }
+}());
+
+(function() {
+  'use strict';
+
+  angular
+    .module('MesosMarathonApp')
     .directive('masterInfo', masterInfo);
 
   function masterInfo() {
@@ -784,11 +1119,11 @@
     'ClusterName',
     'Components',
     'Metrics',
-    'ActiveMasterState',
+    'ActiveMasterData',
     'Frameworks'
   ];
 
-  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterState, Frameworks) {
+  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterData, Frameworks) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -1157,7 +1492,7 @@
     }
 
     function showExecutorsRunning(hostName) {
-      ActiveMasterState.get(VERSION, $scope.activeMaster)
+      ActiveMasterData.getState(VERSION, $scope.activeMaster)
         .then(function(response) {
           var allData = response.data;
 
@@ -1195,7 +1530,7 @@
     }
 
     function showFrameworksActive(hostName) {
-      ActiveMasterState.get(VERSION, $scope.activeMaster)
+      ActiveMasterData.getState(VERSION, $scope.activeMaster)
         .then(function(resource) {
           var allData = resource.data;
 
@@ -2245,21 +2580,34 @@
 
   angular
     .module('MesosMarathonApp')
-    .factory('ActiveMasterState', ActiveMasterStateFactory);
+    .factory('ActiveMasterData', ActiveMasterDataFactory);
 
-  ActiveMasterStateFactory.$inject = ['$http'];
+  ActiveMasterDataFactory.$inject = ['$http'];
 
-  function ActiveMasterStateFactory($http) {
+  function ActiveMasterDataFactory($http) {
     return {
-      get: get
+      getState: getState,
+      getSlaves: getSlaves
     };
 
     ///////////////////
 
-    // /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + $scope.activeMaster + ':5050/master/state.json
+    // http://nikke1.github.io/hard-data/active-master-state.json
+    // /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/master/state.json
+    function getState(VERSION, activeMaster) {
+      return $http.get('http://nikke1.github.io/hard-data/active-master-state.json')
+        .then(function(response) {
+          return response;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
 
-    function get(VERSION, activeMaster) {
-      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/master/state.json')
+    // http://nikke1.github.io/hard-data/active-master-slaves.json
+    // /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=http://' + activeMaster + ':5050/slaves
+    function getSlaves(VERSION, activeMaster) {
+      return $http.get('http://nikke1.github.io/hard-data/active-master-slaves.json')
         .then(function(response) {
           return response;
         })
@@ -2333,9 +2681,10 @@
     ///////////////////
 
     // /api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=' + stateUrl
+    // http://nikke1.github.io/hard-data/mesos-framework-stateurl.json
 
     function get(VERSION, stateUrl) {
-      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=' + stateUrl)
+      return $http.get('http://nikke1.github.io/hard-data/mesos-framework-stateurl.json')
         .then(function(response) {
           return response;
         })

@@ -1,0 +1,49 @@
+<md-whiteframe id="frameworks-table-active" class="md-whiteframe-6dp">
+  <div class="toolbar-card" flex>
+    <h4 class="md-subhead"> Active Frameworks </h4>
+  </div>
+  <md-content class="white-card" layout-padding>
+    <div class="table" layout="column">
+      <table>
+        <tr>
+          <th> ID </th>
+          <th> Name </th>
+          <th> Hostname </th>
+          <th> User </th>
+          <th> Active Tasks </th>
+          <th> CPUs </th>
+          <th> Memory </th>
+        </tr>
+        <tr ng-repeat="framework in frameworksActive" ng-click="goToFrameworkExecutors(framework.id)">
+          <td class="border-left"> {{framework.id}} </td>
+          <td> {{framework.name}} </td>
+          <td> {{framework.hostname}} </td>
+          <td> {{framework.user}} </td>
+          <td> {{framework.tasks.length}} </td>
+          <td> {{framework.resources.cpus | toFixed}} </td>
+          <td class="border-right"> {{framework.resources.mem | toGb}} Gb </td>
+        </tr>
+      </table>
+    </div>
+  </md-content>
+</md-whiteframe>
+
+<md-whiteframe id="frameworks-table-completed" class="md-whiteframe-6dp">
+  <div class="toolbar-card" flex>
+    <h4 class="md-subhead"> Completed Frameworks </h4>
+  </div>
+  <md-content class="white-card" layout-padding>
+    <div class="table" layout="column">
+      <table>
+        <tr>
+          <th> Name </th>
+          <th> Hostname </th>
+        </tr>
+        <tr ng-repeat="framework in frameworksCompleted">
+          <td class="border-left"> {{framework.name}} </td>
+          <td class="border-right"> {{framework.hostname}} </td>
+        </tr>
+      </table>
+    </div>
+  </md-content>
+</md-whiteframe>
