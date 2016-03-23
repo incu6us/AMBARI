@@ -3,9 +3,9 @@
 
   angular
     .module('MesosMarathonApp')
-    .controller('FrameworkExecutorTasksCtrl', FrameworkExecutorTasksCtrl);
+    .controller('FrameworkTaskSandboxCtrl', FrameworkTaskSandboxCtrl);
 
-  FrameworkExecutorTasksCtrl.$inject = [
+  FrameworkTaskSandboxCtrl.$inject = [
     '$scope',
     '$q',
     '$timeout',
@@ -14,11 +14,12 @@
     'ClusterName',
     'ActiveMasterData',
     'SlaveFrameworks',
+    'Sandbox',
     'Components',
     'Metrics'
   ];
 
-  function FrameworkExecutorTasksCtrl($scope, $q, $timeout, $location, $routeParams, ClusterName, ActiveMasterData, SlaveFrameworks, Components, Metrics) {
+  function FrameworkTaskSandboxCtrl($scope, $q, $timeout, $location, $routeParams, ClusterName, ActiveMasterData, SlaveFrameworks, Sandbox, Components, Metrics) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -29,9 +30,7 @@
 
     var activeMaster = null;
 
-    $scope.frameworkExecutorTasksQueued = [];
-    $scope.frameworkExecutorTasks = [];
-    $scope.frameworkExecutorTasksCompleted = [];
+    $scope.directories = [];
 
     $scope.frameworkId = decodeURIComponent($routeParams.frameworkId);
     $scope.slaveId = decodeURIComponent($routeParams.slaveId);
@@ -43,7 +42,6 @@
 
     $scope.goToFrameworksTable = goToFrameworksTable;
     $scope.goToFrameworkExecutors = goToFrameworkExecutors;
-    $scope.goToFrameworkTaskSandbox = goToFrameworkTaskSandbox;
 
     //////////////////////
 
@@ -53,10 +51,6 @@
 
     function goToFrameworkExecutors() {
       $location.path('/mesos/frameworks/' + $scope.frameworkId);
-    }
-
-    function goToFrameworkTaskSandbox(taskId) {
-      $location.path($location.path() + '/tasks/' + taskId);
     }
 
     function runApp() {
@@ -86,8 +80,8 @@
           for (var i = 0; i < activeMasterSlaves.length; i++) {
             if (activeMasterSlaves[i].id === $scope.slaveId) {
               var prefix = activeMasterSlaves[i].pid.replace(new RegExp("(.*)@(.*)"), "$1");
-              var host = activeMasterSlaves[i].pid.replace(new RegExp("(.*)@(.*)"), "$2");
-              var stateUrl = "http://" + host + "/" + prefix + "/state.json";
+              var port = '5051';
+              var stateUrl = "http://" + activeMasterSlaves[i].hostname + ":" + port + "/" + prefix + "/state.json";
               return SlaveFrameworks.get(VERSION, stateUrl);
             }
           }
@@ -99,13 +93,20 @@
               var executors = frameworks[i].executors;
               for (var k = 0; k < executors.length; k++) {
                 if (executors[k].id === $scope.executorId) {
-                  $scope.frameworkExecutorTasksQueued = executors[k].queued_tasks;
-                  $scope.frameworkExecutorTasks = executors[k].tasks;
-                  $scope.frameworkExecutorTasksCompleted = executors[k].completed_tasks;
+                  var port = '5051';
+                  var executorUrl = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + frameworks[i].hostname + ":" + port + "/files/browse.json?path=";
+                  var executorUrlForDownloadFile = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + frameworks[i].hostname + ":" + port + "/files/download.json?path=";
+                  var executorDir = executors[k].directory;
+                  var executorLastDir = executorDir;
+                  return Sandbox.getDirs(executorUrl, executorDir);
                 }
               }
             }
           }
+        })
+        .then(function(response) {
+
+          $scope.directories = response.data.array;
         })
         .catch(function(err) {
           console.log(err);

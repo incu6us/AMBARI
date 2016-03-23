@@ -1,8 +1,5 @@
-<md-whiteframe class="md-whiteframe-6dp frameworks">
-  <div class="toolbar-card" flex>
-    <h4 class="md-subhead"> Running Tasks </h4>
-  </div>
-  <md-content class="white-card" layout-padding>
+  <div class="container" layout="column" flex>
+  <md-whiteframe class="breadcrumb md-whiteframe-6dp white-card whiteframe-margin-bottom">
     <div layout-padding>
       <span class="breadcrumb-link" ng-click="goToFrameworksTable()"> Frameworks </span>
       <span class="breadcrumb-arrow"> > </span>
@@ -10,26 +7,99 @@
       <span class="breadcrumb-arrow"> > </span>
       <span class="breadcrumb-current"> {{executorId}} </span>
     </div>
+  </md-whiteframe>
 
-    <div class="table" layout="column">
-      <table>
-        <tr>
-          <th> ID </th>
-          <th> Name </th>
-          <th> State </th>
-          <th> Sandbox </th>
-        </tr>
-        <tr ng-repeat="task in tasks">
-          <td class="border-left"> {{task.id}} </td>
-          <td> {{task.name}} </td>
-          <td> {{framework.state}} </td>
-          <td class="border-right">
-            <md-button class="md-raised" ng-click="getSandbox(executor.slave_id, executor.framework_id, executor.id)">
-              Sandbox
-            </md-button>
-          </td>
-        </tr>
-      </table>
+  <md-whiteframe class="md-whiteframe-6dp whiteframe-margin-bottom">
+    <div class="toolbar-card" layout="row" flex>
+      <h4 class="md-subhead"> Queued Tasks </h4>
+      <span flex></span>
+      <md-input-container class="md-block" md-no-float layout-padding>
+        <input placeholder="Filter" ng-model="searchFrameworkExecutorTasksQueued">
+      </md-input-container>
     </div>
-  </md-content>
-</md-whiteframe>
+    <md-content class="white-card" layout-padding>
+      <div class="table table-inactive" layout="column">
+        <table>
+          <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> CPUs </th>
+            <th> Memory </th>
+          </tr>
+          <tr ng-repeat="task in frameworkExecutorTasksQueued | filter: searchFrameworkExecutorTasksQueued">
+            <td class="border-left"> {{task.id}} </td>
+            <td> {{task.name}} </td>
+            <td> {{task.resources.cpus}} </td>
+            <td class="border-right"> {{task.resources.mem}} </td>
+          </tr>
+        </table>
+      </div>
+    </md-content>
+  </md-whiteframe>
+
+  <md-whiteframe class="md-whiteframe-6dp whiteframe-margin-bottom">
+    <div class="toolbar-card" layout="row" flex>
+      <h4 class="md-subhead"> Tasks </h4>
+      <span flex></span>
+      <md-input-container class="md-block" md-no-float layout-padding>
+        <input placeholder="Filter" ng-model="searchFrameworkExecutorTasks">
+      </md-input-container>
+    </div>
+    <md-content class="white-card" layout-padding>
+      <div class="table table-endroad" layout="column">
+        <table>
+          <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> State </th>
+            <th> CPUs (allocated) </th>
+            <th> Memory (allocated) </th>
+            <th> </th>
+          </tr>
+          <tr ng-repeat="task in frameworkExecutorTasks | filter: searchFrameworkExecutorTasks">
+            <td class="border-left"> {{task.id}} </td>
+            <td> {{task.name}} </td>
+            <td> {{task.state}} </td>
+            <td> {{task.resources.cpus}} </td>
+            <td> {{task.resources.mem}} </td>
+            <td class="border-right">
+              <md-button class="md-raised" ng-click="goToFrameworkTaskSandbox(task.id)">
+                Sandbox
+              </md-button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </md-content>
+  </md-whiteframe>
+
+  <md-whiteframe class="md-whiteframe-6dp whiteframe-margin-bottom">
+    <div class="toolbar-card" layout="row" flex>
+      <h4 class="md-subhead"> Completed Tasks </h4>
+      <span flex></span>
+      <md-input-container class="md-block" md-no-float layout-padding>
+        <input placeholder="Filter" ng-model="searchFrameworkExecutorTasksCompleted">
+      </md-input-container>
+    </div>
+    <md-content class="white-card" layout-padding>
+      <div class="table table-inactive" layout="column">
+        <table>
+          <tr>
+            <th> ID </th>
+            <th> Name </th>
+            <th> State </th>
+            <th> CPUs (allocated) </th>
+            <th> Memory (allocated) </th>
+          </tr>
+          <tr ng-repeat="task in frameworkExecutorTasksCompleted | filter: searchFrameworkExecutorTasksCompleted">
+            <td class="border-left"> {{task.id}} </td>
+            <td> {{task.name}} </td>
+            <td> {{task.state}} </td>
+            <td> {{task.resources.cpus}} </td>
+            <td class="border-right"> {{task.resources.mem}} </td>
+          </tr>
+        </table>
+      </div>
+    </md-content>
+  </md-whiteframe>
+</div>

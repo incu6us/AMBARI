@@ -5,7 +5,9 @@
     .module('MesosMarathonApp', [
       'ngMaterial',
       'ngRoute',
-      'templates'
+      'templates',
+      'nvd3',
+      'ngVis'
     ]);
 
 }());

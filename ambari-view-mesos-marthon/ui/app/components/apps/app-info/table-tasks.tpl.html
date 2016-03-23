@@ -1,4 +1,4 @@
-<div class="table">
+<div class="table table-checkbox">
 	<table>
 		<tr>
 			<th>
@@ -17,7 +17,7 @@
 				<md-checkbox aria-label="Checkbox n" ng-model="checkedTasks[task.id]" ng-click="checkTask(task.id)"></md-checkbox>
 			</td>
 			<td>
-				<span class="link" ng-click="showTaskInfo(task.id)"> {{task.id}} </span>
+				<span class="breadcrumb-link" ng-click="showTaskInfo(task.id)"> {{task.id}} </span>
 				<br> {{task.host}}:{{task.ports[0]}}
 			</td>
 			<td>

@@ -11,6 +11,9 @@ md-content .container {
   padding-top: 15px;
 }
 /*Breadcrumb*/
+.breadcrumb {
+  font-size: 12px;
+}
 .breadcrumb-link {
   color: #3E2723;
   cursor: pointer;
@@ -21,12 +24,16 @@ md-content .container {
 }
 .breadcrumb-arrow {
   color: #3E2723;
+  padding: 0px;
 }
 .breadcrumb-current {
   color: #F57C00;
 }
 
 /*CARD*/
+.whiteframe-margin-bottom {
+  margin-bottom: 30px;
+}
 .white-card {
   background-color: #ffffff;
 }
@@ -39,19 +46,30 @@ md-content .container {
   margin: 4px;
   font-size: 15px;
 }
+.toolbar-card md-input-container {
+  height: 30px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
 /*TABLE*/
+.table {
+  font-size: 14px;
+}
 .table th {
   border-spacing: 0px;
   height: 30px;
   padding: 5px;
-  min-width: 80px;
+  min-width: 60px;
 }
 .table td {
   border-spacing: 0px;
   height: 30px;
   padding: 5px;
-  min-width: 80px;
+  min-width: 60px;
+}
+.table tr:not(:first-child) {
+  border-top: 1px solid #d4d4d4;
 }
 .table tr:hover td {
   background-color: #FFE0B2;
@@ -78,11 +96,24 @@ md-content .container {
 .table p {
   height: 5px;
 }
+.table-checkbox tr th:first-child {
+  min-width: 0px;
+}
+.table-checkbox tr td:first-child {
+  min-width: 0px;
+}
 .table th md-checkbox {
   margin-bottom: 0px;
 }
 .table .md-button {
   margin: 0px;
+}
+.table-inactive tr:hover td {
+  background-color: #ffffff;
+  cursor: initial;
+}
+.table-endroad tr:hover td{
+  cursor: initial;
 }
 
 md-input-container {

@@ -41,12 +41,16 @@
         controller: 'FrameworksTableCtrl'
       })
       .when('/mesos/frameworks/:frameworkId', {
-        templateUrl: 'app/components/frameworks/framework-executors/framework-executors.tpl.html',
-        controller: 'FrameworkExecutorsCtrl'
+        templateUrl: 'app/components/frameworks/framework-tasks/framework-tasks.tpl.html',
+        controller: 'FrameworkTasksCtrl'
       })
-      .when('/mesos/frameworks/:frameworkId/:slaveId/:executorId', {
+      .when('/mesos/slaves/:slaveId/frameworks/:frameworkId/executors/:executorId', {
         templateUrl: 'app/components/frameworks/framework-executor-tasks/framework-executor-tasks.tpl.html',
         controller: 'FrameworkExecutorTasksCtrl'
+      })
+      .when('/mesos/slaves/:slaveId/frameworks/:frameworkId/executors/:executorId/tasks/:taskId', {
+        templateUrl: 'app/components/frameworks/framework-task-sandbox/framework-task-sandbox.tpl.html',
+        controller: 'FrameworkTaskSandboxCtrl'
       })
       .otherwise({
         redirectTo: '/'

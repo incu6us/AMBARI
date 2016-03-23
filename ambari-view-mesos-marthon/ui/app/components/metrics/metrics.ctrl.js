@@ -16,10 +16,10 @@
     'Components',
     'Metrics',
     'ActiveMasterData',
-    'Frameworks'
+    'SlaveFrameworks'
   ];
 
-  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterData, Frameworks) {
+  function MetricsCtrl($scope, $q, $interval, $timeout, $mdSidenav, visualisationConfigs, ClusterName, Components, Metrics, ActiveMasterData, SlaveFrameworks) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -398,7 +398,7 @@
               var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
               var stateUrl = 'http://' + host + '/' + prefix + '/state.json';
 
-              Frameworks.get(VERSION, stateUrl)
+              SlaveFrameworks.get(VERSION, stateUrl)
                 .then(function(frameworkValues) {
                   $scope.executorsRunning = [];
 
@@ -436,7 +436,7 @@
               var host = value.pid.replace(new RegExp("(.*)@(.*)"), "$2");
               var stateUrl = "http://" + host + "/" + prefix + "/state.json";
 
-              Frameworks.get(VERSION, stateUrl)
+              SlaveFrameworks.get(VERSION, stateUrl)
                 .then(function(frameworkValues) {
                   $scope.frameworksActive = [];
 

@@ -74,7 +74,7 @@
         shape: "circle"
       };
       var networkEdgeConfig = {
-        length: 150,
+        length: 300,
         // shadow: true,
         color: "#b3b3ff",
         id: 0,

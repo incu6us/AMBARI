@@ -20,7 +20,7 @@
     function get() {
       return $http.get('/api/v1/clusters')
         .then(function successClusterName(response) {
-          return response.data.items[0].Clusters.cluster_name;
+          return response;
         })
         .catch(function(err) {
           console.log(err);

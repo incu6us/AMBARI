@@ -16,7 +16,8 @@
 
     function get() {
       return ClusterName.get()
-        .then(function(clusterName) {
+        .then(function(response) {
+          var clusterName = response.data.items[0].Clusters.cluster_name;
           return $http.get('/api/v1/clusters/' + clusterName + '/components/MARATHON');
         })
         .then(function(response) {

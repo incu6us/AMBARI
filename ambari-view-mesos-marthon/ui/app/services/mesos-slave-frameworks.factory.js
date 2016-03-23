@@ -3,11 +3,11 @@
 
   angular
     .module('MesosMarathonApp')
-    .factory('Frameworks', FrameworksFactory);
+    .factory('SlaveFrameworks', SlaveFrameworksFactory);
 
-  FrameworksFactory.$inject = ['$http'];
+  SlaveFrameworksFactory.$inject = ['$http'];
 
-  function FrameworksFactory($http) {
+  function SlaveFrameworksFactory($http) {
     return {
       get: get
     };
@@ -18,7 +18,7 @@
     // http://nikke1.github.io/hard-data/mesos-framework-stateurl.json
 
     function get(VERSION, stateUrl) {
-      return $http.get('http://nikke1.github.io/hard-data/mesos-framework-stateurl.json')
+      return $http.get('/api/v1/views/MESOS/versions/' + VERSION + '/instances/mesos/resources/proxy/json?url=' + stateUrl)
         .then(function(response) {
           return response;
         })

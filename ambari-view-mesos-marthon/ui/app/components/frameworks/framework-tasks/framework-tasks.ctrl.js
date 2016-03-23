@@ -3,20 +3,21 @@
 
   angular
     .module('MesosMarathonApp')
-    .controller('FrameworkExecutorsCtrl', FrameworkExecutorsCtrl);
+    .controller('FrameworkTasksCtrl', FrameworkTasksCtrl);
 
-  FrameworkExecutorsCtrl.$inject = [
+  FrameworkTasksCtrl.$inject = [
     '$scope',
     '$q',
     '$timeout',
     '$location',
     '$routeParams',
-    'visualisationConfigs',
     'ClusterName',
-    'ActiveMasterData'
+    'ActiveMasterData',
+    'Components',
+    'Metrics'
   ];
 
-  function FrameworkExecutorsCtrl($scope, $q, $timeout, $location, $routeParams, visualisationConfigs, ClusterName, ActiveMasterData) {
+  function FrameworkTasksCtrl($scope, $q, $timeout, $location, $routeParams, ClusterName, ActiveMasterData, Components, Metrics) {
     var VERSION = "0.1.0";
     var DEBUG = false;
 
@@ -27,9 +28,12 @@
 
     var activeMaster = null;
 
-    $scope.frameworksExecutors = [];
+    $scope.frameworkTasks = [];
+    $scope.frameworkTasksCompleted = [];
 
     $scope.frameworkId = decodeURIComponent($routeParams.frameworkId);
+
+    $scope.currentDate = new Date();
 
     runApp();
 
@@ -37,7 +41,7 @@
 
     $scope.goToFrameworksTable = goToFrameworksTable;
     $scope.goToExecutorTasks = goToExecutorTasks;
-    $scope.goToExecutorSandbox = goToExecutorSandbox;
+    $scope.goToExecutorTasks = goToExecutorTasks;
 
     //////////////////////
 
@@ -46,39 +50,40 @@
     }
 
     function goToExecutorTasks(slaveId, executorId) {
-      $location.path($location.path() + '/' + slaveId + '/' + executorId);
+      $location.path('mesos/slaves/' + slaveId + '/frameworks/' + $scope.frameworkId  + '/executors/' + executorId);
     }
 
-    function goToExecutorSandbox() {
+    function goToTaskSandbox() {
       $location.path($location.path() + '/' + taskId);
     }
 
     function runApp() {
       ClusterName.get()
-        // .then(function(response) {
-        //   return response.data.items[0].Clusters.cluster_name;
-        // })
-        // .then(function(clusterName) {
-        //   return Components.getMasters();
-        // })
-        // .then(function(mastersData) {
-        //   var masterItems = mastersData.data.host_components;
-        //   var promises = [];
-        //
-        //   for (var i = 0; i < masterItems.length; i++) {
-        //     promises.push(getActiveMaster(masterItems[i].HostRoles.host_name));
-        //   }
-        //   return $q.all(promises);
-        // })
+        .then(function(response) {
+          return response.data.items[0].Clusters.cluster_name;
+        })
+        .then(function(clusterName) {
+          return Components.getMasters(clusterName);
+        })
+        .then(function(mastersData) {
+          var masterItems = mastersData.data.host_components;
+          var promises = [];
+
+          for (var i = 0; i < masterItems.length; i++) {
+            promises.push(getActiveMaster(masterItems[i].HostRoles.host_name));
+          }
+          return $q.all(promises);
+        })
         .then(function() {
           return ActiveMasterData.getState(VERSION, activeMaster);
         })
         .then(function(response) {
           $scope.frameworks = response.data.frameworks;
 
-          angular.forEach($scope.frameworks, function(value, key) {
-            if (value.id == $scope.frameworkId) {
-              $scope.frameworksExecutors = value.executors;
+          angular.forEach($scope.frameworks, function(val, key) {
+            if (val.id === $scope.frameworkId) {
+              $scope.frameworkTasks = val.tasks;
+              $scope.frameworkTasksCompleted = val.completed_tasks;
             }
           });
         })
