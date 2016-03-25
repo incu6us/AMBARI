@@ -24,7 +24,7 @@
             <th> State </th>
             <th> Started </th>
           </tr>
-          <tr ng-repeat="task in frameworkTasks | filter: searchFrameworkTasks" ng-click="goToExecutorTasks(task.slave_id, task.executor_id)">
+          <tr ng-repeat="task in frameworkTasks | filter: searchFrameworkTasks" ng-click="goToExecutorTasks(task.slave_id, task.executor_id, task.id)">
             <td class="border-left"> {{task.id}} </td>
             <td> {{task.name}} </td>
             <td> {{task.statuses[0].state}} </td>

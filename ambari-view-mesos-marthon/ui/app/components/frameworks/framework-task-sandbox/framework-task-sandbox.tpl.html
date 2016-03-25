@@ -1,41 +1,52 @@
-<!-- <md-whiteframe class="breadcrumb md-whiteframe-6dp white-card whiteframe-margin-bottom">
-  <div layout-padding>
-    <span class="breadcrumb-link" ng-click="goToFrameworksTable()"> Frameworks </span>
-    <span class="breadcrumb-arrow"> > </span>
-    <span class="breadcrumb-link" ng-click="goToFrameworkExecutors()"> {{frameworkId}} </span>
-    <span class="breadcrumb-arrow"> > </span>
-    <span class="breadcrumb-current"> {{executorId}} </span>
-  </div>
-</md-whiteframe> -->
 <div class="container" layout="column" flex>
-<md-whiteframe class="md-whiteframe-6dp whiteframe-margin-bottom">
-  <div class="toolbar-card" layout="row" flex>
-    <h4 class="md-subhead"> Browse </h4>
-  <md-content class="white-card" layout-padding>
-    <div class="table table-endroad" layout="column">
-      <table>
-        <tr>
-          <th> Mode </th>
-          <th> UID </th>
-          <th> GID </th>
-          <th> Size </th>
-          <th> Date </th>
-          <th></th>
-        </tr>
-        <tr ng-repeat="dir in directories">
-          <td> {{dir.mode}} </td>
-          <td> {{dir.uid}} </td>
-          <td> {{dir.gid}} </td>
-          <td> {{dir.size}} </td>
-          <td><span ng-if="dir.path != '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
-          <td>
-            <i ng-if="dir.mode[0] == 'd'" class="glyphicon glyphicon-folder-open"><md-tooltip>Directory</md-tooltip></i>
-            <i ng-if="dir.mode[0] == '-'" class="glyphicon glyphicon-file"><md-tooltip>File</md-tooltip></i>
-            <span class="link" ng-click="getSandboxByPath(dir.mode[0],dir.path)">{{dir.path | toHPath}}</span>
-          </td>
-        </tr>
-      </table>
+  <md-whiteframe class="breadcrumb md-whiteframe-6dp white-card whiteframe-margin-bottom">
+    <div layout-padding>
+      <span class="breadcrumb-link" ng-click="goToFrameworksTable()"> Frameworks </span>
+      <span class="breadcrumb-arrow"> > </span>
+      <span class="breadcrumb-link" ng-click="goToFrameworkTasks()"> {{frameworkId}} </span>
+      <span class="breadcrumb-arrow"> > </span>
+      <span class="breadcrumb-link" ng-click="goToFrameworkExecutorTasks()"> {{executorId}} </span>
+      <span class="breadcrumb-arrow"> > </span>
+      <span class="breadcrumb-current"> {{taskId}} </span>
     </div>
-  </md-content>
-</md-whiteframe>
+  </md-whiteframe>
+
+  <md-whiteframe class="md-whiteframe-6dp whiteframe-margin-bottom">
+    <div class="toolbar-card" layout="row" flex>
+      <h4 class="md-subhead"> Browse </h4>
+    </div>
+    <md-content class="white-card" layout-padding>
+      <div class="table table-endroad" layout="column">
+        <table>
+          <tr>
+            <th> Mode </th>
+            <th> UID </th>
+            <th> GID </th>
+            <th> Size </th>
+            <th> Date </th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="dir in directories">
+            <td class="border-left"> {{dir.mode}} </td>
+            <td> {{dir.uid}} </td>
+            <td> {{dir.gid}} </td>
+            <td> {{dir.size}} </td>
+            <td><span ng-show="dir.path !== '..'">{{dir.mtime+'000' | date:'medium'}}</span></td>
+            <td>
+              <i ng-show="dir.mode[0] === 'd'" class="material-icons">folder</i>
+              <span ng-class="{'breadcrumb-link' : dir.mode[0] === 'd' || dir.path === '..'}" ng-click="goToSandboxDir(dir.mode[0], dir.path)">{{dir.path | toHPath}}</span>
+            </td>
+            <td class="border-right">
+              <div ng-show="dir.mode[0] === '-'">
+                <md-button class="md-raised" ng-click="downloadSandboxFile(dir.mode[0], dir.path)">
+                  Download
+                </md-button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </md-content>
+  </md-whiteframe>
 </div>

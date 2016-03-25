@@ -49,7 +49,10 @@
       $location.path('/mesos/frameworks/');
     }
 
-    function goToExecutorTasks(slaveId, executorId) {
+    function goToExecutorTasks(slaveId, executorId, taskId) {
+      if (executorId === '') {
+        executorId = taskId;
+      }
       $location.path('mesos/slaves/' + slaveId + '/frameworks/' + $scope.frameworkId  + '/executors/' + executorId);
     }
 

@@ -29,19 +29,29 @@
     });
 
     var activeMaster = null;
+    var slaveHostName = null;
+
+    var executorUrl = null;
+    var executorUrlForDownloadFile = null;
+    var executorDir = null;
+    var executorLastDir = null;
 
     $scope.directories = [];
 
     $scope.frameworkId = decodeURIComponent($routeParams.frameworkId);
     $scope.slaveId = decodeURIComponent($routeParams.slaveId);
     $scope.executorId = decodeURIComponent($routeParams.executorId);
+    $scope.taskId = decodeURIComponent($routeParams.taskId);
 
     runApp();
 
     ///////////////////////
 
     $scope.goToFrameworksTable = goToFrameworksTable;
-    $scope.goToFrameworkExecutors = goToFrameworkExecutors;
+    $scope.goToFrameworkTasks = goToFrameworkTasks;
+    $scope.goToFrameworkExecutorTasks = goToFrameworkExecutorTasks;
+    $scope.goToSandboxDir = goToSandboxDir;
+    $scope.downloadSandboxFile = downloadSandboxFile;
 
     //////////////////////
 
@@ -49,8 +59,12 @@
       $location.path('/mesos/frameworks/');
     }
 
-    function goToFrameworkExecutors() {
+    function goToFrameworkTasks() {
       $location.path('/mesos/frameworks/' + $scope.frameworkId);
+    }
+
+    function goToFrameworkExecutorTasks() {
+      $location.path('mesos/slaves/' + $scope.slaveId + '/frameworks/' + $scope.frameworkId  + '/executors/' + $scope.executorId);
     }
 
     function runApp() {
@@ -79,9 +93,10 @@
         .then(function(activeMasterSlaves) {
           for (var i = 0; i < activeMasterSlaves.length; i++) {
             if (activeMasterSlaves[i].id === $scope.slaveId) {
+              slaveHostName = activeMasterSlaves[i].hostname;
               var prefix = activeMasterSlaves[i].pid.replace(new RegExp("(.*)@(.*)"), "$1");
               var port = '5051';
-              var stateUrl = "http://" + activeMasterSlaves[i].hostname + ":" + port + "/" + prefix + "/state.json";
+              var stateUrl = "http://" + slaveHostName + ":" + port + "/" + prefix + "/state.json";
               return SlaveFrameworks.get(VERSION, stateUrl);
             }
           }
@@ -94,10 +109,10 @@
               for (var k = 0; k < executors.length; k++) {
                 if (executors[k].id === $scope.executorId) {
                   var port = '5051';
-                  var executorUrl = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + frameworks[i].hostname + ":" + port + "/files/browse.json?path=";
-                  var executorUrlForDownloadFile = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + frameworks[i].hostname + ":" + port + "/files/download.json?path=";
-                  var executorDir = executors[k].directory;
-                  var executorLastDir = executorDir;
+                  executorUrl = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/json?url=http://" + slaveHostName + ":" + port + "/files/browse.json?path=";
+                  executorUrlForDownloadFile = "/api/v1/views/MESOS/versions/" + VERSION + "/instances/mesos/resources/proxy/object?url=http://" + slaveHostName + ":" + port + "/files/download.json?path=";
+                  executorDir = executors[k].directory;
+                  executorLastDir = executorDir;
                   return Sandbox.getDirs(executorUrl, executorDir);
                 }
               }
@@ -125,6 +140,41 @@
         .catch(function(err) {
           console.log(err);
         });
+    }
+
+    function goToSandboxDir(filemode, path) {
+      if (path === '..') {
+        executorLastDir = executorLastDir.replace(new RegExp("(.*)/(.*)"), "$1");
+      } else {
+        if (filemode === 'd') {
+          executorLastDir = path;
+        }
+      }
+
+      if (filemode === '-') {
+        return;
+      }
+      Sandbox.getData(executorUrl, executorLastDir)
+        .then(function(response) {
+          $scope.directories = response.data.array;
+          if (executorDir !== executorLastDir) {
+            $scope.directories.unshift({
+              "mode": "up",
+              "path": "..",
+              "uid": "",
+              "gid": "",
+              "size": "",
+              "nlink": "",
+              "mtime": ""
+            });
+          }
+        });
+    }
+
+    function downloadSandboxFile(filemode, path) {
+      if (filemode === '-') {
+        window.open(executorUrlForDownloadFile + path, '_blank', '');
+      }
     }
 
   }

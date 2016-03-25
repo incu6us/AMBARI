@@ -32,12 +32,14 @@
     </div>
     <div layout="column" layout-align="center center" flex>
       <div ng-repeat="master in mastersList">
-        <span ng-class="master === activeMaster ? 'label label-success' : 'label label-primary'">
-          {{master}}
+        <span ng-show="master === activeMaster" class="square-green"></span>
+        <span ng-show="master !== activeMaster" class="square-blue"></span>
+        <span>
+           - {{master}}
         </span>
       </div>
     </div>
-    <div layout="column" layout-align="end start" flex>
+    <div layout="column" layout-align="center center" flex>
       <div>
         <span class="square-blue"></span>
         <span>

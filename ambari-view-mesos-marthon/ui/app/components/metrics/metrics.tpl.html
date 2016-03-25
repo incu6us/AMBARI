@@ -60,13 +60,14 @@
         <li style="cursor: pointer;" class="agentExecutors" ng-show="executorsRunning">
           <div style="border: solid 1px #ccc; padding: 5px;">
             <div style="text-align: right;">
-              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="executorsRunning = null"></i>
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="executorsRunning = null">x</i>
             </div>
             <div ng-repeat="executor in executorsRunning">
               <span>Name: {{executor.name}}</span><br>
               <span>CPU: {{executor.cpu}}</span><br>
               <span>Memory: {{executor.mem}}</span><br>
               <span>Disk: {{executor.disk}}</span><br>
+              <br>
             </div>
           </div>
         </li>
@@ -86,10 +87,11 @@
         <li style="cursor: pointer;" class="agentFrameworks" ng-show="frameworksActive">
           <div style="border: solid 1px #ccc; padding: 5px;">
             <div style="text-align: right;">
-              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="frameworksActive = null"></i>
+              <i style="cursor: pointer;" class="glyphicon glyphicon-eye-close" ng-click="frameworksActive = null">x</i>
             </div>
             <div ng-repeat="framework in frameworksActive">
               <span>Name: {{framework.name}}</span><br>
+              <br>
             </div>
           </div>
         </li>

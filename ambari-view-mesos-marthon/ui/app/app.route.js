@@ -52,6 +52,9 @@
         templateUrl: 'app/components/frameworks/framework-task-sandbox/framework-task-sandbox.tpl.html',
         controller: 'FrameworkTaskSandboxCtrl'
       })
+      .when('/mesos/lattency', {
+        templateUrl: 'app/components/lattency/lattency.tpl.html'
+      })
       .otherwise({
         redirectTo: '/'
       });

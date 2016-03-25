@@ -63,7 +63,7 @@
     // D3 Main config
     $scope.d3Config = visualisationConfigs().d3Config;
     // pieCharts metrics for activeMaster
-    $scope.activeMaster = {
+    $scope.activeMasterData = {
       cpu: [{}],
       mem: [{}],
       disk: [{}]
@@ -463,9 +463,9 @@
 
       // Reasigning need because of bug: https://github.com/krispo/angular-nvd3/issues/85
       $timeout(function () {
-        $scope.activeMaster.cpu = activeMasterDataTemp.cpu;
-        $scope.activeMaster.mem = activeMasterDataTemp.mem;
-        $scope.activeMaster.disk = activeMasterDataTemp.disk;
+        $scope.activeMasterData.cpu = activeMasterDataTemp.cpu;
+        $scope.activeMasterData.mem = activeMasterDataTemp.mem;
+        $scope.activeMasterData.disk = activeMasterDataTemp.disk;
       }, 500);
     }
 
